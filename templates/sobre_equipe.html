@@ -4,44 +4,43 @@
 
 <div class="container mt-5">
 
-    <h1 class="text-center mb-5">Nossa Equipe</h1>
+    <h1 class="text-center mb-5 titulo-principal">Nossa Equipe</h1>
 
     <div class="row justify-content-center g-4">
 
         <!-- Membro 1 -->
         <div class="col-md-4 col-sm-6">
-            <div class="card index-card text-center p-4 equipe-card">
-                <img src="{{ url_for('static', filename='imgs/vitor.jpg') }}" alt="Vitor Gabriel" class="rounded-circle mb-3 equipe-img">
-                <h5 class="card-title">Vitor Gabriel Vido</h5>
-                <p class="cargo">Estudante de Gestão da tecnologia da informação - FATEC JAHU</p>
-                <p class="bio">Tenho 22 anos e nasci em Jaú, SP. 
+            <div class="membro-box p-4 text-center">
+                <img src="{{ url_for('static', filename='imgs/vitor.jpg') }}" alt="Vitor Gabriel" class="foto-membro rounded-circle mb-3">
+                <h5 class="nome-membro">Vitor Gabriel Vido</h5>
+                <p class="cargo-membro">Estudante de Gestão da Tecnologia da Informação - FATEC JAHU</p>
+                <p class="bio-membro">
+                    Tenho 22 anos e nasci em Jaú, SP. 
                     Sou apaixonado por desenvolvimento web e design de interfaces. 
                     Gosto de criar soluções criativas, aprender novas tecnologias e desenvolver projetos práticos. 
                     Nos meus tempos livres, curto filmes, séries e explorar jogos online com amigos.
                 </p>
-                    
-                </p>
-                <div class="email-box">
+                <div class="email-container">
                     <span class="email-text" id="email-vitor">vitorvido03@gmail.com</span>
-                    <button class="btn btn-success btn-sm copy-btn" onclick="copyEmail('email-vitor')">Copiar</button>
+                    <button class="btn btn-success btn-sm btn-copiar" onclick="copyEmail('email-vitor')">Copiar</button>
                 </div>
             </div>
         </div>
 
         <!-- Membro 2 -->
         <div class="col-md-4 col-sm-6">
-            <div class="card index-card text-center p-4 equipe-card">
-                <img src="{{ url_for('static', filename='imgs/rhian.jpg') }}" alt="Rhian Esteves" class="rounded-circle mb-3 equipe-img">
-                <h5 class="card-title">Rhian Esteves</h5>
-                <p class="cargo">Estudante de Programação para Internet</p>
-                <p class="bio">
+            <div class="membro-box p-4 text-center">
+                <img src="{{ url_for('static', filename='imgs/rhian.jpg') }}" alt="Rhian Esteves" class="foto-membro rounded-circle mb-3">
+                <h5 class="nome-membro">Rhian Esteves</h5>
+                <p class="cargo-membro">Estudante de Programação para Internet</p>
+                <p class="bio-membro">
                     Entusiasta de programação e design digital. 
                     Sempre buscando desafios que desenvolvam habilidades práticas e criativas.
                     Gosta de participar de projetos web, explorar novas linguagens e criar experiências interativas.
                 </p>
-                <div class="email-box">
+                <div class="email-container">
                     <span class="email-text" id="email-rhian">rhian@email.com</span>
-                    <button class="btn btn-success btn-sm copy-btn" onclick="copyEmail('email-rhian')">Copiar</button>
+                    <button class="btn btn-success btn-sm btn-copiar" onclick="copyEmail('email-rhian')">Copiar</button>
                 </div>
             </div>
         </div>

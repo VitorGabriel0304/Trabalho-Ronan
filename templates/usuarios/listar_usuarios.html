@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 
 {% block conteudo %}
-<div class="container mt-5">
-    <h1 class="mb-4">Lista de Usuários</h1>
+<div class="container">
+    <h1 class="titulo-usuario">Lista de Usuários</h1>
 
-    <!-- Botão Novo Usuário -->
-    <div class="mb-3 text-end">
-        <a href="/usuarios/inserir" class="btn btn-success">+ Novo Usuário</a>
+    <!-- Botão para adicionar usuário -->
+    <div class="acoes-usuario">
+        <a href="/usuarios/inserir" class="add-usuario">Adicionar Usuário</a>
     </div>
 
-    <!-- Tabela de Usuários -->
-    <div class="table-responsive">
-        <table class="table table-hover table-bordered align-middle text-white">
-            <thead class="table-dark">
+    <!-- Tabela de usuários -->
+    <div class="tabela-usuario">
+        <table>
+            <thead>
                 <tr>
                     <th>Nome</th>
                     <th>E-mail</th>
@@ -27,8 +27,8 @@
                     <td>{{ usuario.email }}</td>
                     <td>{{ loop.index }}</td>
                     <td>
-                        <button class="btn btn-primary btn-sm me-1">Editar</button>
-                        <button class="btn btn-danger btn-sm">Excluir</button>
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-excluir">Excluir</button>
                     </td>
                 </tr>
                 {% endfor %}
