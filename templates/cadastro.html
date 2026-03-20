@@ -1,0 +1,46 @@
+{% extends "base_publica.html" %} {% block conteudo %}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card p-4">
+            <h2 class="titulo-cadastro text-center mb-4">Criar Conta</h2>
+
+            <form method="POST">
+                <!-- nome -->
+                <div class="mb-3">
+                    <label class="form-label">Nome</label>
+                    <input type="text" name="nome" class="form-control" placeholder="Seu nome" />
+                </div>
+
+                <!-- email -->
+                <div class="mb-3">
+                    <label class="form-label">E-mail</label>
+                    <input type="email" name="email" class="form-control" placeholder="seu@email.com" />
+                </div>
+
+                <!-- senha -->
+                <div class="mb-3">
+                    <label class="form-label">Senha</label>
+                    <input type="password" name="senha" class="form-control" placeholder="Digite sua senha" />
+                </div>
+
+                <!-- confirmar senha -->
+                <div class="mb-3">
+                    <label class="form-label">Confirmar Senha</label>
+                    <input type="password" name="confirmar" class="form-control" placeholder="Repita a senha" />
+                </div>
+
+                <!-- botão -->
+                <button type="submit" class="btn btn-success w-100">Criar Conta</button>
+            </form>
+
+            <!-- link pra login -->
+            <div class="ja-tem-conta">
+                <small>Já tem conta?</small><br />
+                <a href="{{ url_for('login') }}" class="text-info">Fazer login</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

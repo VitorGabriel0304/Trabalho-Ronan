@@ -1,0 +1,23 @@
+{% extends "base_publica.html" %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="login-card">
+        <h2>CineList</h2>
+        <form action="{{ url_for('login') }}" method="POST">
+            <label for="username">E-mail</label>
+            <input type="text" name="username" placeholder="Digite seu E-mail" required>
+
+            <label for="password">Senha</label>
+            <input type="password" name="password" placeholder="Digite sua senha" required>
+
+            <button type="submit" class="btn-criar">Entrar</button>
+        </form>
+        <p class="ja-tem-conta">
+            Não tem conta? <a href="{{ url_for('cadastro') }}">Criar Conta</a>
+        </p>
+    </div>
+</div>
+
+{% endblock %}

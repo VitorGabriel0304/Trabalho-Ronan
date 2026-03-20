@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<div class="container mt-5">
+    <h1 class="mb-4">Lista de Usuários</h1>
+
+    <!-- Botão Novo Usuário -->
+    <div class="mb-3 text-end">
+        <a href="/usuarios/inserir" class="btn btn-success">+ Novo Usuário</a>
+    </div>
+
+    <!-- Tabela de Usuários -->
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle text-white">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Registro</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.nome }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm me-1">Editar</button>
+                        <button class="btn btn-danger btn-sm">Excluir</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
