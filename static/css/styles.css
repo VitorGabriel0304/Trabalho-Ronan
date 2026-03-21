@@ -318,7 +318,7 @@ input:hover, select:hover {
 /* BOTÃO CRIAR (VERDE) */
 /* ========================= */
 .botao-criar {
-    right: 20px;   /* 👈 COLADO NA DIREITA */
+    right: 20px;   /*  COLADO NA DIREITA */
 
     background: linear-gradient(45deg, #28a745, #1e7e34);
     color: #fff;

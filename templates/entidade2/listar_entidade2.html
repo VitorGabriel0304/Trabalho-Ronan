@@ -10,7 +10,7 @@
         <a href="{{ url_for('inserir_filmes') }}" class="add-usuario">Adicionar Filme</a>
     </div>
 
-    <!-- Tabela de filmes -->
+    <!-- Tabela de filmes- nome de tabela usuario para pegar o css dela  -->
     <div class="tabela-usuario">
         <table>
             <thead>
@@ -32,7 +32,7 @@
                     <td>{{ filme.nota }}</td>
                     <td>{{ loop.index }}</td>
                     <td>
-                        <!-- Aqui você pode adicionar editar/excluir futuramente -->
+                        <!-- BOTAO EDITAR E EXLUIR-->
                         <button class="btn-editar">Editar</button>
                         <button class="btn-excluir">Excluir</button>
                     </td>

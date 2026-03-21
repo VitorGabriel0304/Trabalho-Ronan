@@ -12,7 +12,12 @@ app.secret_key = "segredo"
 usuarios = [
     {"nome": "Vitor", "email": "vitor@email.com"},
     {"nome": "Rhian", "email": "rhian@email.com"},
+    {"nome": "Ronan", "email": "ronan@email.com"},
+    {"nome": "Lui", "email": "lui@email.com"},
+    {"nome": "Rian", "email": "rian@email.com"},
+    {"nome": "Arthur", "email": "arthur@email.com"}
 ]
+
 
 generos = [
     {"nome": "Ação"},
@@ -23,12 +28,23 @@ generos = [
 ]
 
 filmes = [
+    {"titulo": "Gladiador", "ano": 2000, "genero": "Ação", "nota": 9},
+    {"titulo": "O Rei Leão", "ano": 1994, "genero": "Animação", "nota": 9},
+    {"titulo": "Doutor Estranho no Multiverso da Loucura", "ano": 2022, "genero": "Ação", "nota": 8},
+    {"titulo": "A Rede Social", "ano": 2010, "genero": "Drama", "nota": 8},
+    {"titulo": "Annabelle", "ano": 2014, "genero": "Terror", "nota": 7},
+    {"titulo": "O Lobo de Wall Street", "ano": 2013, "genero": "Comédia", "nota": 8},
     {"titulo": "Interestelar", "ano": 2014, "genero": "Ficção", "nota": 9},
-    {"titulo": "Vingadores", "ano": 2012, "genero": "Ação", "nota": 8},
-    {"titulo": "Titanic", "ano": 1997, "genero": "Drama", "nota": 9},
-    {"titulo": "It", "ano": 2017, "genero": "Terror", "nota": 7},
-    {"titulo": "Se Beber Não Case", "ano": 2009, "genero": "Comédia", "nota": 8}
+    {"titulo": "Homem de Ferro", "ano": 2008, "genero": "Ação", "nota": 8},
+    {"titulo": "La La Land", "ano": 2016, "genero": "Drama", "nota": 9},
+    {"titulo": "It: A Coisa", "ano": 2017, "genero": "Terror", "nota": 7},
+    {"titulo": "Curtindo a Vida Adoidado", "ano": 1986, "genero": "Comédia", "nota": 8},
+    {"titulo": "Avatar", "ano": 2009, "genero": "Ficção", "nota": 8},
+    {"titulo": "Capitão América: Guerra Civil", "ano": 2016, "genero": "Ação", "nota": 8},
+    {"titulo": "Forrest Gump", "ano": 1994, "genero": "Drama", "nota": 9},
+    {"titulo": "Annabelle 2: A Criação do Mal", "ano": 2017, "genero": "Terror", "nota": 7}
 ]
+
 
 # =========================
 # PÁGINAS PÚBLICAS
