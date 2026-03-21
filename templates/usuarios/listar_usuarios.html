@@ -6,7 +6,7 @@
 
     <!-- Botão para adicionar usuário -->
     <div class="acoes-usuario">
-        <a href="/usuarios/inserir" class="add-usuario">Adicionar Usuário</a>
+        <a href="{{ url_for('inserir_usuarios') }}" class="add-usuario">Adicionar Usuário</a>
     </div>
 
     <!-- Tabela de usuários -->
@@ -27,6 +27,7 @@
                     <td>{{ usuario.email }}</td>
                     <td>{{ loop.index }}</td>
                     <td>
+                        <!-- Aqui você também pode usar url_for para as ações de editar/excluir -->
                         <button class="btn-editar">Editar</button>
                         <button class="btn-excluir">Excluir</button>
                     </td>

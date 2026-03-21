@@ -1,0 +1,45 @@
+
+{% extends "base.html" %}
+
+{% block conteudo %}
+<div class="container">
+    <h1 class="titulo-usuario">Lista de Filmes</h1>
+
+    <!-- Botão para adicionar filme -->
+    <div class="acoes-usuario">
+        <a href="{{ url_for('inserir_filmes') }}" class="add-usuario">Adicionar Filme</a>
+    </div>
+
+    <!-- Tabela de filmes -->
+    <div class="tabela-usuario">
+        <table>
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Ano</th>
+                    <th>Gênero</th>
+                    <th>Nota</th>
+                    <th>Registro</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for filme in filmes %}
+                <tr>
+                    <td>{{ filme.titulo }}</td>
+                    <td>{{ filme.ano }}</td>
+                    <td>{{ filme.genero }}</td>
+                    <td>{{ filme.nota }}</td>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                        <!-- Aqui você pode adicionar editar/excluir futuramente -->
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-excluir">Excluir</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,24 +1,19 @@
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, render_template, request, redirect, flash, url_for
 
-# aqui a gente cria o app do Flask (tipo iniciar o sistema)
+# aqui a gente cria o app do Flask
 app = Flask(__name__)
 
-# isso aqui é necessário pro flash funcionar (mensagens tipo "deu certo")
+# necessário pro flash funcionar
 app.secret_key = "segredo"
 
-
 # =========================
-# "BANCO DE DADOS" FAKE
+# "BANCO DE DADOS" 
 # =========================
-
-# aqui são os usuários já cadastrados (simulando um banco)
 usuarios = [
     {"nome": "Vitor", "email": "vitor@email.com"},
     {"nome": "Rhian", "email": "rhian@email.com"},
-  
 ]
 
-# lista de gêneros de filme
 generos = [
     {"nome": "Ação"},
     {"nome": "Comédia"},
@@ -27,7 +22,6 @@ generos = [
     {"nome": "Drama"}
 ]
 
-# lista de filmes já cadastrados
 filmes = [
     {"titulo": "Interestelar", "ano": 2014, "genero": "Ficção", "nota": 9},
     {"titulo": "Vingadores", "ano": 2012, "genero": "Ação", "nota": 8},
@@ -36,198 +30,131 @@ filmes = [
     {"titulo": "Se Beber Não Case", "ano": 2009, "genero": "Comédia", "nota": 8}
 ]
 
-
 # =========================
 # PÁGINAS PÚBLICAS
 # =========================
-
-# página inicial home
 @app.route("/")
 def index():
     return render_template("index.html")
 
-
-# login (mostra a tela e "finge" o login)
 @app.route("/login", methods=["GET", "POST"])
 def login():
-
-    # se o cara clicou em entrar
     if request.method == "POST":
         flash("Login realizado com sucesso!", "success")
-
-        # joga direto pra listagem de usuários
-        return redirect("/usuarios/listar")
-
-    # só mostra a página
+        return redirect(url_for('listar_usuarios'))
     return render_template("login.html")
 
-
-# cadastro de usuário
 @app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
-
-    # se enviou o formulário
     if request.method == "POST":
-
-        # pega tudo que o cara digitou
         nome = request.form.get("nome")
         email = request.form.get("email")
         senha = request.form.get("senha")
         confirmar = request.form.get("confirmar")
 
-        # checa se deixou algo vazio
         if not nome or not email or not senha:
             flash("Preencha todos os campos!", "danger")
-            return redirect("/cadastro")
+            return redirect(url_for('cadastro'))
 
-        # confere se as senhas batem
         if senha != confirmar:
             flash("As senhas não coincidem!", "danger")
-            return redirect("/cadastro")
+            return redirect(url_for('cadastro'))
 
-        # adiciona o usuário na lista
         usuarios.append({"nome": nome, "email": email})
-
         flash("Cadastro realizado com sucesso!", "success")
-
-        # manda pro login
-        return redirect("/login")
+        return redirect(url_for('login'))
 
     return render_template("cadastro.html")
 
-
-# logout (basicamente só volta pro login)
 @app.route("/logout")
 def logout():
     flash("Logout realizado!", "info")
-    return redirect("/login")
-
+    return redirect(url_for('login'))
 
 # =========================
 # USUÁRIOS
 # =========================
-
-# mostra todos os usuários
 @app.route("/usuarios/listar")
 def listar_usuarios():
-
-    # manda a lista pro HTML
     return render_template("usuarios/listar_usuarios.html", usuarios=usuarios)
 
-
-# adicionar usuário
 @app.route("/usuarios/inserir", methods=["GET", "POST"])
 def inserir_usuarios():
-
     if request.method == "POST":
-
         nome = request.form.get("nome")
         email = request.form.get("email")
 
-        # se não preencher, já bloqueia
         if not nome or not email:
             flash("Preencha todos os campos!", "danger")
-            return redirect("/usuarios/inserir")
+            return redirect(url_for('inserir_usuarios'))
 
-        # adiciona na lista
         usuarios.append({"nome": nome, "email": email})
-
         flash("Usuário adicionado!", "success")
-
-        # volta pra listagem
-        return redirect("/usuarios/listar")
+        return redirect(url_for('listar_usuarios'))
 
     return render_template("usuarios/inserir_usuario.html")
-
 
 # =========================
 # FILMES
 # =========================
-
-# lista os filmes
 @app.route("/filmes/listar")
 def listar_filmes():
     return render_template("entidade2/listar_entidade2.html", filmes=filmes)
 
-
-# adicionar filme
 @app.route("/filmes/inserir", methods=["GET", "POST"])
 def inserir_filmes():
-
     if request.method == "POST":
-
         titulo = request.form.get("titulo")
         ano = request.form.get("ano")
         genero = request.form.get("genero")
         nota = request.form.get("nota")
 
-        # valida o básico
         if not titulo or not ano or not genero:
             flash("Preencha os campos obrigatórios!", "danger")
-            return redirect("/filmes/inserir")
+            return redirect(url_for('inserir_filmes'))
 
-        # adiciona o filme
         filmes.append({
             "titulo": titulo,
             "ano": ano,
             "genero": genero,
             "nota": nota
         })
-
         flash("Filme adicionado!", "success")
+        return redirect(url_for('listar_filmes'))
 
-        return redirect("/filmes/listar")
-
-    # aqui manda também os gêneros pro select
     return render_template("entidade2/inserir_entidade2.html", generos=generos)
-
 
 # =========================
 # GÊNEROS
 # =========================
-
-# lista os gêneros
 @app.route("/generos/listar")
 def listar_generos():
     return render_template("entidade3/listar_entidade3.html", generos=generos)
 
-
-# adicionar gênero
 @app.route("/generos/inserir", methods=["GET", "POST"])
 def inserir_generos():
-
     if request.method == "POST":
-
         nome = request.form.get("nome")
 
         if not nome:
             flash("Digite o nome do gênero!", "danger")
-            return redirect("/generos/inserir")
+            return redirect(url_for('inserir_generos'))
 
-        # adiciona na lista
         generos.append({"nome": nome})
-
         flash("Gênero adicionado!", "success")
-
-        return redirect("/generos/listar")
+        return redirect(url_for('listar_generos'))
 
     return render_template("entidade3/inserir_entidade3.html")
-
 
 # =========================
 # EQUIPE
 # =========================
-
-# página da equipe (sobre quem fez o sistema)
 @app.route("/equipe")
 def equipe():
     return render_template("sobre_equipe.html")
 
-
 # =========================
 # RODAR O SERVIDOR
 # =========================
-
 if __name__ == "__main__":
-    # debug=True → atualiza sozinho quando você salva
     app.run(debug=True)
