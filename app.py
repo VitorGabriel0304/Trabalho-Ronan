@@ -14,10 +14,8 @@ app.secret_key = "segredo"
 # aqui são os usuários já cadastrados (simulando um banco)
 usuarios = [
     {"nome": "Vitor", "email": "vitor@email.com"},
-    {"nome": "Ana", "email": "ana@email.com"},
-    {"nome": "Carlos", "email": "carlos@email.com"},
-    {"nome": "Julia", "email": "julia@email.com"},
-    {"nome": "Marcos", "email": "marcos@email.com"}
+    {"nome": "Rhian", "email": "rhian@email.com"},
+  
 ]
 
 # lista de gêneros de filme
@@ -43,7 +41,7 @@ filmes = [
 # PÁGINAS PÚBLICAS
 # =========================
 
-# página inicial (tipo "home" do sistema)
+# página inicial home
 @app.route("/")
 def index():
     return render_template("index.html")

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>CineList</title>
 
-    <!-- Bootstrap  -->
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- CSS do projeto -->
@@ -13,32 +13,36 @@
 
 <body class="fundo-publico text-light">
 
-<!-- CONTEÚDO PRINCIPAL -->
-<div class="conteudo-principal container mt-5">
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="conteudo-principal">
 
-    <!-- Mensagens flash -->
-    {% with mensagens = get_flashed_messages(with_categories=true) %}
-        {% if mensagens %}
-            {% for categoria, msg in mensagens %}
-                <div class="alert alert-{{ categoria }} msg-flash">
-                    {{ msg }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+        <div class="container mt-5">
 
-    <!-- Conteúdo das páginas -->
-    {% block conteudo %}{% endblock %}
+            <!-- Mensagens flash -->
+            {% with mensagens = get_flashed_messages(with_categories=true) %}
+                {% if mensagens %}
+                    {% for categoria, msg in mensagens %}
+                        <div class="alert alert-{{ categoria }} msg-flash">
+                            {{ msg }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
 
-</div>
+            <!-- Conteúdo das páginas -->
+            {% block conteudo %}{% endblock %}
 
-<!-- Rodapé -->
-<footer class="rodape-publico bg-black text-center text-light mt-5 p-3">
-    @2026 Vitor Gabriel Vido & Rhian Esteves
-</footer>
+        </div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer class="rodape-publico bg-black text-center text-light p-3">
+        @2026 Vitor Gabriel Vido & Rhian Esteves
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
