@@ -147,7 +147,7 @@ def inserir_usuarios():
 # lista os filmes
 @app.route("/filmes/listar")
 def listar_filmes():
-    return render_template("filmes/listar_filmes.html", filmes=filmes)
+    return render_template("entidade2/listar_entidade2.html", filmes=filmes)
 
 
 # adicionar filme
@@ -179,7 +179,7 @@ def inserir_filmes():
         return redirect("/filmes/listar")
 
     # aqui manda também os gêneros pro select
-    return render_template("filmes/inserir_filme.html", generos=generos)
+    return render_template("entidade2/inserir_entidade2.html", generos=generos)
 
 
 # =========================
@@ -189,7 +189,7 @@ def inserir_filmes():
 # lista os gêneros
 @app.route("/generos/listar")
 def listar_generos():
-    return render_template("generos/listar_generos.html", generos=generos)
+    return render_template("entidade3/listar_entidade3.html", generos=generos)
 
 
 # adicionar gênero
@@ -211,7 +211,7 @@ def inserir_generos():
 
         return redirect("/generos/listar")
 
-    return render_template("generos/inserir_genero.html")
+    return render_template("entidade3/inserir_entidade3.html")
 
 
 # =========================
