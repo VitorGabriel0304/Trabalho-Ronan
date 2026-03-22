@@ -18,7 +18,7 @@
             <input type="text" name="ano" id="ano" placeholder="Ex: 2024"
                    inputmode="numeric" pattern="[0-9]*" required>
 
-            <!-- 🔥 GÊNERO COM LISTA -->
+            <!-- Gênero -->
             <label for="genero">Gênero</label>
             <select name="genero" id="genero" required>
                 <option value="">Selecione um gênero</option>
@@ -28,13 +28,16 @@
                         {{ genero.nome }}
                     </option>
                 {% endfor %}
-
             </select>
 
             <!-- Nota -->
             <label for="nota">Nota</label>
             <input type="text" name="nota" id="nota" placeholder="0 a 10"
                    inputmode="numeric" pattern="[0-9]*" required>
+
+            <!-- CAPA : Importando URL -->
+            <label for="capa">Capa (opcional)</label>
+            <input type="text" name="capa" id="capa" placeholder="Cole a URL da imagem">
 
             <!-- Botão -->
             <button type="submit" class="botao-form">

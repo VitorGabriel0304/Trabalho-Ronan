@@ -14,20 +14,21 @@
         <table>
             <thead>
                 <tr>
+                    <th>Registro</th> <!-- 🔥 agora primeiro -->
                     <th>Nome</th>
                     <th>E-mail</th>
-                    <th>Registro</th>
+                    <th>Senha</th> <!-- 🔥 agora último -->
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
                 {% for usuario in usuarios %}
                 <tr>
+                    <td>{{ loop.index }}</td> <!-- 🔥 primeiro -->
                     <td>{{ usuario.nome }}</td>
                     <td>{{ usuario.email }}</td>
-                    <td>{{ loop.index }}</td>
+                    <td>{{ usuario.senha }}</td> <!-- 🔥 último -->
                     <td>
-                        <!-- botao EDITAR E EXCLUIR -->
                         <button class="btn-editar">Editar</button>
                         <button class="btn-excluir">Excluir</button>
                     </td>

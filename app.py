@@ -4,20 +4,18 @@ from flask import Flask, render_template, request, redirect, flash, url_for
 # CONFIGURAÇÃO INICIAL
 # =========================
 app = Flask(__name__)
-
-# necessário pro flash funcionar
 app.secret_key = "segredo"
 
 # =========================
 # "BANCO DE DADOS" (LISTAS)
 # =========================
 usuarios = [
-    {"nome": "Vitor", "email": "vitor@email.com"},
-    {"nome": "Rhian", "email": "rhian@email.com"},
-    {"nome": "Ronan", "email": "ronan@email.com"},
-    {"nome": "Lui", "email": "lui@email.com"},
-    {"nome": "Rian", "email": "rian@email.com"},
-    {"nome": "Arthur", "email": "arthur@email.com"}
+    {"nome": "Vitor", "email": "vitor@email.com", "senha": "123"},
+    {"nome": "Rhian", "email": "rhian@email.com", "senha": "123"},
+    {"nome": "Ronan", "email": "ronan@email.com", "senha": "123"},
+    {"nome": "Lui", "email": "lui@email.com", "senha": "123"},
+    {"nome": "Rian", "email": "rian@email.com", "senha": "123"},
+    {"nome": "Arthur", "email": "arthur@email.com", "senha": "123"}
 ]
 
 generos = [
@@ -29,21 +27,13 @@ generos = [
 ]
 
 filmes = [
-    {"titulo": "Gladiador", "ano": 2000, "genero": "Ação", "nota": 9},
-    {"titulo": "O Rei Leão", "ano": 1994, "genero": "Animação", "nota": 9},
-    {"titulo": "Doutor Estranho no Multiverso da Loucura", "ano": 2022, "genero": "Ação", "nota": 8},
-    {"titulo": "A Rede Social", "ano": 2010, "genero": "Drama", "nota": 8},
-    {"titulo": "Annabelle", "ano": 2014, "genero": "Terror", "nota": 7},
-    {"titulo": "O Lobo de Wall Street", "ano": 2013, "genero": "Comédia", "nota": 8},
-    {"titulo": "Interestelar", "ano": 2014, "genero": "Ficção", "nota": 9},
-    {"titulo": "Homem de Ferro", "ano": 2008, "genero": "Ação", "nota": 8},
-    {"titulo": "La La Land", "ano": 2016, "genero": "Drama", "nota": 9},
-    {"titulo": "It: A Coisa", "ano": 2017, "genero": "Terror", "nota": 7},
-    {"titulo": "Curtindo a Vida Adoidado", "ano": 1986, "genero": "Comédia", "nota": 8},
-    {"titulo": "Avatar", "ano": 2009, "genero": "Ficção", "nota": 8},
-    {"titulo": "Capitão América: Guerra Civil", "ano": 2016, "genero": "Ação", "nota": 8},
-    {"titulo": "Forrest Gump", "ano": 1994, "genero": "Drama", "nota": 9},
-    {"titulo": "Annabelle 2: A Criação do Mal", "ano": 2017, "genero": "Terror", "nota": 7}
+    {"titulo": "Gladiador", "ano": 2000, "genero": "Ação", "nota": 9, "capa": "/static/imgs/Gladiador.jpg"},
+    {"titulo": "Interstellar", "ano": 2014, "genero": "Ficção", "nota": 9, "capa": "/static/imgs/interstellar.jpg"},
+    {"titulo": "Avatar", "ano": 2009, "genero": "Ficção", "nota": 8, "capa": "/static/imgs/FilmeAvatar.jpg"},
+    {"titulo": "O Lobo de Wall Street", "ano": 2013, "genero": "Comédia", "nota": 8, "capa": "/static/imgs/The_Wolf_of_Wall_Street.jpg"},
+    {"titulo": "Annabelle", "ano": 2014, "genero": "Terror", "nota": 7, "capa": "/static/imgs/Annabelle.jpg"},
+    {"titulo": "Forrest Gump", "ano": 1994, "genero": "Drama", "nota": 9, "capa": "/static/imgs/forrestgump.jpg"},
+    {"titulo": "Homem de Ferro", "ano": 2008, "genero": "Ação", "nota": 8, "capa": "/static/imgs/Iron_Man.jpg"}
 ]
 
 # =========================
@@ -52,22 +42,30 @@ filmes = [
 
 @app.route("/")
 def index():
-    # Página inicial
     return render_template("index.html")
 
 
+# ✅ LOGIN CORRIGIDO
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    # Tela de login
     if request.method == "POST":
-        flash("Login realizado com sucesso!", "success")
-        return redirect(url_for('listar_usuarios'))
+        email = request.form.get("email")
+        senha = request.form.get("senha")
+
+        for usuario in usuarios:
+            if usuario["email"] == email and usuario["senha"] == senha:
+                flash("Login realizado com sucesso!", "success")
+                return redirect(url_for('listar_usuarios'))
+
+        flash("Email ou senha inválidos!", "danger")
+        return redirect(url_for('login'))
+
     return render_template("login.html")
 
 
+# ✅ CADASTRO CORRIGIDO
 @app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
-    # Tela de cadastro de usuário
     if request.method == "POST":
         nome = request.form.get("nome")
         email = request.form.get("email")
@@ -82,7 +80,12 @@ def cadastro():
             flash("As senhas não coincidem!", "danger")
             return redirect(url_for('cadastro'))
 
-        usuarios.append({"nome": nome, "email": email})
+        usuarios.append({
+            "nome": nome,
+            "email": email,
+            "senha": senha
+        })
+
         flash("Cadastro realizado com sucesso!", "success")
         return redirect(url_for('login'))
 
@@ -91,9 +94,9 @@ def cadastro():
 
 @app.route("/logout")
 def logout():
-    # Logout do sistema
     flash("Logout realizado!", "info")
     return redirect(url_for('login'))
+
 
 # =========================
 # USUÁRIOS
@@ -101,13 +104,11 @@ def logout():
 
 @app.route("/usuarios/listar")
 def listar_usuarios():
-    # Mostra a lista de usuários
     return render_template("usuarios/listar_usuarios.html", usuarios=usuarios)
 
 
 @app.route("/usuarios/inserir", methods=["GET", "POST"])
 def inserir_usuarios():
-    # Adicionar novo usuário
     if request.method == "POST":
         nome = request.form.get("nome")
         email = request.form.get("email")
@@ -116,30 +117,35 @@ def inserir_usuarios():
             flash("Preencha todos os campos!", "danger")
             return redirect(url_for('inserir_usuarios'))
 
-        usuarios.append({"nome": nome, "email": email})
+        usuarios.append({
+            "nome": nome,
+            "email": email,
+            "senha": "123"  # 🔥 padrão para não quebrar
+        })
+
         flash("Usuário adicionado!", "success")
         return redirect(url_for('listar_usuarios'))
 
     return render_template("usuarios/inserir_usuario.html")
 
+
 # =========================
-# FILMES (ENTIDADE2)
+# FILMES
 # =========================
 
 @app.route("/filmes/listar")
 def listar_filmes():
-    # Lista todos os filmes
     return render_template("entidade2/listar_entidade2.html", filmes=filmes)
 
 
 @app.route("/filmes/inserir", methods=["GET", "POST"])
 def inserir_filmes():
-    # Adicionar novo filme
     if request.method == "POST":
         titulo = request.form.get("titulo")
         ano = request.form.get("ano")
         genero = request.form.get("genero")
         nota = request.form.get("nota")
+        capa = request.form.get("capa")
 
         if not titulo or not ano or not genero:
             flash("Preencha os campos obrigatórios!", "danger")
@@ -149,26 +155,27 @@ def inserir_filmes():
             "titulo": titulo,
             "ano": ano,
             "genero": genero,
-            "nota": nota
+            "nota": nota,
+            "capa": capa if capa else ""
         })
+
         flash("Filme adicionado!", "success")
         return redirect(url_for('listar_filmes'))
 
     return render_template("entidade2/inserir_entidade2.html", generos=generos)
 
+
 # =========================
-# GÊNEROS (ENTIDADE3)
+# GÊNEROS
 # =========================
 
 @app.route("/generos/listar")
 def listar_generos():
-    # Lista todos os gêneros
     return render_template("entidade3/listar_entidade3.html", generos=generos)
 
 
 @app.route("/generos/inserir", methods=["GET", "POST"])
 def inserir_generos():
-    # Adicionar novo gênero
     if request.method == "POST":
         nome = request.form.get("nome")
 
@@ -182,18 +189,18 @@ def inserir_generos():
 
     return render_template("entidade3/inserir_entidade3.html")
 
+
 # =========================
 # EQUIPE
 # =========================
 
 @app.route("/equipe")
 def equipe():
-    # Página sobre a equipe
     return render_template("sobre_equipe.html")
+
 
 # =========================
 # RODAR SERVIDOR
 # =========================
-
 if __name__ == "__main__":
     app.run(debug=True)
