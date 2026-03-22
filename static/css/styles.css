@@ -120,7 +120,24 @@ p {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* =========================
+   BOTÃO SAIR - VERMELHO - NAVBAR
+========================= */
+.btn-sair {
+    background: linear-gradient(45deg, #ff0000, #b30000); /* fundo vermelho gradiente */
+    color: white; /* texto branco */
+    padding: 10px 20px; /* espaço interno */
+    border-radius: 25px; /* cantos arredondados */
+    font-weight: bold;
+    text-decoration: none; /* remove underline do link */
+    display: inline-block; /* garante alinhamento correto */
+    transition: all 0.3s ease; /* efeito suave */
+}
 
+.btn-sair:hover {
+    transform: scale(1.05); /* leve aumento */
+    box-shadow: 0 0 15px 5px rgba(255,0,0,0.6); /* brilho vermelho */
+}
 
 
 
@@ -895,4 +912,43 @@ footer {
         font-size: 16px;
         padding: 10px 0;
     }
+}
+
+/* ========================= */
+/* LISTA DE GENEROS - FILMES_INSERIR */
+/* ========================= */
+select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(80, 200, 255, 0.3);
+    color: white;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 16px;
+    width: 100%;
+    cursor: pointer;
+
+    appearance: none; /* remove estilo padrão */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    transition: all 0.3s ease;
+}
+
+/* Hover */
+select:hover {
+    border-color: rgba(80, 200, 255, 0.7);
+    box-shadow: 0 0 10px 4px rgba(80,200,255,0.3);
+}
+
+/* Focus */
+select:focus {
+    outline: none;
+    border: 1px solid rgba(80, 200, 255, 0.7);
+    box-shadow: 0 0 12px 5px rgba(80,200,255,0.3);
+}
+
+/* OPTION (limitado, mas ajuda um pouco) */
+option {
+    background-color: #111;
+    color: white;
 }

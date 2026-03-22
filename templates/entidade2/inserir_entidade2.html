@@ -1,1 +1,56 @@
 {% extends "base.html" %}
+
+{% block conteudo %}
+
+<div class="linha-centro">
+    <div class="cadastro-card">
+
+        <h2>🎬 Adicionar Filme</h2>
+
+        <form action="{{ url_for('inserir_filmes') }}" method="POST">
+
+            <!-- Título -->
+            <label for="titulo">Título</label>
+            <input type="text" name="titulo" id="titulo" placeholder="Digite o título" required>
+
+            <!-- Ano -->
+            <label for="ano">Ano</label>
+            <input type="text" name="ano" id="ano" placeholder="Ex: 2024"
+                   inputmode="numeric" pattern="[0-9]*" required>
+
+            <!-- 🔥 GÊNERO COM LISTA -->
+            <label for="genero">Gênero</label>
+            <select name="genero" id="genero" required>
+                <option value="">Selecione um gênero</option>
+
+                {% for genero in generos %}
+                    <option value="{{ genero.nome }}">
+                        {{ genero.nome }}
+                    </option>
+                {% endfor %}
+
+            </select>
+
+            <!-- Nota -->
+            <label for="nota">Nota</label>
+            <input type="text" name="nota" id="nota" placeholder="0 a 10"
+                   inputmode="numeric" pattern="[0-9]*" required>
+
+            <!-- Botão -->
+            <button type="submit" class="botao-form">
+                Adicionar
+            </button>
+
+        </form>
+
+        <!-- Voltar -->
+        <div class="ja-tem-conta">
+            <a href="{{ url_for('listar_filmes') }}">
+                ⬅ Voltar para lista
+            </a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

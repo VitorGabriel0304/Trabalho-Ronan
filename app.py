@@ -1,13 +1,15 @@
 from flask import Flask, render_template, request, redirect, flash, url_for
 
-# aqui a gente cria o app do Flask
+# =========================
+# CONFIGURAÇÃO INICIAL
+# =========================
 app = Flask(__name__)
 
 # necessário pro flash funcionar
 app.secret_key = "segredo"
 
 # =========================
-# "BANCO DE DADOS" 
+# "BANCO DE DADOS" (LISTAS)
 # =========================
 usuarios = [
     {"nome": "Vitor", "email": "vitor@email.com"},
@@ -17,7 +19,6 @@ usuarios = [
     {"nome": "Rian", "email": "rian@email.com"},
     {"nome": "Arthur", "email": "arthur@email.com"}
 ]
-
 
 generos = [
     {"nome": "Ação"},
@@ -45,23 +46,28 @@ filmes = [
     {"titulo": "Annabelle 2: A Criação do Mal", "ano": 2017, "genero": "Terror", "nota": 7}
 ]
 
-
 # =========================
 # PÁGINAS PÚBLICAS
 # =========================
+
 @app.route("/")
 def index():
+    # Página inicial
     return render_template("index.html")
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    # Tela de login
     if request.method == "POST":
         flash("Login realizado com sucesso!", "success")
         return redirect(url_for('listar_usuarios'))
     return render_template("login.html")
 
+
 @app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
+    # Tela de cadastro de usuário
     if request.method == "POST":
         nome = request.form.get("nome")
         email = request.form.get("email")
@@ -82,20 +88,26 @@ def cadastro():
 
     return render_template("cadastro.html")
 
+
 @app.route("/logout")
 def logout():
+    # Logout do sistema
     flash("Logout realizado!", "info")
     return redirect(url_for('login'))
 
 # =========================
 # USUÁRIOS
 # =========================
+
 @app.route("/usuarios/listar")
 def listar_usuarios():
+    # Mostra a lista de usuários
     return render_template("usuarios/listar_usuarios.html", usuarios=usuarios)
+
 
 @app.route("/usuarios/inserir", methods=["GET", "POST"])
 def inserir_usuarios():
+    # Adicionar novo usuário
     if request.method == "POST":
         nome = request.form.get("nome")
         email = request.form.get("email")
@@ -111,14 +123,18 @@ def inserir_usuarios():
     return render_template("usuarios/inserir_usuario.html")
 
 # =========================
-# FILMES
+# FILMES (ENTIDADE2)
 # =========================
+
 @app.route("/filmes/listar")
 def listar_filmes():
+    # Lista todos os filmes
     return render_template("entidade2/listar_entidade2.html", filmes=filmes)
+
 
 @app.route("/filmes/inserir", methods=["GET", "POST"])
 def inserir_filmes():
+    # Adicionar novo filme
     if request.method == "POST":
         titulo = request.form.get("titulo")
         ano = request.form.get("ano")
@@ -141,14 +157,18 @@ def inserir_filmes():
     return render_template("entidade2/inserir_entidade2.html", generos=generos)
 
 # =========================
-# GÊNEROS
+# GÊNEROS (ENTIDADE3)
 # =========================
+
 @app.route("/generos/listar")
 def listar_generos():
+    # Lista todos os gêneros
     return render_template("entidade3/listar_entidade3.html", generos=generos)
+
 
 @app.route("/generos/inserir", methods=["GET", "POST"])
 def inserir_generos():
+    # Adicionar novo gênero
     if request.method == "POST":
         nome = request.form.get("nome")
 
@@ -165,12 +185,15 @@ def inserir_generos():
 # =========================
 # EQUIPE
 # =========================
+
 @app.route("/equipe")
 def equipe():
+    # Página sobre a equipe
     return render_template("sobre_equipe.html")
 
 # =========================
-# RODAR O SERVIDOR
+# RODAR SERVIDOR
 # =========================
+
 if __name__ == "__main__":
     app.run(debug=True)
