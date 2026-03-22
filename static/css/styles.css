@@ -401,7 +401,75 @@ input:hover, select:hover {
     margin-bottom: 10px;
 }
 
+/* ========================= */
+/* AREA DO USUARIO NAVBAR */
+/* ========================= */
 
+.area-usuario {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Nome do usuário */
+.nome-usuario {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #fff;
+    backdrop-filter: blur(6px);
+    transition: 0.3s;
+}
+
+.nome-usuario:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Botão SAIR */
+.btn-sair {
+    background: linear-gradient(135deg, #ff0000, #b30000);
+    color: white;
+    border-radius: 20px;
+    padding: 6px 14px;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-sair:hover {
+    background: linear-gradient(135deg, #ff1a1a, #800000);
+    transform: scale(1.05);
+}
+
+/* Botão LOGIN */
+.btn-login {
+    background: transparent;
+    border: 1px solid #00c3ff;
+    color: #00c3ff;
+    border-radius: 20px;
+    padding: 6px 14px;
+    transition: 0.3s;
+}
+
+.btn-login:hover {
+    background: #00c3ff;
+    color: black;
+}
+
+/* Botão CADASTRO */
+.btn-cadastro {
+    background: linear-gradient(135deg, #00ff88, #00aa55);
+    color: black;
+    border-radius: 20px;
+    padding: 6px 14px;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-cadastro:hover {
+    background: linear-gradient(135deg, #00ff99, #008844);
+    transform: scale(1.05);
+}
 
 
 

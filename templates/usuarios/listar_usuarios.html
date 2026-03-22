@@ -6,7 +6,7 @@
 
     <!-- Botão para adicionar usuário -->
     <div class="acoes-usuario">
-        <a href="{{ url_for('inserir_usuarios') }}" class="add-usuario">Adicionar Usuário</a>
+        <a href="{{ url_for('inserir_usuarios') }}" class="add-usuario">Cadastrar Usuário</a>
     </div>
 
     <!-- Tabela de usuários -->
@@ -14,20 +14,20 @@
         <table>
             <thead>
                 <tr>
-                    <th>Registro</th> <!-- 🔥 agora primeiro -->
+                    <th>Registro</th> 
                     <th>Nome</th>
                     <th>E-mail</th>
-                    <th>Senha</th> <!-- 🔥 agora último -->
+                    <th>Senha</th> 
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
                 {% for usuario in usuarios %}
                 <tr>
-                    <td>{{ loop.index }}</td> <!-- 🔥 primeiro -->
+                    <td>{{ loop.index }}</td> 
                     <td>{{ usuario.nome }}</td>
                     <td>{{ usuario.email }}</td>
-                    <td>{{ usuario.senha }}</td> <!-- 🔥 último -->
+                    <td>{{ usuario.senha }}</td> 
                     <td>
                         <button class="btn-editar">Editar</button>
                         <button class="btn-excluir">Excluir</button>

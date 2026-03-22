@@ -1,15 +1,25 @@
-from flask import Flask, render_template, request, redirect, flash, url_for
+from flask import Flask, render_template, request, redirect, flash, url_for, session
 
-# =========================
-# CONFIGURAÇÃO INICIAL
-# =========================
+from functools import wraps
+
+def login_obrigatorio(f):
+    @wraps(f)
+    def funcao_protegida(*args, **kwargs):
+        if "usuario" not in session:
+            flash("Você precisa estar logado!", "warning")
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return funcao_protegida
+
+
 app = Flask(__name__)
 app.secret_key = "segredo"
 
 # =========================
-# "BANCO DE DADOS" (LISTAS)
+# "BANCO DE DADOS"
 # =========================
 usuarios = [
+    {"nome": "Teste", "email": "teste", "senha": "teste"},
     {"nome": "Vitor", "email": "vitor@email.com", "senha": "123"},
     {"nome": "Rhian", "email": "rhian@email.com", "senha": "123"},
     {"nome": "Ronan", "email": "ronan@email.com", "senha": "123"},
@@ -45,7 +55,10 @@ def index():
     return render_template("index.html")
 
 
-# ✅ LOGIN CORRIGIDO
+# =========================
+# LOGIN
+# =========================
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -54,6 +67,10 @@ def login():
 
         for usuario in usuarios:
             if usuario["email"] == email and usuario["senha"] == senha:
+                
+                # 🔥 SALVA NA SESSÃO
+                session["usuario"] = usuario["nome"]
+
                 flash("Login realizado com sucesso!", "success")
                 return redirect(url_for('listar_usuarios'))
 
@@ -63,7 +80,10 @@ def login():
     return render_template("login.html")
 
 
-# ✅ CADASTRO CORRIGIDO
+# =========================
+# CADASTRO
+# =========================
+
 @app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
     if request.method == "POST":
@@ -92,8 +112,13 @@ def cadastro():
     return render_template("cadastro.html")
 
 
+# =========================
+# LOGOUT
+# =========================
+
 @app.route("/logout")
 def logout():
+    session.pop("usuario", None)  
     flash("Logout realizado!", "info")
     return redirect(url_for('login'))
 
@@ -108,6 +133,7 @@ def listar_usuarios():
 
 
 @app.route("/usuarios/inserir", methods=["GET", "POST"])
+@login_obrigatorio
 def inserir_usuarios():
     if request.method == "POST":
         nome = request.form.get("nome")
@@ -120,7 +146,7 @@ def inserir_usuarios():
         usuarios.append({
             "nome": nome,
             "email": email,
-            "senha": "123"  # 🔥 padrão para não quebrar
+            "senha": "123"
         })
 
         flash("Usuário adicionado!", "success")
@@ -134,11 +160,13 @@ def inserir_usuarios():
 # =========================
 
 @app.route("/filmes/listar")
+@login_obrigatorio
 def listar_filmes():
     return render_template("entidade2/listar_entidade2.html", filmes=filmes)
 
 
 @app.route("/filmes/inserir", methods=["GET", "POST"])
+@login_obrigatorio
 def inserir_filmes():
     if request.method == "POST":
         titulo = request.form.get("titulo")
@@ -170,11 +198,13 @@ def inserir_filmes():
 # =========================
 
 @app.route("/generos/listar")
+@login_obrigatorio
 def listar_generos():
     return render_template("entidade3/listar_entidade3.html", generos=generos)
 
 
 @app.route("/generos/inserir", methods=["GET", "POST"])
+@login_obrigatorio
 def inserir_generos():
     if request.method == "POST":
         nome = request.form.get("nome")
@@ -195,6 +225,7 @@ def inserir_generos():
 # =========================
 
 @app.route("/equipe")
+@login_obrigatorio
 def equipe():
     return render_template("sobre_equipe.html")
 
@@ -202,5 +233,6 @@ def equipe():
 # =========================
 # RODAR SERVIDOR
 # =========================
+
 if __name__ == "__main__":
     app.run(debug=True)

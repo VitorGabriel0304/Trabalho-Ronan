@@ -19,40 +19,82 @@
 <nav class="navbar navbar-expand-lg navbar-dark menu-superior">
     <div class="container">
 
-        <a class="navbar-brand nome-sistema" href="/">🎬 CineList</a>
+        <!-- Nome do sistema -->
+        <a class="navbar-brand nome-sistema" href="{{ url_for('index') }}">
+            🎬 CineList
+        </a>
 
+        <!-- Botão mobile -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu-principal">
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        <!-- Conteúdo -->
         <div class="collapse navbar-collapse" id="menu-principal">
 
+            <!-- Links -->
             <ul class="navbar-nav me-auto links-menu">
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/usuarios/listar">Usuários</a>
+                    <a class="nav-link" href="{{ url_for('listar_usuarios') }}">
+                        Usuários
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/filmes/listar">Filmes</a>
+                    <a class="nav-link" href="{{ url_for('listar_filmes') }}">
+                        Filmes
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/generos/listar">Gêneros</a>
+                    <a class="nav-link" href="{{ url_for('listar_generos') }}">
+                        Gêneros
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/equipe">Equipe</a>
+                    <a class="nav-link" href="{{ url_for('equipe') }}">
+                        Equipe
+                    </a>
                 </li>
+
             </ul>
 
-            <a href="/logout" class="btn btn-sair">Sair</a>
+            <div class="area-usuario">
+
+    {% if session.get("usuario") %}
+        <!-- LOGADO -->
+
+        <span class="nome-usuario">
+            👤 {{ session.get("usuario") }}
+        </span>
+
+        <a href="{{ url_for('logout') }}" class="btn btn-sair">
+            Sair
+        </a>
+
+    {% else %}
+        <!-- NÃO LOGADO -->
+
+        <a href="{{ url_for('login') }}" class="btn btn-login">
+            Login
+        </a>
+
+        <a href="{{ url_for('cadastro') }}" class="btn btn-cadastro">
+            Cadastro
+        </a>
+
+    {% endif %}
+
+</div>
 
         </div>
     </div>
 </nav>
 
 <!-- ========================= -->
-<!-- CONTEÚDO PRINCIPAL -->
+<!-- CONTEÚDO -->
 <!-- ========================= -->
 <main class="flex-grow-1">
 
