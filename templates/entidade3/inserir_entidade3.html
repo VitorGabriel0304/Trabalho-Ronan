@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<div class="container mt-4" style="max-width: 700px;">
+    <h1 class="titulo-usuario mb-4">Adicionar Série / Documentário</h1>
+
+    <form method="POST">
+        <!-- Título -->
+        <div class="mb-3">
+            <label for="titulo" class="form-label">Título</label>
+            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Digite o título" required>
+        </div>
+
+        <!-- Ano -->
+        <div class="mb-3">
+            <label for="ano" class="form-label">Ano</label>
+            <input type="number" class="form-control" id="ano" name="ano" placeholder="Ex: 2023" min="1900" max="2099" required>
+        </div>
+
+        <!-- Gênero -->
+        <div class="mb-3">
+            <label for="genero" class="form-label">Gênero</label>
+            <select class="form-select" id="genero" name="genero" required>
+                <option value="">Selecione o gênero</option>
+                {% for g in generos %}
+                <option value="{{ g }}">{{ g }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Faixa Etária -->
+        <div class="mb-3">
+            <label for="faixa_etaria" class="form-label">Faixa Etária</label>
+            <select class="form-select" id="faixa_etaria" name="faixa_etaria" required>
+                <option value="">Selecione a faixa etária</option>
+                <option value="0">Livre</option>
+                <option value="10">10+</option>
+                <option value="12">12+</option>
+                <option value="14">14+</option>
+                <option value="16">16+</option>
+                <option value="18">18+</option>
+            </select>
+        </div>
+
+        <!-- Número de Temporadas -->
+        <div class="mb-3">
+            <label for="temporadas" class="form-label">Número de Temporadas</label>
+            <input type="number" class="form-control" id="temporadas" name="temporadas" placeholder="Ex: 3" min="1" required>
+        </div>
+
+        <!-- Capa (opcional) -->
+        <div class="mb-3">
+            <label for="capa" class="form-label">URL da Capa (opcional)</label>
+            <input type="text" class="form-control" id="capa" name="capa" placeholder="https://exemplo.com/capa.jpg">
+        </div>
+
+        <!-- Botão Enviar -->
+        <button type="submit" class="btn btn-success">Adicionar</button>
+    </form>
+</div>
+{% endblock %}

@@ -34,60 +34,43 @@
 
             <!-- Links -->
             <ul class="navbar-nav me-auto links-menu">
-
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('listar_usuarios') }}">
-                        Usuários
-                    </a>
+                    <a class="nav-link" href="{{ url_for('listar_usuarios') }}">Usuários</a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('listar_filmes') }}">
-                        Filmes
-                    </a>
+                    <a class="nav-link" href="{{ url_for('listar_filmes') }}">Filmes</a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('listar_generos') }}">
-                        Gêneros
-                    </a>
+                    <a class="nav-link" href="{{ url_for('listar_series') }}">Séries & Documentários</a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('equipe') }}">
-                        Equipe
-                    </a>
-                </li>
-
             </ul>
 
+            <!-- Área do usuário -->
             <div class="area-usuario">
 
-    {% if session.get("usuario") %}
-        <!-- LOGADO -->
+                {% if session.get("usuario") %}
+                <!-- LOGADO -->
 
-        <span class="nome-usuario">
-            👤 {{ session.get("usuario") }}
-        </span>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle perfil-btn" type="button" id="dropdownPerfil" data-bs-toggle="dropdown" aria-expanded="false">
+                        👤 {{ session['usuario']['nome'] }} <br>
+                        Idade: {{ session['usuario']['idade'] }}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownPerfil">
+                        <li><a class="dropdown-item" href="{{ url_for('login') }}">Trocar Perfil</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sair</a></li>
+                    </ul>
+                </div>
 
-        <a href="{{ url_for('logout') }}" class="btn btn-sair">
-            Sair
-        </a>
+                {% else %}
+                <!-- NÃO LOGADO -->
 
-    {% else %}
-        <!-- NÃO LOGADO -->
+                <a href="{{ url_for('login') }}" class="btn btn-login me-2">Login</a>
+                <a href="{{ url_for('cadastro') }}" class="btn btn-cadastro">Cadastro</a>
 
-        <a href="{{ url_for('login') }}" class="btn btn-login">
-            Login
-        </a>
+                {% endif %}
 
-        <a href="{{ url_for('cadastro') }}" class="btn btn-cadastro">
-            Cadastro
-        </a>
-
-    {% endif %}
-
-</div>
+            </div>
 
         </div>
     </div>
@@ -97,7 +80,6 @@
 <!-- CONTEÚDO -->
 <!-- ========================= -->
 <main class="flex-grow-1">
-
     <div class="conteudo-base container mt-4">
 
         <!-- mensagens flash -->
@@ -115,7 +97,6 @@
         {% block conteudo %}{% endblock %}
 
     </div>
-
 </main>
 
 <!-- ========================= -->

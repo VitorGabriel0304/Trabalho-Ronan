@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<div class="container">
+    <h1 class="titulo-usuario">Lista de Séries & Documentários</h1>
+
+    <!-- Botão para adicionar série/documentário -->
+    <div class="acoes-usuario" style="margin-bottom:15px;">
+        <a href="{{ url_for('inserir_series') }}" class="add-usuario">Adicionar Série / Documentário</a>
+    </div>
+
+    <!-- Filtro interativo por gênero -->
+    <div class="filtros-por-genero" style="margin-bottom: 15px;">
+        <span style="font-weight:bold; margin-right:10px;">Filtrar por gênero:</span>
+        <a href="{{ url_for('listar_series', genero='todos') }}" class="btn-filtro" style="margin-right:5px; padding:5px 10px; background:#4CAF50; color:white; border-radius:5px; text-decoration:none;">Todos</a>
+        {% for g in generos %}
+        <a href="{{ url_for('listar_series', genero=g) }}" class="btn-filtro" style="margin-right:5px; padding:5px 10px; background:#2196F3; color:white; border-radius:5px; text-decoration:none;">{{ g }}</a>
+        {% endfor %}
+    </div>
+
+    <!-- Tabela de séries -->
+    <div class="tabela-usuario">
+        <table>
+            <thead>
+                <tr>
+                    <th>Registro</th>
+                    <th>Capa</th> 
+                    <th>Título</th>
+                    <th>Gênero</th>
+                    <th>Temporadas</th>
+                    <th>Faixa Etária</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for serie in series %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                        <img 
+                            src="{{ serie.capa if serie.capa else 'https://via.placeholder.com/60x90' }}"
+                            alt="Capa da série"
+                            style="width: 60px; height: 90px; object-fit: cover; border-radius: 8px;">
+                    </td>
+                    <td>{{ serie.titulo }}</td>
+                    <td>{{ serie.genero }}</td>
+                    <td>{{ serie.temporadas }}</td>
+                    <td>{{ serie.faixa_etaria }}+</td>
+                    <td>
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-excluir">Excluir</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

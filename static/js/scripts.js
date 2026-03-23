@@ -131,3 +131,26 @@ senhaInputs.forEach(function(senhaInput){
         }
     });
 });
+
+function toggleSenha(idInput, elementoOlho) {
+    const input = document.getElementById(idInput);
+    if (input.type === "password") {
+        input.type = "text"; 
+        elementoOlho.textContent = "🙈"; 
+    } else {
+        input.type = "password"; 
+        elementoOlho.textContent = "👁️"; 
+    }
+}
+
+// Função para alternar visibilidade da senha
+function toggleSenha(el) {
+    const inputSenha = el.previousElementSibling; // pega o input de senha antes do span
+    if (inputSenha.type === "password") {
+        inputSenha.type = "text";  // mostra a senha
+        el.textContent = "🙈";     // troca o ícone
+    } else {
+        inputSenha.type = "password"; // esconde a senha
+        el.textContent = "👁️";       // volta o ícone
+    }
+}

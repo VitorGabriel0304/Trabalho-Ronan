@@ -6,22 +6,27 @@
     <div class="login-card">
         <h2>CineList</h2>
 
-                    <form action="{{ url_for('login') }}" method="POST">
+        <form action="{{ url_for('login') }}" method="POST">
 
-                    <label>E-mail</label>
-                    <input type="text" name="email" placeholder="Digite seu E-mail" required>
+            <label>E-mail</label>
+            <input type="text" name="email" placeholder="Digite seu E-mail" required>
 
-                    <label>Senha</label>
-                    <input type="password" name="senha" placeholder="Digite sua senha" required>
+            <label>Senha</label>
+<div class="senha-container">
+    <input type="password" name="senha" placeholder="Digite sua senha" required>
+    <span class="toggle-olho" onclick="toggleSenha(this)">👁️</span>
+</div>
 
-                    <button type="submit" class="btn-criar">Entrar</button>
+            <button type="submit" class="btn-criar">Entrar</button>
 
-                    </form>
+        </form>
 
         <p class="ja-tem-conta">
             Não tem conta? <a href="{{ url_for('cadastro') }}">Criar Conta</a>
         </p>
     </div>
 </div>
+
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 
 {% endblock %}

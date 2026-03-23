@@ -1,16 +1,20 @@
+/* ================================================== */
+/*  STYLE.CSS — PADRONIZADO                           */
+/*  Organização: Reset → Tipografia → Layout →        */
+/*  Navbar → Botões → Cards → Formulários →           */
+/*  Tabelas → Equipe → Responsivo                     */
+/* ================================================== */
+
+
 /* ========================= */
-/* RESET GERAL E TIPOGRAFIA */
+/* 1. RESET GERAL             */
 /* ========================= */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Garante que padding e border não quebrem layouts */
+    box-sizing: border-box;
 }
 
-
-/* ========================= */
-/* HTML E BODY */
-/* ========================= */
 html, body {
     height: 100%;
     font-family: 'Segoe UI', sans-serif;
@@ -18,85 +22,20 @@ html, body {
     background: radial-gradient(circle at top, #080808, #000);
 }
 
-
-/* ========================= */
-/* BODY (LAYOUT PRINCIPAL) */
-/* ========================= */
 body {
     display: flex;
     flex-direction: column;
-    position: relative; /* posição padrão  */
-    min-height: 100vh;  /* garante altura total da tela */
+    position: relative;
+    min-height: 100vh;
 }
 
-
-/* ========================= */
-/* CONTEÚDO PRINCIPAL */
-/* ========================= */
 main {
-    flex: 1; /* 👈 empurra o footer pro final */
+    flex: 1;
 }
-
-
-
-
-
-
-
-
-
-
-
-/* ======================= TÍTULO PRINCIPAL ======================= */
-.titulo-principal {
-    font-size: 80px;          /* tamanho do CINELIST */
-    font-weight: bold;
-    color: white;
-    text-align: center;
-    letter-spacing: 8px;
-
-    margin-bottom: 10px;      /* 👈 ESPAÇO ENTRE TÍTULO E DESCRIÇÃO */
-
-    text-shadow: 0 0 10px rgba(255,255,255,0.2),
-                 0 0 20px rgba(255,255,255,0.1);
-
-    -webkit-box-reflect: below 10px linear-gradient(transparent, rgba(255, 255, 255, 0.062));
-}
-
-
-/* ======================= DESCRIÇÃO ======================= */
-.descricao-principal {
-    font-size: 18px;
-    color: #ccc;
-    text-align: center;
-    max-width: 600px;
-
-    margin: 0 auto;          /* centraliza */
-
-    margin-top: 124px;        /* 👈 DISTÂNCIA DO TÍTULO (aumenta/diminui aqui) */
-
-    line-height: 1.6;
-    opacity: 0.8;
-
-    transition: all 0.3s ease;
-}
-
-.descricao-principal:hover {
-    opacity: 1;
-    transform: scale(1.02);
-}
-
-
-
-
-
-
-
-
 
 
 /* ========================= */
-/* TITULOS GERAIS */
+/* 2. TIPOGRAFIA GERAL        */
 /* ========================= */
 h1 {
     font-size: 3rem;
@@ -111,8 +50,78 @@ p {
     color: #bbb;
 }
 
+::placeholder {
+    color: #aaa;
+    opacity: 1;
+}
+
+
 /* ========================= */
-/* NAVBAR */
+/* 3. TÍTULO PRINCIPAL        */
+/* ========================= */
+.titulo-principal {
+    font-size: 80px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    letter-spacing: 8px;
+    margin-bottom: 10px;
+    text-shadow:
+        0 0 2px #fff,
+        0 0 6px #ffffff,
+        0 0 12px #ffffff;
+    -webkit-box-reflect: below 10px linear-gradient(transparent, rgba(255, 255, 255, 0.03));
+}
+
+.descricao-principal {
+    font-size: 18px;
+    color: #ccc;
+    text-align: center;
+    max-width: 600px;
+    margin: 124px auto 0 auto;
+    line-height: 1.6;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.descricao-principal:hover {
+    opacity: 1;
+    transform: scale(1.02);
+}
+
+
+/* ========================= */
+/* 4. LAYOUT / CONTAINERS     */
+/* ========================= */
+.linha-funcoes {
+    margin-top: 110px;
+}
+
+.linha-centro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+}
+
+.coluna-form {
+    width: 100%;
+    max-width: 400px;
+}
+
+.container.mt-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 25px 20px 80px 20px;
+    min-height: calc(100vh - 100px);
+}
+
+
+/* ========================= */
+/* 5. NAVBAR                  */
 /* ========================= */
 .navbar {
     background: rgba(0, 0, 0, 0.6);
@@ -120,34 +129,448 @@ p {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* =========================
-   BOTÃO SAIR - VERMELHO - NAVBAR
-========================= */
+
+/* ========================= */
+/* 6. BOTÕES — NAVBAR         */
+/* ========================= */
 .btn-sair {
-    background: linear-gradient(45deg, #ff0000, #b30000); /* fundo vermelho gradiente */
-    color: white; /* texto branco */
-    padding: 10px 20px; /* espaço interno */
-    border-radius: 25px; /* cantos arredondados */
-    font-weight: bold;
-    text-decoration: none; /* remove underline do link */
-    display: inline-block; /* garante alinhamento correto */
-    transition: all 0.3s ease; /* efeito suave */
+    background: linear-gradient(135deg, #ff0000, #b30000);
+    color: white;
+    border-radius: 20px;
+    padding: 6px 14px;
+    border: none;
+    transition: all 0.3s ease;
 }
 
 .btn-sair:hover {
-    transform: scale(1.05); /* leve aumento */
-    box-shadow: 0 0 15px 5px rgba(255,0,0,0.6); /* brilho vermelho */
+    background: linear-gradient(135deg, #ff1a1a, #800000);
+    transform: scale(1.05);
+}
+
+.btn-login {
+    background: transparent;
+    border: 1px solid #00c3ff;
+    color: #00c3ff;
+    border-radius: 20px;
+    padding: 6px 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+    background: #00c3ff;
+    color: black;
+}
+
+.btn-cadastro {
+    background: linear-gradient(135deg, #00ff88, #00aa55);
+    color: black;
+    border-radius: 20px;
+    padding: 6px 14px;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-cadastro:hover {
+    background: linear-gradient(135deg, #00ff99, #008844);
+    transform: scale(1.05);
 }
 
 
+/* ========================= */
+/* 7. BOTÃO DE PERFIL / DROPDOWN */
+/* ========================= */
+.perfil-btn {
+    background-color: #1f1f1f;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
 
+.perfil-btn:hover,
+.perfil-btn:focus {
+    background-color: #2c2c2c;
+    border-color: #ff0000;
+    color: #ff0000;
+}
 
+.perfil-btn i {
+    font-size: 1.1rem;
+}
+
+.perfil-btn .dropdown-menu {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    background-color: #1f1f1f;
+    border: 1px solid #333;
+    border-radius: 8px;
+    min-width: 180px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.perfil-btn:hover .dropdown-menu,
+.perfil-btn:focus-within .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.perfil-btn .dropdown-menu a {
+    display: block;
+    padding: 0.6rem 1rem;
+    color: #ccc;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.perfil-btn .dropdown-menu a:hover {
+    background-color: #2c2c2c;
+    color: #ffcc00;
+}
 
 
 /* ========================= */
-/* FORMULÁRIOS / INPUTS / SELECTS */
+/* 8. BOTÕES — INDEX          */
 /* ========================= */
-input, select {
+.botao-entrar,
+.botao-criar,
+.botao-equipe,
+.botao-inicial {
+    position: absolute;
+    padding: 12px 18px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.botao-entrar {
+    right: 160px;
+    top: 20px;
+    background: linear-gradient(45deg, #ff0000, #b30000);
+    color: #fff;
+}
+
+.botao-entrar:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px 8px rgba(255, 0, 0, 0.6);
+}
+
+.botao-criar {
+    right: 20px;
+    top: 20px;
+    background: linear-gradient(45deg, #28a745, #1e7e34);
+    color: #fff;
+}
+
+.botao-criar:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px 8px rgba(40, 167, 69, 0.6);
+}
+
+.botao-equipe {
+    left: 20px;
+    top: 20px;
+    background: linear-gradient(45deg, #026efa, transparent);
+    color: #fff;
+}
+
+.botao-equipe:hover {
+    transform: scale(1.08);
+    background: linear-gradient(45deg, #026efa, #026efa);
+    box-shadow: 0 0 20px 8px rgba(0, 47, 255, 0.6);
+}
+
+.botao-inicial {
+    right: 20px;
+    top: 20px;
+    background: linear-gradient(45deg, #28a745, #1e7e34);
+    color: #fff;
+}
+
+.botao-inicial:hover {
+    transform: scale(1.08);
+    background: linear-gradient(45deg, #00ff44, #1e9e2c);
+    box-shadow: 0 0 20px 8px rgba(40, 167, 69, 0.6);
+}
+
+
+/* ========================= */
+/* 9. BOTÃO FORM (GERAL)      */
+/* ========================= */
+.botao-form {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(135deg, #ff0000, #b30000);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.6), 0 0 20px rgba(255, 0, 0, 0.4) inset;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.botao-form::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(238, 235, 235, 0.2);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+}
+
+.botao-form:hover {
+    transform: scale(1.08);
+    background: linear-gradient(135deg, #ff1a1a, #b30000);
+    box-shadow: 0 0 25px 5px #ff4d4d, 0 0 15px 3px rgba(255, 0, 0, 0.5) inset;
+}
+
+.botao-form:hover::before {
+    top: -70%;
+    left: -70%;
+}
+
+.botao-form span {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* ========================= */
+/* 10. BOTÕES DE AÇÃO (TABELA) */
+/* ========================= */
+.btn-editar,
+.btn-excluir {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    margin: 0 3px;
+    transition: all 0.3s ease;
+}
+
+.btn-editar {
+    background: linear-gradient(45deg, #28a745, #1e7e34);
+    color: #fff;
+}
+
+.btn-editar:hover {
+    background: linear-gradient(45deg, #00ff44, #1e9e2c);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px 5px rgba(40, 167, 69, 0.5);
+}
+
+.btn-excluir {
+    background: linear-gradient(45deg, #dc3545, #a71d2a);
+    color: #fff;
+}
+
+.btn-excluir:hover {
+    background: linear-gradient(45deg, #ff5c6c, #dc3545);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px 5px rgba(220, 53, 69, 0.5);
+}
+
+.btn-filtrar {
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    color: #fff;
+    font-weight: bold;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-filtrar:hover {
+    background: linear-gradient(45deg, #00c3ff, #0066cc);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px 5px rgba(0, 123, 255, 0.6);
+}
+
+
+/* ========================= */
+/* 11. CARDS INDEX            */
+/* ========================= */
+.bloco-funcao {
+    background: rgba(50, 50, 50, 0.85);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.02);
+}
+
+.bloco-funcao:hover {
+    transform: translateY(-8px) scale(1.03);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow:
+        0 0 10px rgba(255, 0, 0, 0.4),
+        0 0 25px rgba(255, 0, 0, 0.3),
+        0 0 50px rgba(255, 0, 0, 0.2),
+        0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.titulo-bloco {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+
+/* ========================= */
+/* 12. LOGIN / CADASTRO CARD  */
+/* ========================= */
+.login-card,
+.cadastro-card {
+    width: 100%;
+    max-width: 350px;
+    background-color: rgba(0, 0, 0, 0.95);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+    transition: all 0.3s ease;
+    margin: auto;
+}
+
+.login-card:hover {
+    border-color: red;
+    box-shadow: 0 0 30px 12px rgba(255, 0, 0, 0.7);
+    transform: translateY(-5px) scale(1.02);
+}
+
+.cadastro-card:hover {
+    box-shadow: 0 0 30px 12px rgba(255, 0, 0, 0.9);
+    transform: translateY(-5px) scale(1.02);
+}
+
+.cadastro-card h2,
+.login-card h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.cadastro-card label,
+.login-card label {
+    display: block;
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+.cadastro-card input,
+.login-card input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.cadastro-card input:focus,
+.login-card input:focus {
+    border: 1px solid rgba(255, 0, 0, 0.8);
+    box-shadow: 0 0 12px 4px rgba(255, 0, 0, 0.5);
+}
+
+.cadastro-card .senha-container {
+    position: relative;
+}
+
+.cadastro-card .toggle-olho {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #ff4d4d;
+}
+
+.cadastro-card .btn-criar,
+.login-card .btn-criar {
+    width: 100%;
+    padding: 12px 0;
+    margin-top: 10px;
+    background-color: #ff0000;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.6);
+    transition: all 0.3s ease;
+}
+
+.cadastro-card .btn-criar:hover,
+.login-card .btn-criar:hover {
+    background-color: #ff4d4d;
+    box-shadow: 0 0 20px 10px rgba(255, 0, 0, 0.7);
+    transform: scale(1.03);
+}
+
+.ja-tem-conta {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #ccc;
+    transition: all 0.3s ease;
+}
+
+.ja-tem-conta a {
+    color: #00c3ff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.ja-tem-conta a:hover {
+    text-decoration: underline;
+    color: #00e0ff;
+}
+
+
+/* ========================= */
+/* 13. FORMULÁRIOS GERAIS     */
+/* ========================= */
+input,
+select {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
@@ -157,378 +580,309 @@ input, select {
     transition: all 0.3s ease;
 }
 
-::placeholder {
-    color: #aaa;
-    opacity: 1;
-}
-
-input:focus, select:focus {
+input:focus,
+select:focus {
     outline: none;
     border: 1px solid rgba(80, 200, 255, 0.7);
-    box-shadow: 0 0 12px 5px rgba(80,200,255,0.3);
+    box-shadow: 0 0 12px 5px rgba(80, 200, 255, 0.3);
 }
 
-input:hover, select:hover {
+input:hover,
+select:hover {
     border-color: rgba(80, 200, 255, 0.7);
-    box-shadow: 0 0 10px 4px rgba(80,200,255,0.3);
+    box-shadow: 0 0 10px 4px rgba(80, 200, 255, 0.3);
+}
+
+/* Remover setas do input number */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* ========================= */
-/* CENTRALIZAÇÃO DE CARDS (LOGIN/CADASTRO) */
+/* 14. FORM — SELECTS FILME   */
 /* ========================= */
-.linha-centro {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh; /* Ocupa quase toda a altura da tela */
-    padding: 20px;
-}
-
-.coluna-form {
-    width: 100%;
-    max-width: 400px;
-}
-
-
-
-
-
-
-
-
-/* ========================= */
-/* LOGIN CARD */
-/* ========================= */
-.login-card {
-    width: 100%;
-    max-width: 350px;
-    background-color: rgba(0,0,0,0.95);
-    border: 1px solid rgba(255, 0, 0, 0.4);
-    border-radius: 15px;
-    padding: 30px;
-    text-align: center;
-    font-family: 'Cinzel', serif;
-    color: #ffffff;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-    transition: all 0.3s ease;
-}
-
-.login-card:hover {
-    border-color: red;
-    box-shadow: 0 0 30px 12px rgba(255,0,0,0.7);
-    transform: translateY(-5px) scale(1.02);
-}
-
-.login-card h2 {
-    font-size: 28px;
-    margin-bottom: 25px;
-    font-weight: bold;
-}
-
-.login-card label {
-    display: block;
-    text-align: left;
-    font-size: 14px;
-    margin-bottom: 5px;
-    margin-top: 15px;
-}
-
-/* Botão de criar dentro do login */
-.btn-criar {
-    width: 100%;
-    padding: 12px 0;
-    margin-top: 25px;
-    background-color: #28a745;
-    color: #fff;
-    font-size: 20px;
-    font-weight: bold;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.6);
-    transition: all 0.3s ease;
-}
-
-.btn-criar:hover {
-    background-color: #00ff44;
-    box-shadow: 0 0 20px 10px rgba(40, 167, 69, 0.7);
-    transform: scale(1.03);
-}
-
-
-
-
-
-
-/* ========================= */
-/* CADASTRO CARD */
-/* ========================= */
-.cadastro-card {
-    width: 100%;
-    max-width: 350px;
-    background-color: rgba(0,0,0,0.95);
-    border: 1px solid rgba(255, 0, 0, 0.4);
-    border-radius: 15px;
-    padding: 30px;
-    text-align: center;
-    font-family: 'Cinzel', serif;
-    color: #ffffff;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-    transition: all 0.3s ease;
-}
-
-.cadastro-card:hover {
-    border-color: red;
-    box-shadow: 0 0 30px 12px rgba(255,0,0,0.7);
-    transform: translateY(-5px) scale(1.02);
-}
-
-
-
-
-
-
-/* ========================= */
-/* BOTÕES PRINCIPAIS INDEX */
-/* ========================= */
-.botao-entrar, .botao-criar {
-    position: absolute;
-
-    top: 20px;             /* 👈 SOBE/DESCE OS BOTÕES */
-    
-    padding: 12px 18px;
-    border-radius: 30px;   /* 👈 DEIXA ARREDONDADO */
-    
-    font-weight: bold;
-    font-size: 18px;
-    text-decoration: none;
-    
-    display: inline-block;
-    
-    transition: all 0.3s ease;
-
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5); /* sombra bonita */
-}
-
-
-
-
-/* ========================= */
-/* BOTÃO ENTRAR (VERMELHO) */
-/* ========================= */
-.botao-entrar {
-    right: 160px;  /* 👈 DISTÂNCIA DA DIREITA (ajusta espaço entre os dois) */
-
-    background: linear-gradient(45deg, #ff0000, #b30000);
-    color: #fff;
-}
-
-.botao-entrar:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 20px 8px rgba(255,0,0,0.6);
-}
-
-
-
-
-/* ========================= */
-/* BOTÃO CRIAR (VERDE) */
-/* ========================= */
-.botao-criar {
-    right: 20px;   /*  COLADO NA DIREITA */
-
-    background: linear-gradient(45deg, #28a745, #1e7e34);
-    color: #fff;
-}
-
-.botao-criar:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 20px 8px rgba(40,167,69,0.6);
-}
-
-
-
-
-/* ========================= */
-/* LINHA DAS FUNÇÕES */
-/* ========================= */
-.linha-funcoes {
-    margin-top: 110px; /* 👈 ajuste geral da posição */
-}
-
-
-/* ========================= */
-/* CARDS INDEX (FUNCIONALIDADES) */
-/* ========================= */
-.bloco-funcao {
-    background: rgba(50,50,50,0.85);
-    border-radius: 15px;
-    padding: 20px;
-
-    border: 1px solid rgba(255,255,255,0.05); /* 👈 borda base */
-
-    transition: all 0.4s ease;
-
-    box-shadow: 
-        0 5px 15px rgba(0,0,0,0.5),
-        inset 0 0 10px rgba(255,255,255,0.02); /* leve brilho interno */
-}
-
-
-/* ========================= */
-/* HOVER PREMIUM */
-/* ========================= */
-.bloco-funcao:hover {
-    transform: translateY(-8px) scale(1.03);
-
-    border: 1px solid rgba(255,255,255,0.9);
-
-    /* 🔥 brilho premium em camadas */
-    box-shadow: 
-        0 0 10px rgba(255, 0, 0, 0.4),
-        0 0 25px rgba(255, 0, 0, 0.3),
-        0 0 50px rgba(255, 0, 0, 0.2),
-        0 10px 30px rgba(0,0,0,0.8);
-}
-
-
-/* ========================= */
-/* TÍTULO DO CARD */
-/* ========================= */
-.titulo-bloco {
-    font-weight: 700;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-}
-
-/* ========================= */
-/* AREA DO USUARIO NAVBAR */
-/* ========================= */
-
-.area-usuario {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* Nome do usuário */
-.nome-usuario {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 14px;
-    color: #fff;
-    backdrop-filter: blur(6px);
-    transition: 0.3s;
-}
-
-.nome-usuario:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* Botão SAIR */
-.btn-sair {
-    background: linear-gradient(135deg, #ff0000, #b30000);
+select#genero,
+#faixa_etaria {
+    background: rgba(255, 255, 255, 0.05);
     color: white;
-    border-radius: 20px;
-    padding: 6px 14px;
-    border: none;
-    transition: 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    width: 100%;
 }
 
-.btn-sair:hover {
-    background: linear-gradient(135deg, #ff1a1a, #800000);
-    transform: scale(1.05);
-}
-
-/* Botão LOGIN */
-.btn-login {
-    background: transparent;
-    border: 1px solid #00c3ff;
-    color: #00c3ff;
-    border-radius: 20px;
-    padding: 6px 14px;
-    transition: 0.3s;
-}
-
-.btn-login:hover {
-    background: #00c3ff;
+select#genero option {
     color: black;
+    background: white;
 }
 
-/* Botão CADASTRO */
-.btn-cadastro {
-    background: linear-gradient(135deg, #00ff88, #00aa55);
+#faixa_etaria option {
+    background: #111;
+    color: white;
+}
+
+select#genero:focus,
+#faixa_etaria:focus {
+    outline: none;
+    border: 1px solid rgba(80, 200, 255, 0.7);
+    box-shadow: 0 0 12px 5px rgba(80, 200, 255, 0.3);
+}
+
+select#genero:hover,
+#faixa_etaria:hover {
+    border-color: rgba(80, 200, 255, 0.7);
+    box-shadow: 0 0 10px 4px rgba(80, 200, 255, 0.3);
+}
+
+/* ========================= */
+/* 15. FORM — PÁGINA ENTIDADE */
+/* ========================= */
+.titulo-usuario {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+label.form-label {
+    display: block;
+    font-weight: 600;
+    color: #ccc;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+input.form-control,
+select.form-select {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 16px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+input.form-control::placeholder {
+    color: #aaa;
+}
+
+select.form-select option {
     color: black;
+    background: white;
+}
+
+input.form-control:focus,
+select.form-select:focus {
+    outline: none;
+    border: 1px solid rgba(255, 0, 0, 0.7);
+    box-shadow: 0 0 12px 5px rgba(255, 0, 0, 0.3);
+}
+
+input.form-control:hover,
+select.form-select:hover {
+    border-color: rgba(255, 0, 0, 0.7);
+    box-shadow: 0 0 10px 4px rgba(255, 0, 0, 0.2);
+}
+
+form {
+    width: 100%;
+    max-width: 700px;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 30px;
     border-radius: 20px;
-    padding: 6px 14px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+}
+
+form:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 12px 30px rgba(255, 0, 0, 0.25);
+}
+
+button.btn-success {
+    width: 100%;
+    padding: 14px 0;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
     border: none;
-    transition: 0.3s;
+    border-radius: 30px;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(135deg, #ff0000, #b30000);
+    box-shadow: 0 5px 20px rgba(255, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-.btn-cadastro:hover {
-    background: linear-gradient(135deg, #00ff99, #008844);
+button.btn-success:hover {
+    background: linear-gradient(135deg, #ff4d4d, #b30000);
     transform: scale(1.05);
+    box-shadow: 0 0 25px 8px rgba(255, 0, 0, 0.6);
 }
-
-
-
-
 
 
 /* ========================= */
-/* CARDS EQUIPE */
+/* 16. TABELAS                */
 /* ========================= */
+.acoes-usuario {
+    margin-bottom: 15px;
+    text-align: right;
+}
+
+.add-usuario {
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #00c3ff, #0088aa);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.add-usuario:hover {
+    background: linear-gradient(45deg, #00e0ff, #00aadd);
+    transform: scale(1.05);
+}
+
+.tabela-usuario {
+    width: 100%;
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.tabela-usuario table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Segoe UI', sans-serif;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.85);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.tabela-usuario thead {
+    background: rgba(80, 200, 255, 0.15);
+}
+
+.tabela-usuario th {
+    padding: 12px 15px;
+    text-align: center;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tabela-usuario tbody tr {
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.3s ease;
+}
+
+.tabela-usuario tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.tabela-usuario tbody tr:hover {
+    background: rgba(80, 200, 255, 0.1);
+    transform: scale(1.01);
+    box-shadow: 0 0 15px rgba(80, 200, 255, 0.2);
+}
+
+.tabela-usuario td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+/* ========================= */
+/* 17. PÁGINA SOBRE A EQUIPE  */
+/* ========================= */
+.sobre-equipe-titulo {
+    text-align: center;
+    font-size: 3.2rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 60px;
+    text-shadow:
+        0 0 2px #fff,
+        0 0 6px #00c3ff,
+        0 0 12px #00c3ff;
+    -webkit-box-reflect: below 5px linear-gradient(transparent, rgba(255, 255, 255, 0.03));
+}
+
+.sobre-equipe-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    padding: 60px 20px;
+    background: radial-gradient(circle at top, #080808, #000);
+}
+
 .membro-box {
-    background: rgba(0,0,0,0.85);
+    width: 280px;
+    background: rgba(0, 0, 0, 0.85);
     border-radius: 20px;
-    padding: 25px;
+    padding: 30px;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(15px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease;
-    margin: auto;
 }
 
 .membro-box:hover {
-    transform: translateY(-6px) scale(1.02);
-    border: 1px solid rgba(40, 167, 69, 0.7);
-    box-shadow: 0 0 20px 8px rgba(40, 167, 69, 0.5);
+    transform: translateY(-5px) scale(1.03);
+    border: 1px solid rgba(40, 167, 69, 0.5);
+    box-shadow: 0 0 25px 8px rgba(40, 167, 69, 0.4);
 }
 
 .foto-membro {
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     object-fit: cover;
     border: 3px solid #28a745;
     border-radius: 50%;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     transition: all 0.3s ease;
 }
 
 .foto-membro:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 15px 5px rgba(40, 167, 69, 0.6);
+    box-shadow: 0 0 18px 6px rgba(40, 167, 69, 0.5);
 }
 
 .nome-membro {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 700;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
+    color: #fff;
 }
 
 .cargo-membro {
     font-weight: 600;
     color: #aaa;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .bio-membro {
     color: #ccc;
-    font-size: 0.95rem;
-    margin-bottom: 15px;
-    line-height: 1.4;
+    font-size: 1rem;
+    margin-bottom: 18px;
+    line-height: 1.5;
 }
 
 .email-container {
@@ -542,16 +896,16 @@ input:hover, select:hover {
 .email-text {
     color: #fff;
     font-weight: 500;
-    background: rgba(255,255,255,0.05);
-    padding: 5px 10px;
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 12px;
+    border-radius: 12px;
     font-size: 0.95rem;
 }
 
 .btn-copiar {
-    padding: 6px 12px;
-    font-size: 0.85rem;
-    border-radius: 20px;
+    padding: 7px 14px;
+    font-size: 0.9rem;
+    border-radius: 22px;
     border: none;
     background: linear-gradient(45deg, #28a745, #1e7e34);
     color: #fff;
@@ -562,461 +916,61 @@ input:hover, select:hover {
 .btn-copiar:hover {
     background: linear-gradient(45deg, #00ff44, #1e9e2c);
     transform: scale(1.05);
-    box-shadow: 0 0 15px 6px rgba(40, 167, 69, 0.6);
+    box-shadow: 0 0 18px 6px rgba(40, 167, 69, 0.5);
 }
-
-
-
-
-
-
 
 
 /* ========================= */
-/* LISTA DE USUÁRIOS ESTILIZADA */
+/* 18. RESPONSIVO             */
 /* ========================= */
 
-/* Container principal da tabela */
-.tabela-usuario {
-    width: 100%;
-    margin-top: 20px;
-    overflow-x: auto; /* Rolagem horizontal em telas pequenas */
+/* ≤ 1200px */
+@media (max-width: 1200px) {
+    .titulo-principal    { font-size: 64px; }
+    .descricao-principal { margin-top: 100px; }
 }
 
-/* Estilo da tabela */
-.tabela-usuario table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: 'Segoe UI', sans-serif;
-    color: #fff;
-    background-color: rgba(0,0,0,0.85);
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+/* ≤ 992px */
+@media (max-width: 992px) {
+    .titulo-principal    { font-size: 54px; }
+    .descricao-principal { margin-top: 80px; }
+    .titulo-usuario      { font-size: 2.4rem; }
+    form                 { padding: 25px; }
+
+    .sobre-equipe-container { gap: 25px; padding: 50px 15px; }
+    .membro-box             { width: 260px; padding: 25px; }
+    .foto-membro            { width: 150px; height: 150px; }
 }
 
-/* Cabeçalho */
-.tabela-usuario thead {
-    background: rgba(80,200,255,0.15);
-}
-
-.tabela-usuario th {
-    padding: 12px 15px;
-    text-align: center;
-    font-weight: 700;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-/* Corpo da tabela */
-.tabela-usuario tbody tr {
-    background: rgba(255,255,255,0.02);
-    transition: all 0.3s ease;
-}
-
-.tabela-usuario tbody tr:nth-child(even) {
-    background: rgba(255,255,255,0.04);
-}
-
-/* Hover nas linhas */
-.tabela-usuario tbody tr:hover {
-    background: rgba(80,200,255,0.1);
-    transform: scale(1.01);
-    box-shadow: 0 0 15px rgba(80,200,255,0.2);
-}
-
-/* Células */
-.tabela-usuario td {
-    padding: 12px 15px;
-    text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-
-
-
-/* ========================= */
-/* BOTÕES DE AÇÃO */
-/* ========================= */
-.btn-editar, .btn-excluir {
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    margin: 0 3px;
-    transition: all 0.3s ease;
-}
-
-/* Botão Editar */
-.btn-editar {
-    background: linear-gradient(45deg, #28a745, #1e7e34);
-    color: #fff;
-}
-
-.btn-editar:hover {
-    background: linear-gradient(45deg, #00ff44, #1e9e2c);
-    transform: scale(1.05);
-    box-shadow: 0 0 15px 5px rgba(40,167,69,0.5);
-}
-
-/* Botão Excluir */
-.btn-excluir {
-    background: linear-gradient(45deg, #dc3545, #a71d2a);
-    color: #fff;
-}
-
-.btn-excluir:hover {
-    background: linear-gradient(45deg, #ff5c6c, #dc3545);
-    transform: scale(1.05);
-    box-shadow: 0 0 15px 5px rgba(220,53,69,0.5);
-}
-
-/* ========================= */
-/* TITULO E AÇÕES DA TABELA */
-/* ========================= */
-.titulo-usuario {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.acoes-usuario {
-    margin-bottom: 15px;
-    text-align: right;
-}
-
-.add-usuario {
-    padding: 10px 20px;
-    background: linear-gradient(45deg, #28a745, #1e7e34);
-    color: #fff;
-    font-weight: bold;
-    border-radius: 25px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.add-usuario:hover {
-    background: linear-gradient(45deg, #00ff44, #1e9e2c);
-    transform: scale(1.05);
-    box-shadow: 0 0 15px 5px rgba(40,167,69,0.5);
-}
-
-
-
-
-
-/* ========================= */
-/* RESPONSIVO */
+/* ≤ 768px */
 @media (max-width: 768px) {
-    .tabela-usuario table {
-        font-size: 14px;
+    .titulo-principal    { font-size: 44px; }
+    .descricao-principal { margin-top: 60px; font-size: 16px; }
+    .titulo-usuario      { font-size: 2rem; }
+    form                 { padding: 20px; }
+
+    .botao-entrar,
+    .botao-criar         { top: 10px; right: 10px; font-size: 16px; padding: 10px 14px; }
+}
+
+/* ≤ 576px */
+@media (max-width: 576px) {
+    .titulo-principal    { font-size: 36px; }
+    .descricao-principal { margin-top: 40px; font-size: 14px; }
+    .titulo-usuario      { font-size: 1.8rem; }
+    .linha-funcoes       { margin-top: 70px; }
+    form                 { padding: 15px; }
+
+    .login-card,
+    .cadastro-card       { max-width: 300px; padding: 20px; }
+
+    .sobre-equipe-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 10px;
+        gap: 25px;
     }
-
-    .btn-editar, .btn-excluir, .add-usuario {
-        font-size: 0.75rem;
-        padding: 5px 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .tabela-usuario table, .tabela-usuario th, .tabela-usuario td {
-        font-size: 13px;
-        padding: 6px 8px;
-    }
-
-    .acoes-usuario {
-        text-align: center;
-    }
-
-    .add-usuario {
-        display: inline-block;
-        margin-bottom: 10px;
-    }
-}
-
-
-
-
-
-/* ========================= */
-/* RODAPÉ */
-/* ========================= */
-footer {
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(10px);
-    text-align: center;
-    padding: 15px;
-    font-size: 14px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* ========================= */
-/* LINK "JÁ TEM CONTA" */
-/* ========================= */
-.ja-tem-conta {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 14px;
-    color: #fffefe;
-    font-family: 'Cinzel', serif;
-}
-
-.ja-tem-conta a {
-    color: #0286f1;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.3s;
-}
-
-.ja-tem-conta a:hover {
-    color: #ffffff;
-    text-decoration: underline;
-}
-
-
-
-
-/* ========================= */
-/* BOTÃO CRIAR CONTA (CADASTRO) */
-/* ========================= */
-.botao-form {
-    width: 100%;
-    padding: 12px 0;
-    background: linear-gradient(45deg, #28a745, #1e7e34); 
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.6);
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-.botao-form:hover {
-    background: linear-gradient(45deg, #00ff44, #1e9e2c);
-    box-shadow: 0 0 20px 10px rgba(40, 167, 69, 0.7);
-    transform: scale(1.03);
-}
-
-
-
-
-
-
-/* ========================= */
-/* CARD DE CADASTRO DE USUÁRIO */
-/* ========================= */
-
-/* Container externo já está centralizado via inline-flex, mas vamos reforçar */
-.cadastro-card {
-    width: 100%;
-    max-width: 400px; /* Tamanho máximo do card */
-    background: rgba(0,0,0,0.85); /* Fundo escuro translúcido */
-    border: 1px solid rgba(255, 0, 0, 0.4); /* Borda vermelha suave */
-    border-radius: 15px;
-    padding: 30px;
-    text-align: center;
-    font-family: 'Cinzel', serif;
-    color: #ffffff;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-    transition: all 0.3s ease;
-}
-
-/* Efeito hover no card */
-.cadastro-card:hover {
-    border-color: red;
-    box-shadow: 0 0 30px 12px rgba(255,0,0,0.7);
-    transform: translateY(-5px) scale(1.02);
-}
-
-/* Título do card */
-.cadastro-card h2 {
-    font-size: 28px;
-    margin-bottom: 25px;
-    font-weight: bold;
-}
-
-/* Labels do formulário */
-.cadastro-card label {
-    display: block;
-    text-align: left;
-    font-size: 14px;
-    margin-bottom: 5px;
-    margin-top: 15px;
-}
-
-/* Inputs */
-.cadastro-card input {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.1);
-    background: rgba(255,255,255,0.05);
-    color: white;
-    transition: all 0.3s ease;
-}
-
-.cadastro-card input:focus {
-    outline: none;
-    border-color: rgba(80,200,255,0.7);
-    box-shadow: 0 0 12px 5px rgba(80,200,255,0.3);
-}
-
-.cadastro-card input:hover {
-    border-color: rgba(80,200,255,0.7);
-    box-shadow: 0 0 10px 4px rgba(80,200,255,0.3);
-}
-
-/* Pequena mensagem de força da senha */
-#forca-senha {
-    color: #28a745;
-    font-size: 0.9rem;
-}
-
-/* Botão criar conta */
-.cadastro-card .botao-form {
-    width: 100%;
-    padding: 12px 0;
-    margin-top: 25px;
-    background: linear-gradient(45deg, #28a745, #1e7e34);
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(40,167,69,0.6);
-    transition: all 0.3s ease;
-}
-
-.cadastro-card .botao-form:hover {
-    background: linear-gradient(45deg, #00ff44, #1e9e2c);
-    box-shadow: 0 0 20px 10px rgba(40,167,69,0.7);
-    transform: scale(1.03);
-}
-
-/* Link "Já tem conta" */
-.cadastro-card .ja-tem-conta {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 14px;
-    color: #fffefe;
-    font-family: 'Cinzel', serif;
-}
-
-.cadastro-card .ja-tem-conta a {
-    color: #0286f1;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 16px;
-    transition: 0.3s;
-}
-
-.cadastro-card .ja-tem-conta a:hover {
-    color: #ffffff;
-    text-decoration: underline;
-}
-
-
-
-
-
-
-/* ========================= */
-/* RESPONSIVO PARA CELULARES */
-/* ========================= */
-@media (max-width: 480px) {
-    .cadastro-card {
-        width: 90%;
-        padding: 20px;
-    }
-
-    .cadastro-card h2 {
-        font-size: 24px;
-    }
-
-    .cadastro-card input {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    .cadastro-card .botao-form {
-        font-size: 16px;
-        padding: 10px 0;
-    }
-
-    .cadastro-card .ja-tem-conta a {
-        font-size: 14px;
-    }
-}
-
-/* ========================= */
-/* RESPONSIVO PARA CELULARES */
-/* ========================= */
-@media (max-width: 480px) {
-    .linha-centro {
-        padding: 10px;
-    }
-
-    .bloco-form, .cadastro-card, .login-card {
-        width: 90%;
-        padding: 20px;
-    }
-
-    .titulo-form, .login-card h2 {
-        font-size: 24px;
-    }
-
-    .input-form {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    .botao-form, .btn-criar {
-        font-size: 16px;
-        padding: 10px 0;
-    }
-}
-
-/* ========================= */
-/* LISTA DE GENEROS - FILMES_INSERIR */
-/* ========================= */
-select {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(80, 200, 255, 0.3);
-    color: white;
-    border-radius: 10px;
-    padding: 12px;
-    font-size: 16px;
-    width: 100%;
-    cursor: pointer;
-
-    appearance: none; /* remove estilo padrão */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-
-    transition: all 0.3s ease;
-}
-
-/* Hover */
-select:hover {
-    border-color: rgba(80, 200, 255, 0.7);
-    box-shadow: 0 0 10px 4px rgba(80,200,255,0.3);
-}
-
-/* Focus */
-select:focus {
-    outline: none;
-    border: 1px solid rgba(80, 200, 255, 0.7);
-    box-shadow: 0 0 12px 5px rgba(80,200,255,0.3);
-}
-
-/* OPTION (limitado, mas ajuda um pouco) */
-option {
-    background-color: #111;
-    color: white;
+    .membro-box          { width: 90%; padding: 20px; }
+    .foto-membro         { width: 140px; height: 140px; }
+    .sobre-equipe-titulo { font-size: 2rem; }
 }

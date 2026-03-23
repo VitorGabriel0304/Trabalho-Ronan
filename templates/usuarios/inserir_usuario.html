@@ -1,1 +1,48 @@
 {% extends "base.html" %}
+
+
+{% block conteudo %}
+<div class="linha-centro">
+    <div class="cadastro-card">
+
+        <h2>👤 Cadastrar Usuário</h2>
+
+        <form action="{{ url_for('inserir_usuarios') }}" method="POST">
+
+            <!-- Nome -->
+            <label for="nome">Nome</label>
+            <input type="text" name="nome" id="nome" placeholder="Digite o nome" required>
+
+            <!-- Idade -->
+            <label for="idade">Idade</label>
+            <input type="number" name="idade" id="idade" placeholder="Digite a idade" min="1" required>
+
+            <!-- E-mail -->
+            <label for="email">E-mail</label>
+            <input type="email" name="email" id="email" placeholder="Digite o e-mail" required>
+
+            <!-- Senha -->
+            <label for="senha">Senha</label>
+            <input type="password" name="senha" id="senha" placeholder="Digite a senha" required>
+
+            <!-- Confirmação de senha -->
+            <label for="confirmar">Confirmar Senha</label>
+            <input type="password" name="confirmar" id="confirmar" placeholder=" Repita a senha" required>
+
+            <!-- Botão -->
+            <button type="submit" class="botao-form">
+                Cadastrar
+            </button>
+
+        </form>
+
+        <!-- Voltar -->
+        <div class="ja-tem-conta">
+            <a href="{{ url_for('listar_usuarios') }}">
+                ⬅ Voltar para lista
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
