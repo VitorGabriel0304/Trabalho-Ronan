@@ -1,12 +1,15 @@
 {% extends "base.html" %}
+{# herda o base com navbar — rota protegida pelo @login_obrigatorio #}
 
 {% block conteudo %}
 
 <div class="linha-centro">
+    {# linha-centro centraliza o card vertical e horizontalmente via flexbox no CSS #}
     <div class="cadastro-card">
 
         <h2>🎬 Adicionar Filme</h2>
 
+        {# action aponta pro endpoint inserir_filmes — mesmo nome usado no url_for #}
         <form action="{{ url_for('inserir_filmes') }}" method="POST">
 
             <!-- Título (obrigatório) -->
@@ -14,20 +17,22 @@
             <input type="text" name="titulo" id="titulo" placeholder="Digite o título" required>
 
             <!-- Ano (obrigatório) -->
+            {# inputmode="numeric" abre teclado numérico no celular, pattern reforça só números #}
             <label for="ano">Ano De Publicação</label>
-            <input type="number" name="ano" id="ano" placeholder="Ex: 2024"
-                   inputmode="numeric" pattern="[0-9]*" required>
+            <input type="number" name="ano" id="ano" placeholder="Ex: 2024" inputmode="numeric" pattern="[0-9]*" required>
 
             <!-- Gênero (obrigatório) -->
+            {# generos vem do app.py — lista de strings passada no render_template #}
             <label for="genero">Gênero</label>
             <select name="genero" id="genero" required>
-                <option value="">Selecione um gênero</option>
+                <option value="">Selecione um gênero</option>  {# value="" faz o required funcionar — opção vazia não envia #}
                 {% for genero in generos %}
-                    <option value="{{ genero }}">{{ genero }}</option>
+                <option value="{{ genero }}">{{ genero }}</option>
                 {% endfor %}
             </select>
 
-            <!-- Faixa Etária (obrigatório) -->
+            <!-- Faixa Etária de Idade (obrigatório) -->
+            {# sem opção "Livre" (0) aqui — diferente do inserir de séries que tem #}
             <label for="faixa_etaria">Faixa Etária</label>
             <select name="faixa_etaria" id="faixa_etaria" required>
                 <option value="">Selecione a faixa etária</option>
@@ -39,6 +44,7 @@
             </select>
 
             <!-- Capa (opcional) -->
+            {# sem required — se vazio o app.py substitui por string vazia e a tabela usa o placeholder #}
             <label for="capa">Capa (opcional)</label>
             <input type="text" name="capa" id="capa" placeholder="Cole a URL da imagem">
 
@@ -50,6 +56,7 @@
         </form>
 
         <!-- Voltar para lista -->
+        {# reutilizou a classe .ja-tem-conta do CSS pra estilizar o link de voltar #}
         <div class="ja-tem-conta">
             <a href="{{ url_for('listar_filmes') }}">
                 ⬅ Voltar para lista

@@ -4,35 +4,41 @@
     <meta charset="UTF-8">
     <title>Catálogo de Filmes</title>
 
-    <!-- Bootstrap -->
+    <!-- Bootstrap via CDN — sem instalar nada, puxa direto da internet -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- CSS -->
+    <!-- CSS próprio do projeto, carregado depois do Bootstrap pra sobrescrever quando precisar -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 
+{# d-flex flex-column min-vh-100 — truque pra empurrar o footer sempre pro fim da tela #}
 <body class="fundo-base text-light d-flex flex-column min-vh-100">
 
 <!-- ========================= -->
 <!-- NAVBAR -->
 <!-- ========================= -->
+{# navbar-expand-lg: colapsa em hamburguer abaixo de 992px #}
 <nav class="navbar navbar-expand-lg navbar-dark menu-superior">
     <div class="container">
 
         <!-- Nome do sistema -->
+        {# navbar-brand é a classe do Bootstrap pro logo/nome, clica e vai pro index #}
         <a class="navbar-brand nome-sistema" href="{{ url_for('index') }}">
             🎬 CineList
         </a>
 
         <!-- Botão mobile -->
+        {# data-bs-target="#menu-principal" conecta esse botão ao div que vai colapsar #}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu-principal">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <!-- Conteúdo -->
+        {# id tem que bater com o data-bs-target do botão acima #}
         <div class="collapse navbar-collapse" id="menu-principal">
 
             <!-- Links -->
+            {# me-auto empurra os links pra esquerda e a área do usuário pra direita #}
             <ul class="navbar-nav me-auto links-menu">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('listar_usuarios') }}">Usuários</a>
@@ -48,15 +54,21 @@
             <!-- Área do usuário -->
             <div class="area-usuario">
 
+                {# verifica se tem alguém logado na session antes de renderizar #}
                 {% if session.get("usuario") %}
                 <!-- LOGADO -->
 
+                {# dropdown nativo do Bootstrap, o JS do bundle já cuida do toggle #}
                 <div class="dropdown">
+                    {# data-bs-toggle="dropdown" ativa o comportamento de abrir/fechar #}
                     <button class="btn btn-secondary dropdown-toggle perfil-btn" type="button" id="dropdownPerfil" data-bs-toggle="dropdown" aria-expanded="false">
+                        {# exibe nome e idade que foram salvos na session no login #}
                         👤 {{ session['usuario']['nome'] }} <br>
                         Idade: {{ session['usuario']['idade'] }}
                     </button>
+                    {# aria-labelledby liga o menu ao botão por acessibilidade #}
                     <ul class="dropdown-menu" aria-labelledby="dropdownPerfil">
+                        {# trocar perfil manda pro login sem fazer logout primeiro #}
                         <li><a class="dropdown-item" href="{{ url_for('login') }}">Trocar Perfil</a></li>
                         <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sair</a></li>
                     </ul>
@@ -65,6 +77,7 @@
                 {% else %}
                 <!-- NÃO LOGADO -->
 
+                {# mostra login e cadastro quando não tem session ativa #}
                 <a href="{{ url_for('login') }}" class="btn btn-login me-2">Login</a>
                 <a href="{{ url_for('cadastro') }}" class="btn btn-cadastro">Cadastro</a>
 
@@ -79,13 +92,16 @@
 <!-- ========================= -->
 <!-- CONTEÚDO -->
 <!-- ========================= -->
+{# flex-grow-1 faz o main crescer e ocupar todo espaço entre navbar e footer #}
 <main class="flex-grow-1">
     <div class="conteudo-base container mt-4">
 
         <!-- mensagens flash -->
+        {# with_categories=true retorna tuplas (categoria, mensagem) usadas no alert do Bootstrap #}
         {% with mensagens = get_flashed_messages(with_categories=true) %}
             {% if mensagens %}
                 {% for categoria, msg in mensagens %}
+                    {# alert-success, alert-danger, alert-warning — vem direto da categoria do flash() #}
                     <div class="alert alert-{{ categoria }} msg-flash">
                         {{ msg }}
                     </div>
@@ -94,6 +110,7 @@
         {% endwith %}
 
         <!-- conteúdo das páginas -->
+        {# bloco vazio que cada template filho preenche com seu próprio conteúdo #}
         {% block conteudo %}{% endblock %}
 
     </div>
@@ -102,13 +119,16 @@
 <!-- ========================= -->
 <!-- RODAPÉ -->
 <!-- ========================= -->
+{# mt-auto junto com o flex-column do body garante que o footer fique sempre no fundo #}
 <footer class="rodape-base bg-black text-center text-light p-3 mt-auto">
     @2026 Vitor Gabriel Vido & Rhian Esteves
 </footer>
 
 <!-- Bootstrap JS -->
+{# bundle já inclui o Popper — necessário pro dropdown e collapse funcionarem #}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+{# bloco opcional — templates filhos podem injetar scripts específicos aqui #}
 {% block scripts %}{% endblock %}
 
 </body>

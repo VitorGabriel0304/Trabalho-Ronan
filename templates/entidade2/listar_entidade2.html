@@ -1,30 +1,41 @@
 {% extends "base.html" %}
+{# herda o base com navbar — rota protegida pelo @login_obrigatorio #}
 
 {% block conteudo %}
 <div class="container">
     <h1 class="titulo-usuario">Lista de Filmes</h1>
 
     <!-- Botão para adicionar filme -->
+    {# style inline aqui, mas essa margem já existe no .acoes-usuario do CSS — ficou duplicado #}
     <div class="acoes-usuario" style="margin-bottom:15px;">
         <a href="{{ url_for('inserir_filmes') }}" class="add-usuario">Adicionar Filme</a>
     </div>
 
     <!-- Filtro interativo por gênero -->
+    {# filtro funciona passando o gênero como query string: /filmes/listar?genero=Ação #}
     <div class="filtros-por-genero" style="margin-bottom: 15px;">
         <span style="font-weight:bold; margin-right:10px;">Filtrar por gênero:</span>
-        <a href="{{ url_for('listar_filmes', genero='todos') }}" class="btn-filtro" style="margin-right:5px; padding:5px 10px; background:#4CAF50; color:white; border-radius:5px; text-decoration:none;">Todos</a>
+
+        {# "Todos" reseta o filtro passando genero='todos' — o Flask trata esse valor como padrão #}
+        <a href="{{ url_for('listar_filmes', genero='todos') }}" class="btn-filtro"
+            style="margin-right:5px; padding:5px 10px; background:#4CAF50; color:white; border-radius:5px; text-decoration:none;">Todos</a>
+
+        {# generos vem do app.py — lista com os nomes extraídos da lista de dicionários #}
         {% for g in generos %}
-        <a href="{{ url_for('listar_filmes', genero=g) }}" class="btn-filtro" style="margin-right:5px; padding:5px 10px; background:#2196F3; color:white; border-radius:5px; text-decoration:none;">{{ g }}</a>
+        {# cada link gera uma URL diferente: ?genero=Ação, ?genero=Drama, etc #}
+        <a href="{{ url_for('listar_filmes', genero=g) }}" class="btn-filtro"
+            style="margin-right:5px; padding:5px 10px; background:#2196F3; color:white; border-radius:5px; text-decoration:none;">{{ g }}</a>
         {% endfor %}
     </div>
 
     <!-- Tabela de filmes -->
+    {# tabela-usuario tem overflow-x:auto no CSS — scrolla em telas pequenas #}
     <div class="tabela-usuario">
         <table>
             <thead>
                 <tr>
                     <th>Registro</th>
-                    <th>Capa</th> 
+                    <th>Capa</th>
                     <th>Título</th>
                     <th>Ano</th>
                     <th>Gênero</th>
@@ -34,20 +45,22 @@
             </thead>
 
             <tbody>
+                {# filmes já vem filtrado por gênero E faixa etária do app.py #}
                 {% for filme in filmes %}
                 <tr>
                     <td>{{ loop.index }}</td>
                     <td>
-                        <img 
-                            src="{{ filme.capa if filme.capa else 'https://via.placeholder.com/60x90' }}"
+                        {# se não tiver capa cadastrada, usa um placeholder genérico online #}
+                        <img src="{{ filme.capa if filme.capa else 'https://via.placeholder.com/60x90' }}"
                             alt="Capa do filme"
                             style="width: 60px; height: 90px; object-fit: cover; border-radius: 8px;">
                     </td>
                     <td>{{ filme.titulo }}</td>
                     <td>{{ filme.ano }}</td>
                     <td>{{ filme.genero }}</td>
-                    <td>{{ filme.faixa_etaria }}+</td>
+                    <td>{{ filme.faixa_etaria }}+</td>  {# o + é só visual, concatenado direto no template #}
                     <td>
+                        {# botões sem rota ainda — editar e excluir não estão implementados #}
                         <button class="btn-editar">Editar</button>
                         <button class="btn-excluir">Excluir</button>
                     </td>

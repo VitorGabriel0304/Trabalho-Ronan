@@ -1,32 +1,41 @@
 {% extends "base_publica.html" %}
+{# herda o layout base público — navbar sem botões de admin, etc #}
 
 {% block conteudo %}
 
+{# centraliza o card vertical e horizontalmente na tela toda #}
 <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    {# login-card é a classe custom do CSS com o glow vermelho #}
     <div class="login-card">
         <h2>CineList</h2>
 
+        {# action aponta pro endpoint 'login', method POST envia os dados no corpo da requisição #}
         <form action="{{ url_for('login') }}" method="POST">
 
             <label>E-mail</label>
+            {# name="email" é o que o Flask pega com request.form.get("email") #}
             <input type="text" name="email" placeholder="Digite seu E-mail" required>
 
             <label>Senha</label>
-<div class="senha-container">
-    <input type="password" name="senha" placeholder="Digite sua senha" required>
-    <span class="toggle-olho" onclick="toggleSenha(this)">👁️</span>
-</div>
+            {# container relativo pra conseguir posicionar o olho dentro do input #}
+            <div class="senha-container">
+                <input type="password" name="senha" placeholder="Digite sua senha" required>
+                {# passa o próprio elemento (this) pro JS saber qual input alternar #}
+                <span class="toggle-olho" onclick="toggleSenha(this)">👁️</span>
+            </div>
 
             <button type="submit" class="btn-criar">Entrar</button>
 
         </form>
 
+        {# link pra quem ainda não tem conta #}
         <p class="ja-tem-conta">
             Não tem conta? <a href="{{ url_for('cadastro') }}">Criar Conta</a>
         </p>
     </div>
 </div>
 
+{# JS externo com a função toggleSenha — carregado no final pra não travar o HTML #}
 <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 
 {% endblock %}

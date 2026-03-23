@@ -1,18 +1,22 @@
 {% extends "base_publica.html" %}
+{# herda o layout base público — sem login obrigatório #}
 
 {% block conteudo %}
 
+{# bloco central com título, descrição e botões de entrada #}
 <div class="central-texto mb-5">
     <h1 class="titulo-principal mb-3">🎬 CineList</h1>
     <p class="descricao-principal">Seu catálogo de filmes online. Organize, explore e gerencie seus filmes favoritos de forma simples.</p>
 
-    <a href="/login" class="botao-entrar me-2">Entrar</a>
-    <a href="/cadastro" class="botao-criar">Criar Conta</a>
+    <a href="{{ url_for('login') }}" class="botao-entrar me-2">Entrar</a>
+    <a href="{{ url_for('cadastro') }}" class="botao-criar">Criar Conta</a>
 </div>
 
 <!-- funcionalidades -->
+{# linha-funcoes é classe custom do CSS, posiciona os cards lado a lado #}
 <div class="linha-funcoes">
 
+    {# card 1 — só visual, não tem link (é só pra mostrar o que o sistema faz) #}
     <div class="col-funcao mb-3">
         <div class="bloco-funcao bg-secundario text-light h-100">
             <div class="corpo-bloco text-center">
@@ -22,6 +26,7 @@
         </div>
     </div>
 
+    {# card 2 — gêneros #}
     <div class="col-funcao mb-3">
         <div class="bloco-funcao bg-secundario text-light h-100">
             <div class="corpo-bloco text-center">
@@ -31,6 +36,7 @@
         </div>
     </div>
 
+    {# card 3 — usuários #}
     <div class="col-funcao mb-3">
         <div class="bloco-funcao bg-secundario text-light h-100">
             <div class="corpo-bloco text-center">
@@ -42,6 +48,7 @@
 
 </div>
                 <!-- Adicionando o botao para ver a equipe no index , tinha esquecido-->
+{# botao-equipe fica fixo no canto pelo CSS (position: absolute, left: 20px) #}
 <a href="{{ url_for('sobre_equipe') }}" class="botao-equipe">Equipe</a>
 
 {% endblock %}

@@ -1,43 +1,48 @@
 {% extends "base.html" %}
+{# herda o base com navbar — essa página é protegida, só logado acessa #}
 
 {% block conteudo %}
 <div class="container">
-    <h1 class="titulo-usuario">Lista de Usuários</h1>
+  <h1 class="titulo-usuario">Lista de Usuários</h1>
 
-    <!-- Botão para adicionar usuário -->
-    <div class="acoes-usuario">
-        <a href="{{ url_for('inserir_usuarios') }}" class="add-usuario">Cadastrar Usuário</a>
-    </div>
+  <!-- Botão para adicionar usuário -->
+  {# acoes-usuario alinha o botão à direita pelo CSS #}
+  <div class="acoes-usuario">
+    <a href="{{ url_for('inserir_usuarios') }}" class="add-usuario">Cadastrar Usuário</a>
+  </div>
 
-    <!-- Tabela de usuários -->
-    <div class="tabela-usuario">
-        <table>
-            <thead>
-                <tr>
-                    <th>Registro</th> 
-                    <th>Nome</th>
-                    <th>Idade</th>
-                    <th>E-mail</th>
-                    <th>Senha</th> 
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for usuario in usuarios %}
-                <tr>
-                    <td>{{ loop.index }}</td> 
-                    <td>{{ usuario.nome }}</td>
-                    <td>{{ usuario.idade }}</td>
-                    <td>{{ usuario.email }}</td>
-                    <td>{{ usuario.senha }}</td> 
-                    <td>
-                        <button class="btn-editar">Editar</button>
-                        <button class="btn-excluir">Excluir</button>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+  <!-- Tabela de usuários -->
+  {# tabela-usuario tem overflow-x:auto no CSS — scrolla em telas pequenas sem quebrar #}
+  <div class="tabela-usuario">
+    <table>
+      <thead>
+        <tr>
+          <th>Registro</th>
+          <th>Nome</th>
+          <th>Idade</th>
+          <th>E-mail</th>
+          <th>Senha</th>  {# atenção: exibir senha em texto puro não é seguro em produção #}
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {# loop.index começa em 1 #}
+        {% for usuario in usuarios %}
+        <tr>
+          <td>{{ loop.index }}</td>       {# número da linha na listagem #}
+          <td>{{ usuario.nome }}</td>
+          <td>{{ usuario.idade }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.senha }}</td>
+          <td>
+            {# botões sem action ainda — editar e excluir não têm rota implementada #}
+            <button class="btn-editar">Editar</button>
+            <button class="btn-excluir">Excluir</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}

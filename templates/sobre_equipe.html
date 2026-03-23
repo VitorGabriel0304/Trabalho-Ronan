@@ -1,7 +1,9 @@
 {% extends "base_publica.html" %}
+{# herda o layout base — tudo que tiver aqui vai dentro do {% block conteudo %} lá #}
 
 {% block conteudo %}
 
+{# botão fixo no canto pra voltar pra home, estilizado pelo .botao-inicial do CSS #}
 <a href="{{ url_for('index') }}" class="botao-inicial">Página Inicial</a>
 
 
@@ -9,11 +11,14 @@
 
     <h1 class="text-center mb-5 titulo-principal">Nossa Equipe</h1>
 
+    {# row do Bootstrap com cards centralizados e gap entre eles #}
     <div class="row justify-content-center g-4">
 
         <!-- Membro 1 -->
         <div class="col-md-4 col-sm-6">
+            {# membro-box é a classe custom do CSS, p-4 e text-center são do Bootstrap #}
             <div class="membro-box p-4 text-center">
+                {# url_for('static') gera o caminho certo pra pasta /static/imgs/ #}
                 <img src="{{ url_for('static', filename='imgs/Avatar-Vitor.jpeg') }}" alt="Vitor Gabriel" class="foto-membro rounded-circle mb-3">
                 <h5 class="nome-membro">Vitor Gabriel Vido</h5>
                 <p class="cargo-membro">Estudante de Gestão da Tecnologia da Informação - FATEC JAHU</p>
@@ -24,7 +29,9 @@
                     Nos meus tempos livres, curto filmes, séries e explorar jogos online com amigos.
                 </p>
                 <div class="email-container">
+                    {# id único por membro pra o JS saber qual email pegar #}
                     <span class="email-text" id="email-vitor">vitorvido03@gmail.com</span>
+                    {# passa o id como string pra função JS #}
                     <button class="btn btn-success btn-sm btn-copiar" onclick="copyEmail('email-vitor')">Copiar</button>
                 </div>
             </div>
@@ -52,11 +59,12 @@
 </div>
 
 <script>
+    // pega o texto do span pelo id e copia pro clipboard do usuário
     function copyEmail(id) {
         const emailText = document.getElementById(id).innerText;
         navigator.clipboard.writeText(emailText)
-            .then(() => alert("E-mail copiado: " + emailText))
-            .catch(() => alert("Falha ao copiar o e-mail."));
+            .then(() => alert("E-mail copiado: " + emailText))   // deu certo
+            .catch(() => alert("Falha ao copiar o e-mail."));     // deu errado (ex: sem permissão)
     }
 </script>
 

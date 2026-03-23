@@ -1,34 +1,42 @@
 {% extends "base.html" %}
+{# herda o base com navbar — rota protegida pelo @login_obrigatorio #}
 
 {% block conteudo %}
-<div class="container mt-4" style="max-width: 700px;">
+<div class="container mt-4" style="max-width: 700px">
+    {# max-width inline pra limitar a largura do form — poderia estar no CSS também #}
     <h1 class="titulo-usuario mb-4">Adicionar Série / Documentário</h1>
 
+    {# sem action= : o POST vai pra mesma URL da página (/series/inserir) #}
     <form method="POST">
+
         <!-- Título -->
+        {# mb-3 do Bootstrap dá o espaçamento entre os campos #}
         <div class="mb-3">
             <label for="titulo" class="form-label">Título</label>
-            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Digite o título" required>
+            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Digite o título" required />
         </div>
 
         <!-- Ano -->
+        {# min e max bloqueiam anos fora do intervalo direto no navegador #}
         <div class="mb-3">
-            <label for="ano" class="form-label">Ano</label>
-            <input type="number" class="form-control" id="ano" name="ano" placeholder="Ex: 2023" min="1900" max="2099" required>
+            <label for="ano" class="form-label">Ano De Lançamento</label>
+            <input type="number" class="form-control" id="ano" name="ano" placeholder="Ex: 2023" min="1900" max="2099" required />
         </div>
 
         <!-- Gênero -->
+        {# generos vem do app.py — lista de strings passada pro render_template #}
         <div class="mb-3">
             <label for="genero" class="form-label">Gênero</label>
             <select class="form-select" id="genero" name="genero" required>
-                <option value="">Selecione o gênero</option>
+                <option value="">Selecione o gênero</option>  {# value="" faz o required funcionar — sem selecionar não envia #}
                 {% for g in generos %}
-                <option value="{{ g }}">{{ g }}</option>
+                <option value="{{ g }}">{{ g }}</option>  {# value e texto são o mesmo: o nome do gênero #}
                 {% endfor %}
             </select>
         </div>
 
         <!-- Faixa Etária -->
+        {# valores fixos de classificação — o Flask salva o value (número), não o texto #}
         <div class="mb-3">
             <label for="faixa_etaria" class="form-label">Faixa Etária</label>
             <select class="form-select" id="faixa_etaria" name="faixa_etaria" required>
@@ -43,18 +51,21 @@
         </div>
 
         <!-- Número de Temporadas -->
+        {# campo extra que diferencia séries de filmes — min="1" evita 0 temporada #}
         <div class="mb-3">
             <label for="temporadas" class="form-label">Número de Temporadas</label>
-            <input type="number" class="form-control" id="temporadas" name="temporadas" placeholder="Ex: 3" min="1" required>
+            <input type="number" class="form-control" id="temporadas" name="temporadas" placeholder="Ex: 3" min="1" required />
         </div>
 
         <!-- Capa (opcional) -->
+        {# sem required — se vazio o app.py substitui por string vazia e a tabela usa o placeholder #}
         <div class="mb-3">
             <label for="capa" class="form-label">URL da Capa (opcional)</label>
-            <input type="text" class="form-control" id="capa" name="capa" placeholder="https://exemplo.com/capa.jpg">
+            <input type="text" class="form-control" id="capa" name="capa" placeholder="https://exemplo.com/capa.jpg" />
         </div>
 
         <!-- Botão Enviar -->
+        {# btn-success do Bootstrap sobrescrito pelo CSS do projeto pra ficar vermelho #}
         <button type="submit" class="btn btn-success">Adicionar</button>
     </form>
 </div>

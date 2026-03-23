@@ -1,39 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>CineList</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <!-- CSS do projeto -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- CSS do projeto carregado depois pra sobrescrever o Bootstrap quando necessário -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
 </head>
 
+{# versão mais simples do base — sem navbar, usada nas páginas públicas (login, cadastro, index, equipe) #}
 <body class="fundo-publico text-light">
-
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="conteudo-principal">
-
         <div class="container mt-5">
-
             <!-- Mensagens flash -->
-            {% with mensagens = get_flashed_messages(with_categories=true) %}
-                {% if mensagens %}
-                    {% for categoria, msg in mensagens %}
-                        <div class="alert alert-{{ categoria }} msg-flash">
-                            {{ msg }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
+            {# mesmo padrão do base_publica.html — categoria vira classe do alert Bootstrap #}
+            {% with mensagens = get_flashed_messages(with_categories=true) %} {% if
+            mensagens %} {% for categoria, msg in mensagens %}
+            <div class="alert alert-{{ categoria }} msg-flash">{{ msg }}</div>
+            {% endfor %} {% endif %} {% endwith %}
 
             <!-- Conteúdo das páginas -->
+            {# cada template filho preenche esse bloco com seu próprio HTML #}
             {% block conteudo %}{% endblock %}
-
         </div>
-
     </main>
 
     <!-- RODAPÉ -->
@@ -42,7 +36,8 @@
     </footer>
 
     <!-- Bootstrap JS -->
+    {# bundle já inclui o Popper — necessário pro dropdown e collapse funcionarem #}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
+
 </html>

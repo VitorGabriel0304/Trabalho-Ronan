@@ -1,38 +1,49 @@
 {% extends "base_publica.html" %}
+{# herda o layout base público #}
 
 {% block conteudo %}
 
+{# centraliza o card na tela inteira com flexbox inline — poderia usar a classe .linha-centro do CSS #}
 <div style="display:flex; justify-content:center; align-items:center; height:100vh;">
+    {# cadastro-card é a classe custom com glow vermelho, igual ao login-card #}
     <div class="cadastro-card">
 
         <h2>Criar Conta</h2>
 
+        {# sem action= aqui, então o POST vai pra mesma URL da página (/cadastro) #}
         <form method="POST">
 
             <!-- Nome -->
+            {# for="nome" conecta o label ao input pelo id, clicando no label já foca o campo #}
             <label for="nome">Nome</label>
             <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
 
             <!-- Idade -->
+            {# min="1" impede número negativo, type="number" já bloqueia texto #}
             <label for="idade">Idade</label>
             <input type="number" id="idade" name="idade" placeholder="Digite sua idade" min="1" required>
 
             <!-- E-mail -->
+            {# type="email" valida o formato no navegador antes de enviar #}
             <label for="email">E-mail</label>
             <input type="email" id="email" name="email" placeholder="Digite seu E-mail" required>
 
             <!-- Senha -->
             <label for="senha">Senha</label>
+            {# container relativo pro ícone do olho ficar dentro do input #}
             <div class="senha-container">
                 <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                {# aqui passa o id como string E o this — diferente do login que passava só o this #}
                 <span class="toggle-olho" onclick="toggleSenha('senha', this)">👁️</span>
             </div>
+            {# elemento vazio que o JS preenche com feedback de força da senha #}
             <small id="forca-senha" style="display:block; margin-top:5px;"></small>
 
             <!-- Confirmar Senha -->
             <label for="confirmar-senha">Confirmar Senha</label>
             <div class="senha-container">
                 <input type="password" id="confirmar-senha" name="confirmar" placeholder="Repita a senha" required>
+                {# name="confirmar" é o que o Flask pega com request.form.get("confirmar") pra comparar com a senha #}
                 <span class="toggle-olho" onclick="toggleSenha('confirmar-senha', this)">👁️</span>
             </div>
 
@@ -48,6 +59,7 @@
     </div>
 </div>
 
+{# JS com toggleSenha e lógica de força de senha — no final pra não travar o HTML #}
 <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 
 {% endblock %}
