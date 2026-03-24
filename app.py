@@ -48,13 +48,13 @@ filmes = [
 
 # séries com campo extra "temporadas" que filmes não têm
 series = [
-    {"titulo": "Breaking Bad", "ano": 2008, "genero": "Drama", "faixa_etaria": 16, "temporadas": 5, "capa": "/static/imgs/Breaking_Bad.jpg"},
-    {"titulo": "Friends", "ano": 1994, "genero": "Comédia", "faixa_etaria": 10, "temporadas": 10, "capa": "/static/imgs/Friends.jpg"},
-    {"titulo": "Stranger Things", "ano": 2016, "genero": "Ficção", "faixa_etaria": 12, "temporadas": 4, "capa": "/static/imgs/Stranger_Things.jpg"},
-    {"titulo": "Planet Earth", "ano": 2006, "genero": "Documentário", "faixa_etaria": 0, "temporadas": 1, "capa": "/static/imgs/Planet_Earth.jpg"},
-    {"titulo": "The Office", "ano": 2005, "genero": "Comédia", "faixa_etaria": 12, "temporadas": 9, "capa": "/static/imgs/The_Office.jpg"},
+    {"titulo": "Breaking Bad", "ano": 2008, "genero": "Drama", "faixa_etaria": 16, "temporadas": 5, "capa": "/static/imgs/breakingbad.jpg"},
+    {"titulo": "Friends", "ano": 1994, "genero": "Comédia", "faixa_etaria": 10, "temporadas": 10, "capa": "/static/imgs/Friends.webp"},
+    {"titulo": "Stranger Things", "ano": 2016, "genero": "Ficção", "faixa_etaria": 12, "temporadas": 4, "capa": "/static/imgs/StrangerThings.jpg"},
+    {"titulo": "Planet Earth", "ano": 2006, "genero": "Documentário", "faixa_etaria": 0, "temporadas": 1, "capa": "/static/imgs/PlanetEARTH.jpg"},
+    {"titulo": "The Office", "ano": 2005, "genero": "Comédia", "faixa_etaria": 12, "temporadas": 9, "capa": "/static/imgs/TheOffice.jpg"},
     {"titulo": "Chernobyl", "ano": 2019, "genero": "Drama", "faixa_etaria": 16, "temporadas": 1, "capa": "/static/imgs/Chernobyl.jpg"},
-    {"titulo": "Our Planet", "ano": 2019, "genero": "Documentário", "faixa_etaria": 0, "temporadas": 1, "capa": "/static/imgs/Our_Planet.jpg"}
+    {"titulo": "Our Planet", "ano": 2019, "genero": "Documentário", "faixa_etaria": 0, "temporadas": 1, "capa": "/static/imgs/OurPlanet.webp"}
 ]
 
 # -----------------------------
@@ -168,7 +168,7 @@ def listar_filmes():
     filmes_filtrados = [f for f in filmes if genero_filtro == "todos" or f["genero"] == genero_filtro]
     # ...depois filtra por faixa etária do usuário logado
     filmes_filtrados = [f for f in filmes_filtrados if idade_usuario >= f["faixa_etaria"]]
-    return render_template("entidade2/listar_entidade2.html", filmes=filmes_filtrados, generos=lista_generos, genero_filtro=genero_filtro)
+    return render_template("filmes/listar_filme.html", filmes=filmes_filtrados, generos=lista_generos, genero_filtro=genero_filtro)
 
 @app.route("/filmes/inserir", methods=["GET", "POST"], endpoint="inserir_filmes")
 @login_obrigatorio
@@ -185,7 +185,7 @@ def inserir_filmes():
         filmes.append({"titulo": titulo, "ano": int(ano), "genero": genero, "faixa_etaria": int(faixa_etaria), "capa": capa if capa else ""})  # capa vira string vazia se não informada
         flash("Filme adicionado!", "success")
         return redirect(url_for("listar_filmes"))
-    return render_template("entidade2/inserir_entidade2.html", generos=[g["nome"] for g in generos])
+    return render_template("filmes/inserir_filme.html", generos=[g["nome"] for g in generos])
 
 # -----------------------------
 # Séries
@@ -204,7 +204,7 @@ def listar_series():
     idade_usuario = int(usuario_logado.get("idade", 0))
     series_filtradas = [s for s in series if genero_filtro == "todos" or s["genero"] == genero_filtro]
     series_filtradas = [s for s in series_filtradas if idade_usuario >= s["faixa_etaria"]]
-    return render_template("entidade3/listar_entidade3.html", series=series_filtradas, generos=lista_generos, genero_filtro=genero_filtro)
+    return render_template("series/listar_serie.html", series=series_filtradas, generos=lista_generos, genero_filtro=genero_filtro)
 
 @app.route("/series/inserir", methods=["GET", "POST"], endpoint="inserir_series")
 @login_obrigatorio
@@ -222,7 +222,7 @@ def inserir_series():
         series.append({"titulo": titulo, "ano": int(ano), "genero": genero, "faixa_etaria": int(faixa_etaria), "temporadas": int(temporadas), "capa": capa if capa else ""})
         flash("Série/Documentário adicionado!", "success")
         return redirect(url_for("listar_series"))
-    return render_template("entidade3/inserir_entidade3.html", generos=[g["nome"] for g in generos])
+    return render_template("series/inserir_serie.html", generos=[g["nome"] for g in generos])
 
 # -----------------------------
 # Rodar servidor

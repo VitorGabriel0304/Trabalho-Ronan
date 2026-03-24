@@ -1,10 +1,10 @@
 /* ================================================== */
-/*  CINELIST — PREMIUM CSS                            */
-/*  Estética: Luxury Dark Cinema                      */
-/*  Fontes: Cormorant Garamond + DM Sans              */
+/*  CINELIST — BLACK & GOLD                           */
+/*  Estética: Premium Dark Editorial                  */
+/*  Fontes: Playfair Display + Syne                   */
 /* ================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Syne:wght@400;500;600;700;800&display=swap');
 
 
 /* ========================= */
@@ -12,31 +12,31 @@
 /* ========================= */
 :root {
     --preto:        #080808;
-    --superficie:   #111111;
-    --superficie2:  #1a1a1a;
+    --preto-card:   #0f0f0f;
+    --preto-card2:  #141414;
+    --preto-input:  #111111;
+
     --borda:        rgba(255, 255, 255, 0.06);
-    --borda-hover:  rgba(255, 255, 255, 0.14);
+    --borda-md:     rgba(255, 255, 255, 0.10);
+    --borda-ouro:   rgba(196, 155, 60, 0.4);
 
-    --vermelho:     #c0392b;
-    --vermelho-vivo:#e74c3c;
-    --vermelho-glow:rgba(192, 57, 43, 0.35);
+    --ouro:         #c49b3c;
+    --ouro-claro:   #e2b95a;
+    --ouro-escuro:  #8a6a20;
+    --ouro-pale:    rgba(196, 155, 60, 0.08);
 
-    --ouro:         #c9a84c;
-    --ouro-claro:   #e2c97e;
-    --ouro-glow:    rgba(201, 168, 76, 0.25);
+    --texto:        #ede8df;
+    --texto-muted:  #7a7068;
+    --texto-dim:    #3e3830;
 
-    --texto:        #f0ece4;
-    --texto-muted:  #8a8070;
-    --texto-dim:    #5a5248;
+    --raio-sm:  6px;
+    --raio-md:  10px;
+    --raio-lg:  18px;
+    --raio-xl:  24px;
 
-    --raio-sm:  8px;
-    --raio-md:  14px;
-    --raio-lg:  22px;
-    --raio-xl:  32px;
-
-    --sombra-card: 0 24px 60px rgba(0,0,0,0.7), 0 8px 20px rgba(0,0,0,0.5);
-    --sombra-hover: 0 32px 80px rgba(0,0,0,0.8), 0 0 40px var(--vermelho-glow);
-    --trans: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    --sombra-base: 0 16px 48px rgba(0,0,0,0.7);
+    --sombra-ouro: 0 8px 32px rgba(196, 155, 60, 0.18);
+    --trans: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 *, *::before, *::after {
@@ -47,12 +47,9 @@
 
 html, body {
     height: 100%;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Syne', sans-serif;
     color: var(--texto);
     background-color: var(--preto);
-    /* grain sutil de cinema */
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-    background-size: 200px;
 }
 
 body {
@@ -63,25 +60,42 @@ body {
 
 main { flex: 1; }
 
-/* scrollbar customizada */
-::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--preto); }
-::-webkit-scrollbar-thumb { background: var(--vermelho); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: var(--ouro-escuro); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ouro); }
 
 
 /* ========================= */
-/* 2. TIPOGRAFIA              */
+/* 2. ANIMAÇÕES               */
 /* ========================= */
-h1, h2, h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
-    letter-spacing: 0.02em;
+@keyframes entrada-cima {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-h1 { font-size: 3rem; }
-h2 { font-size: 2rem; }
+@keyframes entrada-baixo {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
 
-p { color: var(--texto-muted); line-height: 1.7; }
+
+/* ========================= */
+/* 3. TIPOGRAFIA              */
+/* ========================= */
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+h3 { font-family: 'Syne', sans-serif; font-weight: 600; }
+
+p {
+    color: var(--texto-muted);
+    line-height: 1.75;
+    font-weight: 400;
+}
 
 ::placeholder {
     color: var(--texto-dim);
@@ -90,32 +104,29 @@ p { color: var(--texto-muted); line-height: 1.7; }
 
 
 /* ========================= */
-/* 3. TÍTULO PRINCIPAL        */
+/* 4. TÍTULO PRINCIPAL        */
 /* ========================= */
 .titulo-principal {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 88px;
-    font-weight: 300;
-    color: var(--texto);
+    font-family: 'Playfair Display', serif;
+    font-size: 96px;
+    font-weight: 700;
     text-align: center;
-    letter-spacing: 18px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    background: linear-gradient(135deg, #f0ece4 30%, var(--ouro-claro) 60%, #f0ece4 90%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    position: relative;
+    letter-spacing: 10px;
+    line-height: 1;
+    margin-bottom: 10px;
+    color: var(--texto);
+    animation: entrada-cima 0.8s ease both;
 }
 
+/* sublinhado ouro sob o título */
 .titulo-principal::after {
     content: '';
     display: block;
-    width: 60px;
-    height: 1px;
+    width: 80px;
+    height: 2px;
     background: var(--ouro);
-    margin: 18px auto 0;
-    opacity: 0.6;
+    margin: 20px auto 0;
+    border-radius: 1px;
 }
 
 .descricao-principal {
@@ -124,19 +135,18 @@ p { color: var(--texto-muted); line-height: 1.7; }
     text-align: center;
     max-width: 500px;
     margin: 130px auto 0;
-    line-height: 1.8;
-    letter-spacing: 0.03em;
-    font-weight: 300;
+    line-height: 1.85;
+    font-weight: 400;
+    letter-spacing: 0.02em;
     transition: var(--trans);
+    animation: entrada-baixo 1s ease both;
 }
 
-.descricao-principal:hover {
-    color: var(--texto);
-}
+.descricao-principal:hover { color: var(--texto); }
 
 
 /* ========================= */
-/* 4. LAYOUT / CONTAINERS     */
+/* 5. LAYOUT / CONTAINERS     */
 /* ========================= */
 .central-texto {
     text-align: center;
@@ -148,8 +158,8 @@ p { color: var(--texto-muted); line-height: 1.7; }
     justify-content: center;
     gap: 24px;
     flex-wrap: wrap;
-    margin-top: 80px;
-    padding: 0 40px;
+    margin-top: 72px;
+    padding: 0 32px;
 }
 
 .col-funcao {
@@ -162,14 +172,11 @@ p { color: var(--texto-muted); line-height: 1.7; }
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 85vh;
+    min-height: 88vh;
     padding: 40px 20px;
 }
 
-.coluna-form {
-    width: 100%;
-    max-width: 420px;
-}
+.coluna-form { width: 100%; max-width: 420px; }
 
 .container.mt-4 {
     display: flex;
@@ -181,38 +188,35 @@ p { color: var(--texto-muted); line-height: 1.7; }
 
 
 /* ========================= */
-/* 5. NAVBAR                  */
+/* 6. NAVBAR                  */
 /* ========================= */
 .navbar,
 .menu-superior {
-    background: rgba(8, 8, 8, 0.85) !important;
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border-bottom: 1px solid var(--borda);
-    padding: 0 0;
-    height: 64px;
+    background: rgba(8, 8, 8, 0.96) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--borda-ouro);
+    height: 70px;
 }
 
 .nome-sistema {
-    font-family: 'Cormorant Garamond', serif !important;
-    font-size: 1.5rem !important;
-    font-weight: 600 !important;
+    font-family: 'Playfair Display', serif !important;
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
     letter-spacing: 3px;
-    color: var(--texto) !important;
+    color: var(--ouro) !important;
     text-decoration: none;
     transition: var(--trans);
 }
 
-.nome-sistema:hover {
-    color: var(--ouro) !important;
-}
+.nome-sistema:hover { color: var(--ouro-claro) !important; }
 
 .links-menu .nav-link {
     color: var(--texto-muted) !important;
-    font-size: 0.82rem;
-    letter-spacing: 0.12em;
+    font-size: 0.76rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
     padding: 6px 16px !important;
     transition: var(--trans);
     position: relative;
@@ -228,57 +232,49 @@ p { color: var(--texto-muted); line-height: 1.7; }
     background: var(--ouro);
     transform: scaleX(0);
     transition: var(--trans);
+    border-radius: 1px;
 }
 
-.links-menu .nav-link:hover {
-    color: var(--texto) !important;
-}
+.links-menu .nav-link:hover { color: var(--ouro-claro) !important; }
+.links-menu .nav-link:hover::after { transform: scaleX(1); }
 
-.links-menu .nav-link:hover::after {
-    transform: scaleX(1);
-}
-
-.area-usuario {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+.area-usuario { display: flex; align-items: center; gap: 14px; }
 
 
 /* ========================= */
-/* 6. BOTÕES — NAVBAR         */
+/* 7. BOTÕES NAVBAR           */
 /* ========================= */
 .btn-sair {
     background: transparent;
-    color: var(--vermelho-vivo);
-    border: 1px solid rgba(192, 57, 43, 0.4);
+    color: var(--texto-muted);
+    border: 1px solid var(--borda-md);
     border-radius: var(--raio-lg);
-    padding: 7px 18px;
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
+    padding: 9px 22px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    font-weight: 500;
-    transition: var(--trans);
     cursor: pointer;
+    transition: var(--trans);
 }
 
 .btn-sair:hover {
-    background: var(--vermelho);
-    color: var(--texto);
-    border-color: var(--vermelho);
-    box-shadow: 0 0 20px var(--vermelho-glow);
+    border-color: var(--ouro);
+    color: var(--ouro);
 }
 
 .btn-login {
     background: transparent;
-    border: 1px solid var(--borda-hover);
+    border: 1px solid var(--borda-md);
     color: var(--texto-muted);
     border-radius: var(--raio-lg);
-    padding: 7px 18px;
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
+    padding: 9px 22px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    font-weight: 500;
     text-decoration: none;
     transition: var(--trans);
     display: inline-block;
@@ -290,87 +286,87 @@ p { color: var(--texto-muted); line-height: 1.7; }
 }
 
 .btn-cadastro {
-    background: var(--vermelho);
-    color: var(--texto);
+    background: var(--ouro);
+    color: var(--preto);
     border: 1px solid transparent;
     border-radius: var(--raio-lg);
-    padding: 7px 18px;
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
+    padding: 9px 22px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    font-weight: 500;
     text-decoration: none;
     transition: var(--trans);
     display: inline-block;
 }
 
 .btn-cadastro:hover {
-    background: var(--vermelho-vivo);
-    box-shadow: 0 0 24px var(--vermelho-glow);
-    color: var(--texto);
+    background: var(--ouro-claro);
+    color: var(--preto);
+    box-shadow: var(--sombra-ouro);
 }
 
 
 /* ========================= */
-/* 7. DROPDOWN PERFIL         */
+/* 8. DROPDOWN PERFIL         */
 /* ========================= */
 .perfil-btn {
-    background: var(--superficie2) !important;
+    background: var(--preto-card2) !important;
     color: var(--texto) !important;
-    border: 1px solid var(--borda) !important;
+    border: 1px solid var(--borda-ouro) !important;
     border-radius: var(--raio-md) !important;
-    padding: 8px 16px !important;
-    font-size: 0.82rem;
+    padding: 8px 18px !important;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
     font-weight: 500;
-    letter-spacing: 0.04em;
     transition: var(--trans) !important;
-    font-family: 'DM Sans', sans-serif;
 }
 
-.perfil-btn:hover,
-.perfil-btn:focus {
-    border-color: var(--ouro) !important;
+.perfil-btn:hover {
+    border-color: var(--ouro-claro) !important;
     color: var(--ouro) !important;
-    background: var(--superficie) !important;
 }
 
 .dropdown-menu {
-    background: var(--superficie2) !important;
-    border: 1px solid var(--borda-hover) !important;
+    background: var(--preto-card) !important;
+    border: 1px solid var(--borda-ouro) !important;
     border-radius: var(--raio-md) !important;
-    box-shadow: var(--sombra-card) !important;
+    box-shadow: var(--sombra-base) !important;
     padding: 6px !important;
-    min-width: 180px;
 }
 
 .dropdown-item {
     color: var(--texto-muted) !important;
     border-radius: var(--raio-sm) !important;
-    padding: 9px 14px !important;
-    font-size: 0.83rem;
+    padding: 10px 16px !important;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
     letter-spacing: 0.04em;
     transition: var(--trans) !important;
 }
 
 .dropdown-item:hover {
-    background: rgba(255,255,255,0.05) !important;
+    background: var(--ouro-pale) !important;
     color: var(--ouro) !important;
 }
 
 
 /* ========================= */
-/* 8. BOTÕES FLUTUANTES INDEX */
+/* 9. BOTÕES FLUTUANTES INDEX */
 /* ========================= */
 .botao-entrar,
 .botao-criar,
 .botao-equipe,
 .botao-inicial {
     position: absolute;
-    padding: 11px 22px;
+    padding: 12px 28px;
     border-radius: var(--raio-lg);
-    font-weight: 500;
-    font-size: 0.82rem;
-    letter-spacing: 0.1em;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     text-decoration: none;
     display: inline-block;
@@ -379,31 +375,30 @@ p { color: var(--texto-muted); line-height: 1.7; }
 }
 
 .botao-entrar {
-    right: 170px;
+    right: 185px;
     top: 18px;
     background: transparent;
-    color: var(--texto);
-    border: 1px solid var(--borda-hover);
+    color: var(--texto-muted);
+    border: 1px solid var(--borda-md);
 }
 
 .botao-entrar:hover {
-    border-color: var(--vermelho);
-    color: var(--vermelho-vivo);
-    box-shadow: 0 0 24px var(--vermelho-glow);
+    border-color: var(--ouro);
+    color: var(--ouro);
 }
 
 .botao-criar {
     right: 18px;
     top: 18px;
-    background: var(--vermelho);
-    color: var(--texto);
+    background: var(--ouro);
+    color: var(--preto);
     border: 1px solid transparent;
 }
 
 .botao-criar:hover {
-    background: var(--vermelho-vivo);
-    box-shadow: 0 0 28px var(--vermelho-glow);
-    color: var(--texto);
+    background: var(--ouro-claro);
+    box-shadow: var(--sombra-ouro);
+    color: var(--preto);
 }
 
 .botao-equipe {
@@ -411,13 +406,12 @@ p { color: var(--texto-muted); line-height: 1.7; }
     top: 18px;
     background: transparent;
     color: var(--texto-muted);
-    border: 1px solid var(--borda);
+    border: 1px solid var(--borda-md);
 }
 
 .botao-equipe:hover {
     border-color: var(--ouro);
     color: var(--ouro);
-    box-shadow: 0 0 20px var(--ouro-glow);
 }
 
 .botao-inicial {
@@ -425,269 +419,230 @@ p { color: var(--texto-muted); line-height: 1.7; }
     top: 18px;
     background: transparent;
     color: var(--texto-muted);
-    border: 1px solid var(--borda);
+    border: 1px solid var(--borda-md);
 }
 
 .botao-inicial:hover {
     border-color: var(--ouro);
     color: var(--ouro);
-    box-shadow: 0 0 20px var(--ouro-glow);
 }
 
 
 /* ========================= */
-/* 9. BOTÃO FORM              */
+/* 10. BOTÃO FORM             */
 /* ========================= */
 .botao-form {
-    display: inline-block;
+    display: block;
     width: 100%;
-    padding: 13px 28px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
+    padding: 16px 28px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--texto);
-    background: var(--vermelho);
+    color: var(--preto);
+    background: var(--ouro);
     border: none;
     border-radius: var(--raio-lg);
     cursor: pointer;
     transition: var(--trans);
-    position: relative;
-    overflow: hidden;
-    margin-top: 8px;
-}
-
-.botao-form::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.08) 100%);
-    transition: var(--trans);
+    margin-top: 16px;
 }
 
 .botao-form:hover {
-    background: var(--vermelho-vivo);
-    box-shadow: 0 8px 32px var(--vermelho-glow), 0 2px 8px rgba(0,0,0,0.4);
+    background: var(--ouro-claro);
+    box-shadow: var(--sombra-ouro);
     transform: translateY(-1px);
 }
 
 .botao-form:active {
-    transform: translateY(0) scale(0.98);
+    transform: translateY(0) scale(0.99);
 }
 
 
 /* ========================= */
-/* 10. BOTÕES DE AÇÃO (TABELA)*/
+/* 11. BOTÕES DE AÇÃO TABELA  */
 /* ========================= */
 .btn-editar,
 .btn-excluir {
-    padding: 6px 16px;
-    border-radius: var(--raio-sm);
-    font-size: 0.76rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    padding: 8px 20px;
+    border-radius: var(--raio-md);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     border: 1px solid transparent;
     cursor: pointer;
-    margin: 0 3px;
+    margin: 0 5px;
     transition: var(--trans);
 }
 
 .btn-editar {
-    background: transparent;
-    border-color: rgba(201, 168, 76, 0.3);
+    background: var(--ouro-pale);
+    border-color: var(--borda-ouro);
     color: var(--ouro);
 }
 
 .btn-editar:hover {
     background: var(--ouro);
     color: var(--preto);
-    box-shadow: 0 0 16px var(--ouro-glow);
     border-color: var(--ouro);
 }
 
 .btn-excluir {
-    background: transparent;
-    border-color: rgba(192, 57, 43, 0.35);
-    color: var(--vermelho-vivo);
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255,255,255,0.08);
+    color: var(--texto-muted);
 }
 
 .btn-excluir:hover {
-    background: var(--vermelho);
-    color: var(--texto);
-    box-shadow: 0 0 16px var(--vermelho-glow);
-    border-color: var(--vermelho);
+    background: rgba(200, 50, 50, 0.15);
+    border-color: rgba(200, 50, 50, 0.4);
+    color: #e07070;
 }
 
 .btn-filtrar {
     padding: 9px 22px;
-    background: transparent;
-    color: var(--texto-muted);
-    border: 1px solid var(--borda-hover);
-    font-weight: 500;
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
+    background: var(--ouro);
+    color: var(--preto);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     border-radius: var(--raio-lg);
+    border: none;
     cursor: pointer;
     transition: var(--trans);
 }
 
 .btn-filtrar:hover {
-    border-color: var(--ouro);
-    color: var(--ouro);
-    box-shadow: 0 0 16px var(--ouro-glow);
+    background: var(--ouro-claro);
+    box-shadow: var(--sombra-ouro);
 }
 
-/* filtros inline da tabela */
+/* filtros inline */
 .filtros-por-genero {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .filtros-por-genero span {
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--texto-dim);
-    font-weight: 500;
+    font-weight: 700;
 }
 
 .btn-filtro {
     padding: 5px 14px !important;
     border-radius: var(--raio-lg) !important;
-    font-size: 0.75rem !important;
-    font-weight: 500 !important;
-    letter-spacing: 0.08em !important;
+    font-family: 'Syne', sans-serif !important;
+    font-size: 0.7rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.1em !important;
     text-decoration: none !important;
-    text-transform: uppercase;
+    text-transform: uppercase !important;
     transition: var(--trans) !important;
-    border: 1px solid var(--borda) !important;
-    color: var(--texto-muted) !important;
     background: transparent !important;
+    border: 1px solid var(--borda-md) !important;
+    color: var(--texto-muted) !important;
 }
 
 .btn-filtro:hover {
+    background: var(--ouro-pale) !important;
     border-color: var(--ouro) !important;
     color: var(--ouro) !important;
-    background: rgba(201, 168, 76, 0.06) !important;
-    box-shadow: 0 0 12px var(--ouro-glow) !important;
 }
 
 
 /* ========================= */
-/* 11. CARDS INDEX            */
+/* 12. CARDS INDEX            */
 /* ========================= */
 .bloco-funcao {
-    background: var(--superficie);
-    border-radius: var(--raio-lg);
-    padding: 32px 24px;
+    background: var(--preto-card);
+    border-radius: var(--raio-xl);
+    padding: 32px 26px;
     border: 1px solid var(--borda);
     transition: var(--trans);
     height: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.bloco-funcao::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--ouro), transparent);
-    opacity: 0;
-    transition: var(--trans);
+    /* linha ouro no topo do card */
+    border-top: 2px solid var(--ouro-escuro);
 }
 
 .bloco-funcao:hover {
-    transform: translateY(-6px);
-    border-color: var(--borda-hover);
-    box-shadow: var(--sombra-hover);
-}
-
-.bloco-funcao:hover::before {
-    opacity: 0.6;
+    transform: translateY(-8px);
+    border-color: var(--borda-ouro);
+    border-top-color: var(--ouro);
+    box-shadow: var(--sombra-base), var(--sombra-ouro);
 }
 
 .titulo-bloco {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
+    font-family: 'Playfair Display', serif;
     font-size: 1.3rem;
-    margin-bottom: 10px;
+    font-weight: 700;
+    margin-bottom: 12px;
     color: var(--texto);
-    letter-spacing: 0.04em;
 }
 
 .corpo-bloco p {
-    font-size: 0.88rem;
-    line-height: 1.7;
+    font-size: 0.87rem;
+    line-height: 1.75;
     color: var(--texto-muted);
 }
 
 
 /* ========================= */
-/* 12. LOGIN / CADASTRO CARD  */
+/* 13. LOGIN / CADASTRO CARD  */
 /* ========================= */
 .login-card,
 .cadastro-card {
     width: 100%;
-    max-width: 380px;
-    background: var(--superficie);
+    max-width: 390px;
+    background: var(--preto-card);
     border-radius: var(--raio-xl);
-    padding: 44px 40px;
+    padding: 48px 44px;
     border: 1px solid var(--borda);
-    box-shadow: var(--sombra-card);
-    position: relative;
-    overflow: hidden;
+    border-top: 2px solid var(--ouro);
+    box-shadow: var(--sombra-base);
     margin: auto;
-}
-
-.login-card::before,
-.cadastro-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 10%;
-    right: 10%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--ouro), transparent);
-    opacity: 0.5;
+    transition: var(--trans);
 }
 
 .login-card:hover,
 .cadastro-card:hover {
-    border-color: var(--borda-hover);
-    box-shadow: var(--sombra-hover);
+    border-color: var(--borda-ouro);
+    border-top-color: var(--ouro-claro);
+    box-shadow: var(--sombra-base), var(--sombra-ouro);
     transform: translateY(-3px);
-    transition: var(--trans);
 }
 
 .login-card h2,
 .cadastro-card h2 {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 2rem;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 32px;
-    color: var(--texto);
+    color: var(--ouro);
     text-align: center;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
 }
 
 .login-card label,
 .cadastro-card label {
     display: block;
     text-align: left;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--texto-dim);
-    margin-bottom: 8px;
+    margin-bottom: 7px;
     margin-top: 18px;
 }
 
@@ -695,13 +650,12 @@ p { color: var(--texto-muted); line-height: 1.7; }
 .cadastro-card input {
     width: 100%;
     padding: 13px 16px;
-    margin-bottom: 4px;
     border-radius: var(--raio-md);
-    border: 1px solid var(--borda);
-    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--borda-md);
+    background: var(--preto-input);
     color: var(--texto);
-    font-size: 0.92rem;
-    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-family: 'Syne', sans-serif;
     transition: var(--trans);
 }
 
@@ -709,100 +663,88 @@ p { color: var(--texto-muted); line-height: 1.7; }
 .cadastro-card input:focus {
     outline: none;
     border-color: var(--ouro);
-    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
-    background: rgba(201, 168, 76, 0.04);
+    box-shadow: 0 0 0 3px rgba(196, 155, 60, 0.12);
 }
 
-.senha-container {
-    position: relative;
-}
+.senha-container { position: relative; }
 
 .toggle-olho {
     position: absolute;
-    right: 14px;
+    right: 13px;
     top: 50%;
     transform: translateY(-60%);
     cursor: pointer;
-    font-size: 16px;
+    font-size: 15px;
     color: var(--texto-dim);
     transition: var(--trans);
 }
 
-.toggle-olho:hover {
-    color: var(--ouro);
-}
+.toggle-olho:hover { color: var(--ouro); }
 
 .login-card .btn-criar,
 .cadastro-card .btn-criar {
     width: 100%;
-    padding: 14px 0;
-    margin-top: 24px;
-    background: var(--vermelho);
-    color: var(--texto);
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
+    padding: 16px 0;
+    margin-top: 28px;
+    background: var(--ouro);
+    color: var(--preto);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     border: none;
     border-radius: var(--raio-lg);
     cursor: pointer;
     transition: var(--trans);
-    font-family: 'DM Sans', sans-serif;
 }
 
 .login-card .btn-criar:hover,
 .cadastro-card .btn-criar:hover {
-    background: var(--vermelho-vivo);
-    box-shadow: 0 8px 32px var(--vermelho-glow);
+    background: var(--ouro-claro);
+    box-shadow: var(--sombra-ouro);
     transform: translateY(-1px);
 }
 
 .ja-tem-conta {
     text-align: center;
-    margin-top: 24px;
-    font-size: 0.83rem;
+    margin-top: 22px;
+    font-size: 0.82rem;
     color: var(--texto-dim);
 }
 
 .ja-tem-conta a {
     color: var(--ouro);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     transition: var(--trans);
 }
 
-.ja-tem-conta a:hover {
-    color: var(--ouro-claro);
-}
+.ja-tem-conta a:hover { color: var(--ouro-claro); }
 
 
 /* ========================= */
-/* 13. FORMULÁRIOS GERAIS     */
+/* 14. FORMULÁRIOS GERAIS     */
 /* ========================= */
-input,
-select {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--borda);
+input, select {
+    background: var(--preto-input);
+    border: 1px solid var(--borda-md);
     color: var(--texto);
     border-radius: var(--raio-md);
     padding: 12px 16px;
     font-size: 0.9rem;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Syne', sans-serif;
     transition: var(--trans);
     width: 100%;
 }
 
-input:focus,
-select:focus {
+input:focus, select:focus {
     outline: none;
     border-color: var(--ouro);
-    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
+    box-shadow: 0 0 0 3px rgba(196, 155, 60, 0.12);
 }
 
-input:hover,
-select:hover {
-    border-color: var(--borda-hover);
-}
+input:hover, select:hover { border-color: rgba(255,255,255,0.16); }
 
 input[type="number"] { -moz-appearance: textfield; }
 input[type="number"]::-webkit-inner-spin-button,
@@ -810,91 +752,74 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 
 
 /* ========================= */
-/* 14. SELECTS DE FILME       */
+/* 15. SELECTS FILME/SÉRIE    */
 /* ========================= */
-select#genero,
-#faixa_etaria {
-    background: rgba(255,255,255,0.03);
+select#genero, #faixa_etaria {
+    background: var(--preto-input);
     color: var(--texto);
-    border: 1px solid var(--borda);
+    border: 1px solid var(--borda-md);
     border-radius: var(--raio-md);
     padding: 12px 16px;
-    font-size: 0.9rem;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Syne', sans-serif;
     transition: var(--trans);
     width: 100%;
     cursor: pointer;
 }
 
-select#genero option,
-#faixa_etaria option {
-    background: #1a1a1a;
+select#genero option, #faixa_etaria option {
+    background: #141414;
     color: var(--texto);
 }
 
-select#genero:focus,
-#faixa_etaria:focus {
+select#genero:focus, #faixa_etaria:focus {
     outline: none;
     border-color: var(--ouro);
-    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
+    box-shadow: 0 0 0 3px rgba(196, 155, 60, 0.12);
 }
 
-select#genero:hover,
-#faixa_etaria:hover {
-    border-color: var(--borda-hover);
-}
+select#genero:hover, #faixa_etaria:hover { border-color: rgba(255,255,255,0.16); }
 
 
 /* ========================= */
-/* 15. FORM PÁGINA ENTIDADE   */
+/* 16. FORM ENTIDADE          */
 /* ========================= */
 .titulo-usuario {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 2.6rem;
-    font-weight: 300;
+    font-weight: 700;
     color: var(--texto);
     margin-bottom: 36px;
     text-align: center;
-    letter-spacing: 0.06em;
-}
-
-.titulo-usuario::after {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 1px;
-    background: var(--ouro);
-    margin: 12px auto 0;
-    opacity: 0.5;
+    letter-spacing: 0.02em;
 }
 
 label.form-label {
     display: block;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--texto-dim);
-    margin-bottom: 8px;
+    margin-bottom: 7px;
 }
 
 input.form-control,
 select.form-select {
     width: 100%;
-    padding: 13px 16px;
+    padding: 12px 16px;
     font-size: 0.9rem;
     color: var(--texto);
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--borda);
+    background: var(--preto-input);
+    border: 1px solid var(--borda-md);
     border-radius: var(--raio-md);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Syne', sans-serif;
     transition: var(--trans);
 }
 
 input.form-control::placeholder { color: var(--texto-dim); }
 
 select.form-select option {
-    background: #1a1a1a;
+    background: #141414;
     color: var(--texto);
 }
 
@@ -902,127 +827,115 @@ input.form-control:focus,
 select.form-select:focus {
     outline: none;
     border-color: var(--ouro);
-    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
-    background: rgba(201, 168, 76, 0.03);
+    box-shadow: 0 0 0 3px rgba(196, 155, 60, 0.12);
 }
 
 input.form-control:hover,
-select.form-select:hover {
-    border-color: var(--borda-hover);
-}
+select.form-select:hover { border-color: rgba(255,255,255,0.16); }
 
 form {
     width: 100%;
-    max-width: 700px;
-    background: var(--superficie);
-    padding: 40px;
+    max-width: 680px;
+    background: var(--preto-card);
+    padding: 44px;
     border-radius: var(--raio-xl);
     border: 1px solid var(--borda);
-    box-shadow: var(--sombra-card);
-    position: relative;
-    overflow: hidden;
+    border-top: 2px solid var(--ouro);
+    box-shadow: var(--sombra-base);
     transition: var(--trans);
 }
 
-form::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 10%;
-    right: 10%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--ouro), transparent);
-    opacity: 0.4;
-}
-
 form:hover {
+    border-color: var(--borda-ouro);
+    border-top-color: var(--ouro-claro);
+    box-shadow: var(--sombra-base), var(--sombra-ouro);
     transform: translateY(-2px);
-    box-shadow: var(--sombra-hover);
-    border-color: var(--borda-hover);
 }
 
 button.btn-success {
     width: 100%;
-    padding: 14px 0;
-    margin-top: 24px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
+    padding: 16px 0;
+    margin-top: 28px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     border: none;
     border-radius: var(--raio-lg);
     cursor: pointer;
-    color: var(--texto);
-    background: var(--vermelho);
+    color: var(--preto);
+    background: var(--ouro);
     transition: var(--trans);
-    font-family: 'DM Sans', sans-serif;
 }
 
 button.btn-success:hover {
-    background: var(--vermelho-vivo);
-    box-shadow: 0 8px 32px var(--vermelho-glow);
+    background: var(--ouro-claro);
+    box-shadow: var(--sombra-ouro);
     transform: translateY(-1px);
 }
 
 
 /* ========================= */
-/* 16. TABELAS                */
+/* 17. TABELAS                */
 /* ========================= */
 .acoes-usuario {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     display: flex;
     justify-content: flex-end;
 }
 
 .add-usuario {
-    padding: 10px 22px;
-    background: transparent;
-    color: var(--ouro);
+    padding: 12px 28px;
+    background: var(--ouro);
+    color: var(--preto);
     text-decoration: none;
-    border: 1px solid rgba(201, 168, 76, 0.35);
     border-radius: var(--raio-lg);
-    font-weight: 500;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     transition: var(--trans);
 }
 
 .add-usuario:hover {
-    background: var(--ouro);
+    background: var(--ouro-claro);
+    box-shadow: var(--sombra-ouro);
     color: var(--preto);
-    box-shadow: 0 0 20px var(--ouro-glow);
+    transform: translateY(-1px);
 }
 
 .tabela-usuario {
     width: 100%;
-    margin-top: 12px;
+    margin-top: 10px;
     overflow-x: auto;
     border-radius: var(--raio-lg);
     border: 1px solid var(--borda);
+    border-top: 2px solid var(--ouro-escuro);
 }
 
 .tabela-usuario table {
     width: 100%;
     border-collapse: collapse;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Syne', sans-serif;
     color: var(--texto);
-    background: var(--superficie);
+    background: var(--preto-card);
 }
 
 .tabela-usuario thead {
-    background: rgba(201, 168, 76, 0.05);
-    border-bottom: 1px solid var(--borda);
+    background: rgba(196, 155, 60, 0.06);
+    border-bottom: 1px solid var(--borda-ouro);
 }
 
 .tabela-usuario th {
-    padding: 14px 18px;
+    padding: 18px 22px;
     text-align: center;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--texto-dim);
+    color: var(--ouro);
 }
 
 .tabela-usuario tbody tr {
@@ -1030,92 +943,81 @@ button.btn-success:hover {
     transition: var(--trans);
 }
 
-.tabela-usuario tbody tr:last-child {
-    border-bottom: none;
-}
+.tabela-usuario tbody tr:last-child { border-bottom: none; }
 
 .tabela-usuario tbody tr:nth-child(even) {
-    background: rgba(255, 255, 255, 0.015);
+    background: rgba(255,255,255,0.015);
 }
 
 .tabela-usuario tbody tr:hover {
-    background: rgba(201, 168, 76, 0.04);
+    background: var(--ouro-pale);
+    /* barra lateral ouro na linha hover */
+    box-shadow: inset 3px 0 0 var(--ouro);
 }
 
 .tabela-usuario td {
     padding: 14px 18px;
     text-align: center;
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     color: var(--texto-muted);
 }
 
 
 /* ========================= */
-/* 17. PÁGINA EQUIPE          */
+/* 18. PÁGINA EQUIPE          */
 /* ========================= */
 .sobre-equipe-titulo {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Playfair Display', serif;
     text-align: center;
     font-size: 3rem;
-    font-weight: 300;
+    font-weight: 700;
     color: var(--texto);
     margin-bottom: 64px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.02em;
 }
 
 .sobre-equipe-titulo::after {
     content: '';
     display: block;
-    width: 50px;
-    height: 1px;
+    width: 60px;
+    height: 2px;
     background: var(--ouro);
     margin: 16px auto 0;
-    opacity: 0.5;
+    border-radius: 1px;
 }
 
 .sobre-equipe-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 40px;
+    gap: 32px;
     padding: 60px 20px;
 }
 
 .membro-box {
     width: 300px;
-    background: var(--superficie);
+    background: var(--preto-card);
     border-radius: var(--raio-xl);
     padding: 40px 32px;
     text-align: center;
     border: 1px solid var(--borda);
-    box-shadow: var(--sombra-card);
+    border-top: 2px solid var(--ouro-escuro);
+    box-shadow: var(--sombra-base);
     transition: var(--trans);
-    position: relative;
-    overflow: hidden;
-}
-
-.membro-box::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 15%;
-    right: 15%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--ouro), transparent);
-    opacity: 0.4;
 }
 
 .membro-box:hover {
     transform: translateY(-8px);
-    border-color: rgba(201, 168, 76, 0.25);
-    box-shadow: 0 32px 80px rgba(0,0,0,0.8), 0 0 40px var(--ouro-glow);
+    border-color: var(--borda-ouro);
+    border-top-color: var(--ouro);
+    box-shadow: var(--sombra-base), var(--sombra-ouro);
 }
 
 .foto-membro {
-    width: 120px;
-    height: 120px;
+    width: 110px;
+    height: 110px;
     object-fit: cover;
-    border: 2px solid rgba(201, 168, 76, 0.35);
+    border: 2px solid var(--ouro-escuro);
     border-radius: 50%;
     margin-bottom: 20px;
     transition: var(--trans);
@@ -1123,36 +1025,35 @@ button.btn-success:hover {
 }
 
 .foto-membro:hover {
-    transform: scale(1.04);
+    transform: scale(1.05);
     border-color: var(--ouro);
-    box-shadow: 0 0 24px var(--ouro-glow);
     filter: grayscale(0%);
 }
 
 .nome-membro {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-weight: 600;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
     margin-bottom: 6px;
     color: var(--texto);
-    letter-spacing: 0.04em;
 }
 
 .cargo-membro {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ouro);
     margin-bottom: 16px;
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
 .bio-membro {
     color: var(--texto-muted);
-    font-size: 0.88rem;
-    margin-bottom: 24px;
-    line-height: 1.7;
+    font-size: 0.86rem;
+    margin-bottom: 22px;
+    line-height: 1.75;
+    font-weight: 400;
 }
 
 .email-container {
@@ -1165,91 +1066,86 @@ button.btn-success:hover {
 
 .email-text {
     color: var(--texto-muted);
-    font-size: 0.82rem;
-    background: rgba(255,255,255,0.04);
-    padding: 7px 14px;
+    font-size: 0.78rem;
+    background: rgba(255,255,255,0.03);
+    padding: 7px 13px;
     border-radius: var(--raio-md);
-    border: 1px solid var(--borda);
+    border: 1px solid var(--borda-md);
 }
 
 .btn-copiar {
-    padding: 7px 16px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
+    padding: 9px 20px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     border-radius: var(--raio-lg);
-    border: 1px solid rgba(201, 168, 76, 0.35);
+    border: 1px solid var(--borda-ouro);
     background: transparent;
     color: var(--ouro);
     cursor: pointer;
     transition: var(--trans);
-    font-family: 'DM Sans', sans-serif;
 }
 
 .btn-copiar:hover {
     background: var(--ouro);
     color: var(--preto);
-    box-shadow: 0 0 16px var(--ouro-glow);
     border-color: var(--ouro);
 }
 
 
 /* ========================= */
-/* 18. FLASH MESSAGES         */
+/* 19. FLASH MESSAGES         */
 /* ========================= */
 .msg-flash {
     border-radius: var(--raio-md);
     border: 1px solid;
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     letter-spacing: 0.02em;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 500;
 }
 
 .alert-success {
-    background: rgba(40, 90, 50, 0.25) !important;
-    border-color: rgba(40, 167, 69, 0.3) !important;
+    background: rgba(30, 90, 45, 0.2) !important;
+    border-color: rgba(40, 150, 60, 0.3) !important;
     color: #6fcf97 !important;
 }
 
 .alert-danger {
-    background: rgba(192, 57, 43, 0.2) !important;
-    border-color: rgba(192, 57, 43, 0.35) !important;
-    color: #ff8a80 !important;
+    background: rgba(160, 40, 40, 0.15) !important;
+    border-color: rgba(200, 60, 60, 0.3) !important;
+    color: #e07070 !important;
 }
 
 .alert-warning {
-    background: rgba(201, 168, 76, 0.15) !important;
-    border-color: rgba(201, 168, 76, 0.3) !important;
+    background: rgba(196, 155, 60, 0.1) !important;
+    border-color: rgba(196, 155, 60, 0.3) !important;
     color: var(--ouro-claro) !important;
 }
 
 .alert-info {
-    background: rgba(52, 152, 219, 0.15) !important;
-    border-color: rgba(52, 152, 219, 0.3) !important;
+    background: rgba(50, 100, 200, 0.12) !important;
+    border-color: rgba(50, 100, 200, 0.3) !important;
     color: #74b9ff !important;
 }
 
 
 /* ========================= */
-/* 19. FUNDO / CONTAINERS BASE*/
+/* 20. BASE E RODAPÉ          */
 /* ========================= */
-.fundo-base,
-.fundo-publico {
-    background-color: var(--preto);
-}
+.fundo-base, .fundo-publico { background-color: var(--preto); }
+.conteudo-base, .conteudo-principal { padding-top: 20px; }
 
-.conteudo-base,
-.conteudo-principal {
-    padding-top: 20px;
-}
-
-.rodape-base,
-.rodape-publico {
-    background: var(--preto) !important;
-    border-top: 1px solid var(--borda);
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
+.rodape-base, .rodape-publico {
+    background: #060606 !important;
+    border-top: 1px solid var(--borda-ouro);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--texto-dim) !important;
     padding: 20px !important;
@@ -1257,53 +1153,65 @@ button.btn-success:hover {
 
 
 /* ========================= */
-/* 20. RESPONSIVO             */
+/* 21. FORÇA DA SENHA         */
+/* ========================= */
+#forca-senha {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 6px;
+}
+
+
+/* ========================= */
+/* 22. RESPONSIVO             */
 /* ========================= */
 @media (max-width: 1200px) {
-    .titulo-principal    { font-size: 68px; letter-spacing: 12px; }
+    .titulo-principal    { font-size: 76px; letter-spacing: 7px; }
     .descricao-principal { margin-top: 110px; }
 }
 
 @media (max-width: 992px) {
-    .titulo-principal    { font-size: 52px; letter-spacing: 8px; }
+    .titulo-principal    { font-size: 58px; letter-spacing: 5px; }
     .descricao-principal { margin-top: 90px; }
     .titulo-usuario      { font-size: 2.2rem; }
-    form                 { padding: 30px; }
+    form                 { padding: 32px; }
 
-    .sobre-equipe-container { gap: 24px; padding: 40px 16px; }
-    .membro-box             { width: 280px; padding: 32px; }
+    .sobre-equipe-container { gap: 22px; padding: 40px 16px; }
+    .membro-box             { width: 275px; }
 }
 
 @media (max-width: 768px) {
-    .titulo-principal    { font-size: 40px; letter-spacing: 6px; }
+    .titulo-principal    { font-size: 44px; letter-spacing: 4px; }
     .descricao-principal { margin-top: 70px; font-size: 14px; }
     .titulo-usuario      { font-size: 1.9rem; }
-    form                 { padding: 24px; }
-    .linha-funcoes       { gap: 16px; padding: 0 16px; }
+    form                 { padding: 26px; }
+    .linha-funcoes       { gap: 14px; padding: 0 16px; }
 
-    .botao-entrar        { right: 110px; top: 14px; font-size: 0.75rem; padding: 9px 14px; }
-    .botao-criar         { right: 14px;  top: 14px; font-size: 0.75rem; padding: 9px 14px; }
+    .botao-entrar        { right: 115px; top: 14px; padding: 9px 14px; }
+    .botao-criar         { right: 14px;  top: 14px; padding: 9px 14px; }
 }
 
 @media (max-width: 576px) {
-    .titulo-principal    { font-size: 30px; letter-spacing: 4px; }
-    .descricao-principal { margin-top: 50px; font-size: 13px; }
+    .titulo-principal    { font-size: 32px; letter-spacing: 3px; }
+    .descricao-principal { margin-top: 52px; font-size: 13px; }
     .titulo-usuario      { font-size: 1.7rem; }
     .linha-funcoes       { margin-top: 50px; }
-    form                 { padding: 20px; }
+    form                 { padding: 22px; }
 
     .login-card,
-    .cadastro-card       { max-width: 320px; padding: 32px 24px; }
+    .cadastro-card       { max-width: 325px; padding: 36px 24px; }
 
     .sobre-equipe-container {
         flex-direction: column;
         align-items: center;
-        padding: 30px 12px;
-        gap: 24px;
+        padding: 28px 12px;
+        gap: 20px;
     }
     .membro-box          { width: 92%; padding: 28px 20px; }
-    .foto-membro         { width: 100px; height: 100px; }
-    .sobre-equipe-titulo { font-size: 2rem; }
-
+    .foto-membro         { width: 95px; height: 95px; }
+    .sobre-equipe-titulo { font-size: 2.2rem; }
     .filtros-por-genero  { gap: 6px; }
 }
