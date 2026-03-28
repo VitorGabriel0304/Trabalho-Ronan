@@ -6,7 +6,6 @@
     <h1 class="titulo-usuario">Lista de Séries & Documentários</h1>
 
     <!-- Botão para adicionar série/documentário -->
-    {# style inline aqui, mas essa margem já existe no .acoes-usuario do CSS — ficou duplicado #}
     <div class="acoes-usuario" style="margin-bottom:15px;">
         <a href="{{ url_for('inserir_series') }}" class="add-usuario">Adicionar Série / Documentário</a>
     </div>
@@ -16,21 +15,30 @@
     <div class="filtros-por-genero" style="margin-bottom: 15px;">
         <span style="font-weight:bold; margin-right:10px;">Filtrar por gênero:</span>
 
-        {# "Todos" reseta o filtro passando genero='todos' — o Flask trata esse valor como padrão #}
         <a href="{{ url_for('listar_series', genero='todos') }}" class="btn-filtro"
             style="margin-right:5px; padding:5px 10px; background:#4CAF50; color:white; border-radius:5px; text-decoration:none;">Todos</a>
 
-        {# generos vem do app.py — lista com os nomes extraídos da lista de dicionários #}
         {% for g in generos %}
-        {# cada link gera uma URL diferente: ?genero=Ação, ?genero=Drama, etc #}
         <a href="{{ url_for('listar_series', genero=g) }}" class="btn-filtro"
             style="margin-right:5px; padding:5px 10px; background:#2196F3; color:white; border-radius:5px; text-decoration:none;">{{ g }}</a>
         {% endfor %}
     </div>
 
     <!-- Tabela de séries -->
-    {# tabela-usuario tem overflow-x:auto no CSS — scrolla em telas pequenas #}
     <div class="tabela-usuario">
+
+        {# ============================================================
+           FEEDBACK DE LISTA VAZIA
+           Checa se a lista 'series' chegou com pelo menos 1 item.
+           Pode estar vazia por dois motivos:
+             1. Nenhuma série passou no filtro de faixa etária do usuário.
+             2. Nenhuma série existe no gênero selecionado para essa faixa.
+           O app.py já aplica os dois filtros antes de enviar a lista,
+           então aqui só verificamos se sobrou alguma coisa.
+        ============================================================ #}
+        {% if series %}
+
+        {# lista tem séries — renderiza a tabela normalmente #}
         <table>
             <thead>
                 <tr>
@@ -60,7 +68,7 @@
                     <td>{{ serie.genero }}</td>
                     <td>{{ serie.ano }}</td>
                     <td>{{ serie.temporadas }}</td>
-                    <td>{{ serie.faixa_etaria }}+</td>  {# o + é só visual, concatenado direto no template #}
+                    <td>{{ serie.faixa_etaria }}+</td>
                     <td>
                         {# botões sem rota ainda — editar e excluir não estão implementados #}
                         <button class="btn-editar">Editar</button>
@@ -70,6 +78,45 @@
                 {% endfor %}
             </tbody>
         </table>
+
+        {% else %}
+
+        {# ── lista vazia: exibe mensagem amigável em vez de tabela vazia ── #}
+        {# genero_filtro vem do app.py para montar uma mensagem mais específica #}
+        <div style="text-align: center; padding: 40px 20px;">
+
+            {# ícone de série/tv — apenas decorativo #}
+            <p style="font-size: 48px; margin-bottom: 10px;">📺</p>
+
+            {% if genero_filtro == "todos" %}
+                {# sem filtro ativo → faixa etária bloqueou tudo ou lista está vazia #}
+                <p style="font-size: 18px; color: #ccc;">
+                    Nenhuma série ou documentário disponível para a sua faixa etária.
+                </p>
+            {% else %}
+                {# filtro de gênero ativo → informa qual gênero não retornou resultado #}
+                <p style="font-size: 18px; color: #ccc;">
+                    Nenhuma série ou documentário encontrado no gênero
+                    <strong>{{ genero_filtro }}</strong> para a sua faixa etária.
+                </p>
+            {% endif %}
+
+            {# link para limpar o filtro e ver todos (quando aplicável) #}
+            <a href="{{ url_for('listar_series', genero='todos') }}"
+               style="display:inline-block; margin-top:15px; padding:8px 16px;
+                      background:#4CAF50; color:white; border-radius:5px;
+                      text-decoration:none; font-size:14px;">
+                Ver todas as séries
+            </a>
+
+        </div>
+        {# fim do bloco de lista vazia #}
+
+        {% endif %}
+        {# fim do if series #}
+
     </div>
+    {# fim tabela-usuario #}
+
 </div>
 {% endblock %}
