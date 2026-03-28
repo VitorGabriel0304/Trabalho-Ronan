@@ -24,9 +24,13 @@ def login_obrigatorio(f):
 
 # lista de dicionários simulando uma tabela de usuários
 usuarios = [
-    {"nome": "Admin", "email": "Admin", "senha": "Admin", "idade": 25},
-    {"nome": "Vitor", "email": "vitor@email.com", "senha": "123", "idade": 21},
-    {"nome": "Rhian", "email": "rhian@email.com", "senha": "123", "idade": 20},
+  {"nome": "Admin", "email": "admin@", "senha": "admin", "idade": 25},
+  {"nome": "Vitor", "email": "vitor@email.com", "senha": "123", "idade": 21},
+  {"nome": "Rhian", "email": "rhian@email.com", "senha": "123", "idade": 20},
+  {"nome": "Julia", "email": "julia@email.com", "senha": "123", "idade": 22},
+  {"nome": "Carlos", "email": "carlos@email.com", "senha": "123", "idade": 28},
+  {"nome": "Fernanda", "email": "fernanda@email.com", "senha": "123", "idade": 24},
+  {"nome": "Lucas", "email": "lucas@email.com", "senha": "123", "idade": 19}
 ]
 
 # lista de gêneros disponíveis pros selects

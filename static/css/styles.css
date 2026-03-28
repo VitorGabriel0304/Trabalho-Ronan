@@ -706,6 +706,27 @@ p {
     transform: translateY(-1px);
 }
 
+/* override: form dentro de login/cadastro card não tem estilo de card próprio */
+.login-card form,
+.cadastro-card form {
+    width: 100%;
+    max-width: none;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    transform: none !important;
+}
+
+.login-card form:hover,
+.cadastro-card form:hover {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    transform: none;
+}
+
 .ja-tem-conta {
     text-align: center;
     margin-top: 22px;
@@ -833,6 +854,7 @@ select.form-select:focus {
 input.form-control:hover,
 select.form-select:hover { border-color: rgba(255,255,255,0.16); }
 
+/* form genérico — card visual apenas nas páginas de entidade (não em login/cadastro) */
 form {
     width: 100%;
     max-width: 680px;
