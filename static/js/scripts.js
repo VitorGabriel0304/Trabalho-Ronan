@@ -146,29 +146,24 @@ senhaInputs.forEach(function(senhaInput){
     });
 });
 
-// versão 1 do toggleSenha — recebe o id do input e o elemento do olho separados
-// usada no cadastro.html: onclick="toggleSenha('senha', this)"
-function toggleSenha(idInput, elementoOlho) {
-    const input = document.getElementById(idInput);
-    if (input.type === "password") {
-        input.type = "text"; 
-        elementoOlho.textContent = "🙈"; 
-    } else {
-        input.type = "password"; 
-        elementoOlho.textContent = "👁️"; 
-    }
-}
+function toggleSenha(idOuElemento, elementoOlho) {
+    let input, olho;
 
-// versão 2 do toggleSenha — recebe só o elemento do olho (this) e navega até o input pelo D
-// usada no login.html: onclick="toggleSenha(this)"
-// atenção: essa declaração sobrescreve a função acima — as duas têm o mesmo nome!
-function toggleSenha(el) {
-    const inputSenha = el.previousElementSibling; // pega o input de senha que vem antes do span no HTML
-    if (inputSenha.type === "password") {
-        inputSenha.type = "text";  // mostra a senha
-        el.textContent = "🙈";     // troca o ícone
+    if (typeof idOuElemento === "string") {
+        // cadastro.html: toggleSenha('senha', this)
+        input = document.getElementById(idOuElemento);
+        olho = elementoOlho;
     } else {
-        inputSenha.type = "password"; // esconde a senha
-        el.textContent = "👁️";       // volta o ícone
+        // login.html: toggleSenha(this)
+        olho = idOuElemento;
+        input = olho.previousElementSibling;
+    }
+
+    if (input.type === "password") {
+        input.type = "text";
+        olho.textContent = "🙈";
+    } else {
+        input.type = "password";
+        olho.textContent = "👁️";
     }
 }
