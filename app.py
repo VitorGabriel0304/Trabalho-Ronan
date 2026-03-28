@@ -18,11 +18,11 @@ def login_obrigatorio(f):
         return f(*args, **kwargs)  # se tiver logado, executa a rota normalmente
     return funcao_protegida
 
-# -----------------------------
-# "Banco de dados"
-# -----------------------------
+# --- USUÁRIOS ---
+# Cada dicionário representa um registro de usuário.
+# Campo "idade" é usado para controle de faixa etária no filtro de filmes/séries.
+# Campo "senha" está em texto puro — em produção use hashing (ex: bcrypt, werkzeug).
 
-# lista de dicionários simulando uma tabela de usuários
 usuarios = [
   {"nome": "Admin", "email": "admin@", "senha": "admin", "idade": 25},
   {"nome": "Vitor", "email": "vitor@email.com", "senha": "123", "idade": 21},
@@ -33,13 +33,21 @@ usuarios = [
   {"nome": "Lucas", "email": "lucas@email.com", "senha": "123", "idade": 19}
 ]
 
-# lista de gêneros disponíveis pros selects
+# --- GÊNEROS ---
+# Lista de gêneros usada para popular dropdowns/selects nos formulários.
+# Estrutura em dicionário (em vez de lista simples de strings) facilita
+# adicionar campos futuros como "descricao" ou "icone" sem refatorar muito.
+
 generos = [
     {"nome": "Ação"}, {"nome": "Comédia"}, {"nome": "Terror"}, 
     {"nome": "Ficção"}, {"nome": "Drama"}, {"nome": "Documentário"}
 ]
 
-# filmes com capa apontando pra pasta /static/imgs/
+# --- FILMES ---
+# Cada filme tem: titulo, ano de lançamento, gênero (referência textual),
+# faixa_etaria (idade mínima para assistir) e capa (caminho para /static/imgs/).
+# A capa usa caminho absoluto a partir da raiz do site (/static/...).
+
 filmes = [
     {"titulo": "Gladiador", "ano": 2000, "genero": "Ação", "faixa_etaria": 16, "capa": "/static/imgs/Gladiador.jpg"},
     {"titulo": "Interstellar", "ano": 2014, "genero": "Ficção", "faixa_etaria": 10, "capa": "/static/imgs/interstellar.jpg"},
@@ -50,7 +58,10 @@ filmes = [
     {"titulo": "Homem de Ferro", "ano": 2008, "genero": "Ação", "faixa_etaria": 12, "capa": "/static/imgs/Iron_Man.jpg"}
 ]
 
-# séries com campo extra "temporadas" que filmes não têm
+# --- SÉRIES ---
+# Mesma estrutura dos filmes, mas com o campo extra "temporadas".
+# Documentários de natureza (Planet Earth, Our Planet) têm faixa_etaria=0 (livre).
+
 series = [
     {"titulo": "Breaking Bad", "ano": 2008, "genero": "Drama", "faixa_etaria": 16, "temporadas": 5, "capa": "/static/imgs/breakingbad.jpg"},
     {"titulo": "Friends", "ano": 1994, "genero": "Comédia", "faixa_etaria": 10, "temporadas": 10, "capa": "/static/imgs/Friends.webp"},
@@ -191,11 +202,13 @@ def inserir_filmes():
         return redirect(url_for("listar_filmes"))
     return render_template("filmes/inserir_filme.html", generos=[g["nome"] for g in generos])
 
-# -----------------------------
-# Séries
-# -----------------------------
+# MÓDULO: SÉRIES
+# ============================================================
+# Lógica idêntica ao módulo de filmes, com duas diferenças:
+#   1. Os dados vêm da lista 'series' (não 'filmes').
+#   2. O formulário de inserção inclui o campo "temporadas".
+# ============================================================
 
-# mesma lógica dos filmes, mas com campo extra "temporadas"
 @app.route("/series/listar", endpoint="listar_series")
 @login_obrigatorio
 def listar_series():
