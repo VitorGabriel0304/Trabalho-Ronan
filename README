@@ -1,0 +1,124 @@
+# 🎬 CineFlask
+
+Aplicação web desenvolvida com **Flask** para gerenciamento e exibição de catálogos de filmes e séries, com sistema de autenticação de usuários e filtro automático por faixa etária.
+
+---
+
+## 📋 Funcionalidades
+
+- **Autenticação** — login, cadastro e logout com controle de sessão
+- **Proteção de rotas** — páginas restritas acessíveis apenas a usuários logados (via decorador `@login_obrigatorio`)
+- **Catálogo de Filmes** — listagem com filtro por gênero e faixa etária do usuário logado
+- **Catálogo de Séries** — mesma lógica dos filmes, com campo adicional de temporadas
+- **Cadastro de Conteúdo** — formulários para adicionar novos filmes e séries
+- **Gerenciamento de Usuários** — listagem e inserção de usuários
+
+---
+
+## 🗂️ Estrutura do Projeto
+
+```
+Trabalho-Ronan/
+├── app.py              # Aplicação principal (rotas, lógica, dados)
+├── requirements.txt    # Dependências do projeto
+├── static/
+│   └── imgs/           # Capas dos filmes e séries
+└── templates/
+    ├── index.html
+    ├── login.html
+    ├── cadastro.html
+    ├── sobre_equipe.html
+    ├── usuarios/
+    │   ├── listar_usuarios.html
+    │   └── inserir_usuario.html
+    ├── filmes/
+    │   ├── listar_filme.html
+    │   └── inserir_filme.html
+    └── series/
+        ├── listar_serie.html
+        └── inserir_serie.html
+```
+
+---
+
+## 🚀 Como Executar
+
+**Pré-requisitos:** Python 3.8+
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/VitorGabriel0304/Trabalho-Ronan.git
+cd Trabalho-Ronan
+
+# 2. Instale as dependências
+pip install -r requirements.txt
+
+# 3. Execute a aplicação
+python app.py
+```
+
+Acesse em: `http://localhost:5000`
+
+---
+
+## 🔑 Credenciais de Acesso
+
+| Usuário  | E-mail             | Senha |
+| -------- | ------------------ | ----- |
+| Admin    | admin@             | admin |
+| Vitor    | vitor@email.com    | 123   |
+| Rhian    | rhian@email.com    | 123   |
+| Julia    | julia@email.com    | 123   |
+| Carlos   | carlos@email.com   | 123   |
+| Fernanda | fernanda@email.com | 123   |
+| Lucas    | lucas@email.com    | 123   |
+
+> ⚠️ Os dados são armazenados em memória — qualquer reinicialização do servidor restaura os dados originais.
+
+---
+
+## 🔒 Filtro por Faixa Etária
+
+O catálogo exibe apenas conteúdos compatíveis com a **idade do usuário logado**. Filmes e séries com classificação indicativa superior à idade do usuário são automaticamente ocultados.
+
+| Classificação | Restrição |
+| ------------- | --------- |
+| Livre (0)     | Todos     |
+| 10 anos       | ≥ 10 anos |
+| 12 anos       | ≥ 12 anos |
+| 16 anos       | ≥ 16 anos |
+| 18 anos       | ≥ 18 anos |
+
+---
+
+## 🛠️ Tecnologias
+
+- **Python** + **Flask** — backend e roteamento
+- **HTML/CSS** — templates Jinja2
+- **JavaScript** — interações no frontend
+- **Flask Sessions** — controle de autenticação
+
+---
+
+## 📦 Dependências
+
+```
+flask
+```
+
+> Ver `requirements.txt` para a lista completa com versões.
+
+---
+
+## ⚠️ Observações
+
+- Os dados (usuários, filmes e séries) são mantidos **em memória** (listas Python). Não há banco de dados.
+- As senhas estão em **texto puro** — em produção, utilize hashing (ex: `bcrypt` ou `werkzeug.security`).
+- O modo `debug=True` está ativo — **não utilize em ambiente de produção**.
+
+---
+
+## 👨‍💻 Autores
+
+Rhian esteves & Vitor Gabriel Vido
+Desenvolvido como trabalho acadêmico — **Fatec Jaú**.
