@@ -1237,3 +1237,321 @@ button.btn-success:hover {
     .sobre-equipe-titulo { font-size: 2.2rem; }
     .filtros-por-genero  { gap: 6px; }
 }
+
+/* ========================= */
+/* 22. FUNÇÕES               */
+/* ========================= */
+.cadastro-card-funcao {
+    max-width: 560px;
+}
+
+.cadastro-card textarea,
+.cadastro-card select {
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: var(--raio-md);
+    border: 1px solid var(--borda-md);
+    background: var(--preto-input);
+    color: var(--texto);
+    font-size: 0.9rem;
+    font-family: 'Syne', sans-serif;
+    transition: var(--trans);
+}
+
+.cadastro-card textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.cadastro-card textarea:focus,
+.cadastro-card select:focus {
+    outline: none;
+    border-color: var(--ouro);
+    box-shadow: 0 0 0 3px rgba(196, 155, 60, 0.12);
+}
+
+.cadastro-card textarea:hover,
+.cadastro-card select:hover {
+    border-color: rgba(255,255,255,0.16);
+}
+
+.cadastro-card select option {
+    background: #141414;
+    color: var(--texto);
+}
+
+.grupo-permissoes {
+    margin-top: 24px;
+    padding: 20px;
+    border: 1px solid var(--borda-md);
+    border-radius: var(--raio-lg);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.grupo-permissoes legend {
+    float: none;
+    width: auto;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ouro);
+}
+
+.opcao-permissao {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    margin: 12px 0 !important;
+    color: var(--texto-muted) !important;
+    cursor: pointer;
+    letter-spacing: 0.08em !important;
+}
+
+.opcao-permissao input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    accent-color: var(--ouro);
+    cursor: pointer;
+}
+
+.opcao-permissao span {
+    font-size: 0.84rem;
+    color: var(--texto);
+    text-transform: none;
+}
+
+.badge-status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: var(--raio-lg);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.badge-status.ativo {
+    background: rgba(46, 204, 113, 0.12);
+    color: #58d68d;
+    border: 1px solid rgba(46, 204, 113, 0.35);
+}
+
+.badge-status.inativo {
+    background: rgba(231, 76, 60, 0.12);
+    color: #ec7063;
+    border: 1px solid rgba(231, 76, 60, 0.35);
+}
+
+.lista-permissoes-tabela {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--texto-muted);
+    line-height: 1.7;
+}
+
+.texto-sem-permissao,
+.texto-vazio {
+    color: var(--texto-dim);
+    font-style: italic;
+}
+
+.tabela-funcoes table th,
+.tabela-funcoes table td {
+    vertical-align: top;
+}
+
+
+/* Melhorias específicas para a tabela de funções */
+.tabela-funcoes table td {
+    text-align: left;
+}
+
+.tabela-funcoes .numero-registro {
+    text-align: center;
+    font-weight: 700;
+    color: var(--ouro);
+    width: 50px;
+}
+
+.tabela-funcoes .nome-funcao {
+    font-weight: 600;
+    color: var(--texto);
+    min-width: 140px;
+}
+
+.tabela-funcoes .status-funcao {
+    text-align: center;
+    width: 100px;
+}
+
+.tabela-funcoes .descricao-funcao {
+    color: var(--texto-muted);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    max-width: 280px;
+    word-wrap: break-word;
+}
+
+.tabela-funcoes .permissoes-funcao {
+    min-width: 200px;
+}
+
+.tabela-funcoes .acoes-funcao {
+    text-align: center;
+    width: 160px;
+}
+
+.tabela-funcoes .btn-editar,
+.tabela-funcoes .btn-excluir {
+    padding: 8px 14px;
+    font-size: 0.65rem;
+    margin: 2px;
+}
+
+.item-permissao {
+    font-size: 0.8rem;
+    padding: 3px 0;
+}
+
+.link-acao {
+    color: var(--ouro);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--trans);
+}
+
+.link-acao:hover {
+    color: var(--ouro-claro);
+    text-decoration: underline;
+}
+
+.resumo-funcoes {
+    margin-top: 32px;
+    padding: 18px 24px;
+    background: rgba(196, 155, 60, 0.06);
+    border: 1px solid var(--borda-ouro);
+    border-radius: var(--raio-lg);
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--texto-muted);
+}
+
+.resumo-funcoes p {
+    margin: 6px 0;
+}
+
+.resumo-funcoes strong {
+    color: var(--ouro);
+    font-weight: 700;
+}
+
+.linha-vazia td {
+    text-align: center !important;
+    padding: 32px 18px !important;
+    color: var(--texto-dim) !important;
+}
+
+/* Responsivo para tabela de funções */
+@media (max-width: 1024px) {
+    .tabela-funcoes .descricao-funcao {
+        max-width: 180px;
+        font-size: 0.78rem;
+    }
+    
+    .tabela-funcoes .permissoes-funcao {
+        min-width: 150px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tabela-usuario {
+        font-size: 0.75rem;
+    }
+    
+    .tabela-funcoes table th,
+    .tabela-funcoes table td {
+        padding: 10px 8px;
+    }
+    
+    .tabela-funcoes .numero-registro {
+        width: 35px;
+    }
+    
+    .tabela-funcoes .nome-funcao {
+        min-width: 100px;
+    }
+    
+    .tabela-funcoes .descricao-funcao {
+        max-width: 120px;
+        font-size: 0.75rem;
+    }
+    
+    .tabela-funcoes .permissoes-funcao {
+        min-width: 120px;
+        font-size: 0.75rem;
+    }
+    
+    .tabela-funcoes .acoes-funcao {
+        width: 120px;
+    }
+    
+    .tabela-funcoes .btn-editar,
+    .tabela-funcoes .btn-excluir {
+        padding: 6px 10px;
+        font-size: 0.6rem;
+        margin: 1px;
+    }
+    
+    .resumo-funcoes {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .tabela-usuario {
+        font-size: 0.7rem;
+    }
+    
+    .tabela-funcoes table th,
+    .tabela-funcoes table td {
+        padding: 8px 6px;
+    }
+    
+    .tabela-funcoes .numero-registro {
+        width: 30px;
+    }
+    
+    .tabela-funcoes .nome-funcao {
+        min-width: 80px;
+        font-size: 0.75rem;
+    }
+    
+    .tabela-funcoes .descricao-funcao {
+        display: none;
+    }
+    
+    .tabela-funcoes .permissoes-funcao {
+        display: none;
+    }
+    
+    .tabela-funcoes .acoes-funcao {
+        width: 100px;
+    }
+    
+    .tabela-funcoes .btn-editar,
+    .tabela-funcoes .btn-excluir {
+        padding: 5px 8px;
+        font-size: 0.55rem;
+        margin: 1px;
+    }
+    
+    .resumo-funcoes {
+        font-size: 0.75rem;
+        padding: 12px 16px;
+    }
+}

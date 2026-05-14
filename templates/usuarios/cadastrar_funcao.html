@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{# herda o base com navbar — página protegida #}
+
+{% block conteudo %}
+<div class="container">
+  <h1 class="titulo-usuario">Cadastrar Função</h1>
+
+  <div class="form-funcao">
+    <form action="{{ url_for('inserir_funcao') }}" method="POST">
+
+      <!-- Nome da função -->
+      <div class="campo-form">
+        <label for="nome_funcao">Nome da Função</label>
+        <input 
+          type="text" 
+          id="nome_funcao" 
+          name="nome_funcao" 
+          placeholder="Digite o nome da função"
+          required
+        >
+      </div>
+
+      <!-- Status -->
+      <div class="campo-form">
+        <label for="status">Status</label>
+        <select id="status" name="status" required>
+          <option value="">Selecione</option>
+          <option value="ativo">Ativo</option>
+          <option value="inativo">Inativo</option>
+        </select>
+      </div>
+
+      <!-- Descrição -->
+      <div class="campo-form">
+        <label for="descricao">Descrição</label>
+        <textarea 
+          id="descricao" 
+          name="descricao" 
+          rows="5"
+          placeholder="Digite uma descrição da função"
+        ></textarea>
+      </div>
+
+      <!-- Permissões -->
+      <div class="campo-form">
+        <label>Permissões</label>
+
+        <div class="permissoes">
+          <label>
+            <input type="checkbox" name="permissoes" value="dashboard">
+            Dashboard
+          </label>
+
+          <label>
+            <input type="checkbox" name="permissoes" value="gerenciar_usuario">
+            Gerenciar Usuário
+          </label>
+
+          <label>
+            <input type="checkbox" name="permissoes" value="gerenciar_tarefa">
+            Gerenciar Tarefa
+          </label>
+
+          <label>
+            <input type="checkbox" name="permissoes" value="emitir_relatorios">
+            Emitir Relatórios
+          </label>
+
+          <label>
+            <input type="checkbox" name="permissoes" value="gerenciar_funcoes">
+            Gerenciar Funções
+          </label>
+        </div>
+      </div>
+
+      <!-- Botões -->
+      <div class="acoes-usuario">
+        <button type="submit" class="add-usuario">
+          Salvar Função
+        </button>
+
+        <a href="{{ url_for('listar_funcoes') }}" class="btn-excluir">
+          Cancelar
+        </a>
+      </div>
+
+    </form>
+  </div>
+</div>
+{% endblock %}

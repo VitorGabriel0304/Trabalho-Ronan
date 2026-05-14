@@ -23,6 +23,17 @@
             <label for="idade">Idade</label>
             <input type="number" id="idade" name="idade" placeholder="Digite sua idade" min="1" required>
 
+            <!-- Função -->
+            <label for="funcao">Função</label>
+            <select name="funcao" id="funcao" required>
+                <option value="" selected disabled>Selecione sua função</option>
+                <option value="Administrador">Administrador</option>
+                <option value="Usuário">Usuário</option>
+                <option value="Gerente">Gerente</option>
+                <option value="Supervisor">Supervisor</option>
+                <option value="Suporte">Suporte</option>
+            </select>
+
             <!-- E-mail -->
             {# type="email" valida o formato no navegador antes de enviar #}
             <label for="email">E-mail</label>

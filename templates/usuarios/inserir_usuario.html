@@ -24,6 +24,17 @@
       <label for="email">E-mail</label>
       <input type="email" name="email" id="email" placeholder="Digite o e-mail" required />
 
+      <!-- Função -->
+      <label for="funcao">Função</label>
+      <select name="funcao" id="funcao" required>
+        <option value="" selected disabled>Selecione a função</option>
+        <option value="Administrador">Administrador</option>
+        <option value="Usuário">Usuário</option>
+        <option value="Gerente">Gerente</option>
+        <option value="Supervisor">Supervisor</option>
+        <option value="Suporte">Suporte</option>
+      </select>
+
       <!-- Senha -->
       {# sem toggle de olho aqui, diferente do cadastro.html — formulário mais simples pro admin #}
       <label for="senha">Senha</label>

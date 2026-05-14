@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<div class="container">
+  <h1 class="titulo-usuario">⚙️ Lista de Funções</h1>
+
+  <!-- Botão para adicionar nova função -->
+  <div class="acoes-usuario">
+    <a href="{{ url_for('inserir_funcoes') }}" class="add-usuario">➕ Cadastrar Função</a>
+  </div>
+
+  <!-- Tabela de funções -->
+  <div class="tabela-usuario tabela-funcoes">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome da Função</th>
+          <th>Status</th>
+          <th>Descrição</th>
+          <th>Permissões</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if funcoes %}
+          {% for funcao in funcoes %}
+          <tr>
+            <td class="numero-registro">{{ loop.index }}</td>
+            <td class="nome-funcao">
+              <strong>{{ funcao.nome }}</strong>
+            </td>
+            <td class="status-funcao">
+              <span class="badge-status {{ 'ativo' if funcao.status == 'Ativo' else 'inativo' }}">
+                {{ funcao.status }}
+              </span>
+            </td>
+            <td class="descricao-funcao">
+              <span class="descricao-texto">{{ funcao.descricao }}</span>
+            </td>
+            <td class="permissoes-funcao">
+              {% if funcao.permissoes %}
+                <ul class="lista-permissoes-tabela">
+                  {% for permissao in funcao.permissoes %}
+                    <li class="item-permissao">{{ permissao }}</li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <span class="texto-sem-permissao">—</span>
+              {% endif %}
+            </td>
+            <td class="acoes-funcao">
+              <button class="btn-editar" title="Editar função">✏️ Editar</button>
+              <button class="btn-excluir" title="Excluir função">🗑️ Excluir</button>
+            </td>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <tr class="linha-vazia">
+            <td colspan="6" class="texto-vazio">
+              📭 Nenhuma função cadastrada ainda. <a href="{{ url_for('inserir_funcoes') }}" class="link-acao">Crie uma agora</a>
+            </td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Resumo de funções -->
+  {% if funcoes %}
+  <div class="resumo-funcoes">
+    <p>Total de funções: <strong>{{ funcoes|length }}</strong></p>
+    <p>Ativas: <strong>{{ funcoes|selectattr('status', 'equalto', 'Ativo')|list|length }}</strong> | 
+       Inativas: <strong>{{ funcoes|selectattr('status', 'equalto', 'Inativo')|list|length }}</strong></p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -24,14 +24,19 @@ def login_obrigatorio(f):
 # Campo "senha" está em texto puro — em produção use hashing (ex: bcrypt, werkzeug).
 
 usuarios = [
-  {"nome": "Admin", "email": "admin@", "senha": "admin", "idade": 25},
-  {"nome": "Vitor", "email": "vitor@email.com", "senha": "123", "idade": 21},
-  {"nome": "Rhian", "email": "rhian@email.com", "senha": "123", "idade": 20},
-  {"nome": "Julia", "email": "julia@email.com", "senha": "123", "idade": 22},
-  {"nome": "Carlos", "email": "carlos@email.com", "senha": "123", "idade": 28},
-  {"nome": "Fernanda", "email": "fernanda@email.com", "senha": "123", "idade": 24},
-  {"nome": "Lucas", "email": "lucas@email.com", "senha": "123", "idade": 19}
+  {"nome": "Admin", "email": "admin@", "senha": "admin", "idade": 25, "funcao": "Administrador"},
+  {"nome": "Vitor", "email": "vitor@email.com", "senha": "123", "idade": 21, "funcao": "Usuário"},
+  {"nome": "Rhian", "email": "rhian@email.com", "senha": "123", "idade": 20, "funcao": "Usuário"},
+  {"nome": "Julia", "email": "julia@email.com", "senha": "123", "idade": 22, "funcao": "Usuário"},
+  {"nome": "Carlos", "email": "carlos@email.com", "senha": "123", "idade": 28, "funcao": "Gerente"},
+  {"nome": "Fernanda", "email": "fernanda@email.com", "senha": "123", "idade": 24, "funcao": "Supervisor"},
+  {"nome": "Lucas", "email": "lucas@email.com", "senha": "123", "idade": 19, "funcao": "Suporte"}
 ]
+
+# --- FUNÇÕES ---
+# Lista em memória usada pelo módulo de cadastro e listagem de funções.
+# Cada função possui nome, status, descrição e uma lista de permissões selecionadas.
+funcoes = []
 
 # --- GÊNEROS ---
 # Lista de gêneros usada para popular dropdowns/selects nos formulários.
@@ -119,13 +124,14 @@ def cadastro():
         senha = request.form.get("senha")
         confirmar = request.form.get("confirmar")  # campo de confirmação de senha
         idade = request.form.get("idade")
-        if not nome or not email or not senha or not idade:
+        funcao = request.form.get("funcao")
+        if not nome or not email or not senha or not idade or not funcao:
             flash("Preencha todos os campos!", "danger")
             return redirect(url_for("cadastro"))
         if senha != confirmar:  # compara as duas senhas antes de salvar
             flash("As senhas não coincidem!", "danger")
             return redirect(url_for("cadastro"))
-        usuarios.append({"nome": nome, "email": email, "senha": senha, "idade": int(idade)})
+        usuarios.append({"nome": nome, "email": email, "senha": senha, "idade": int(idade), "funcao": funcao})
         flash("Cadastro realizado com sucesso!", "success")
         return redirect(url_for("login"))  # após cadastrar, manda pro login
     return render_template("cadastro.html")
@@ -157,10 +163,11 @@ def inserir_usuarios():
         nome = request.form.get("nome")
         email = request.form.get("email")
         idade = request.form.get("idade")
-        if not nome or not email or not idade:
+        funcao = request.form.get("funcao")
+        if not nome or not email or not idade or not funcao:
             flash("Preencha todos os campos!", "danger")
             return redirect(url_for("inserir_usuarios"))
-        usuarios.append({"nome": nome, "email": email, "senha": "123", "idade": int(idade)})  # senha padrão pra inserção pelo admin
+        usuarios.append({"nome": nome, "email": email, "senha": "123", "idade": int(idade), "funcao": funcao})  # senha padrão pra inserção pelo admin
         flash("Usuário adicionado!", "success")
         return redirect(url_for("listar_usuarios"))
     return render_template("usuarios/inserir_usuario.html")
@@ -240,6 +247,39 @@ def inserir_series():
         flash("Série/Documentário adicionado!", "success")
         return redirect(url_for("listar_series"))
     return render_template("series/inserir_serie.html", generos=[g["nome"] for g in generos])
+
+# -----------------------------
+# Funções
+# -----------------------------
+
+@app.route("/funcoes/listar", endpoint="listar_funcoes")
+@login_obrigatorio
+def listar_funcoes():
+    return render_template("funcoes/listar_funcoes.html", funcoes=funcoes)
+
+@app.route("/funcoes/inserir", methods=["GET", "POST"], endpoint="inserir_funcoes")
+@login_obrigatorio
+def inserir_funcoes():
+    if request.method == "POST":
+        nome = request.form.get("nome")
+        status = request.form.get("status")
+        descricao = request.form.get("descricao")
+        permissoes = request.form.getlist("permissoes")
+
+        if not nome or not status or not descricao:
+            flash("Preencha todos os campos obrigatórios!", "danger")
+            return redirect(url_for("inserir_funcoes"))
+
+        funcoes.append({
+            "nome": nome,
+            "status": status,
+            "descricao": descricao,
+            "permissoes": permissoes
+        })
+        flash("Função cadastrada com sucesso!", "success")
+        return redirect(url_for("listar_funcoes"))
+
+    return render_template("funcoes/inserir_funcao.html")
 
 # -----------------------------
 # Rodar servidor

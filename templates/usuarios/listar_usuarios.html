@@ -20,6 +20,7 @@
           <th>Registro</th>
           <th>Nome</th>
           <th>Idade</th>
+          <th>Função</th>
           <th>E-mail</th>
           <th>Senha</th>  {# atenção: exibir senha em texto puro não é seguro em produção #}
           <th>Ações</th>
@@ -32,6 +33,7 @@
           <td>{{ loop.index }}</td>       {# número da linha na listagem #}
           <td>{{ usuario.nome }}</td>
           <td>{{ usuario.idade }}</td>
+          <td>{{ usuario.funcao }}</td>
           <td>{{ usuario.email }}</td>
           <td>{{ usuario.senha }}</td>
           <td>
