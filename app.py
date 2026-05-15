@@ -1,8 +1,11 @@
 from flask import Flask, render_template, request, redirect, flash, url_for, session
 from functools import wraps  # necessário pra preservar o nome da função original no decorador
-
+from db import iniciar_bd
 app = Flask(__name__)
 app.secret_key = "segredo"  # chave usada pra assinar/criptografar a session
+
+
+iniciar_bd() # inicia o BD e as tabelas 
 
 # -----------------------------
 # Decorador de login
