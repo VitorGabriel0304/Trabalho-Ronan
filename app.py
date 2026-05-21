@@ -1,32 +1,27 @@
 from flask import Flask, render_template, request, redirect, flash, url_for, session
-from functools import wraps  # necessário pra preservar o nome da função original no decorador
+from functools import wraps
 from db import iniciar_bd, execute_query
+
 app = Flask(__name__)
-app.secret_key = "segredo"  # chave usada pra assinar/criptografar a session
+app.secret_key = "segredo"
 
-
-iniciar_bd() # inicia o BD e as tabelas 
+# Inicia o BD e as tabelas ao subir o app
+iniciar_bd()
 
 # -----------------------------
 # Decorador de login
 # -----------------------------
-
-# decorador que protege rotas — basta colocar @login_obrigatorio em cima da função
 def login_obrigatorio(f):
-    @wraps(f)  # sem isso o Flask fica confuso com funções de mesmo nome
+    @wraps(f)
     def funcao_protegida(*args, **kwargs):
-        if "usuario" not in session:  # se não tem ninguém logado...
+        if "usuario" not in session:
             flash("Você precisa estar logado!", "warning")
-            return redirect(url_for('login'))  # manda pra tela de login
-        return f(*args, **kwargs)  # se tiver logado, executa a rota normalmente
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
     return funcao_protegida
 
-# --- USUÁRIOS ---
-# Cada dicionário representa um registro de usuário.
-# Campo "idade" é usado para controle de faixa etária no filtro de filmes/séries.
-# Campo "senha" está em texto puro — em produção use hashing (ex: bcrypt, werkzeug).
-
-usuarios = [
+# --- DADOS EM MEMÓRIA (MANTIDOS CONFORME ORIGINAL) ---
+usuarios_memoria = [
   {"nome": "Admin", "email": "admin@", "senha": "admin", "idade": 25, "funcao": "Administrador"},
   {"nome": "Vitor", "email": "vitor@email.com", "senha": "123", "idade": 21, "funcao": "Usuário"},
   {"nome": "Rhian", "email": "rhian@email.com", "senha": "123", "idade": 20, "funcao": "Usuário"},
@@ -36,29 +31,14 @@ usuarios = [
   {"nome": "Lucas", "email": "lucas@email.com", "senha": "123", "idade": 19, "funcao": "Suporte"}
 ]
 
-# --- FUNÇÕES ---
-# Lista em memória usada pelo módulo de cadastro e listagem de funções.
-# Cada função possui nome, status, descrição e uma lista de permissões selecionadas.
-funcoes = []
-
-# --- GÊNEROS ---
-# Lista de gêneros usada para popular dropdowns/selects nos formulários.
-# Estrutura em dicionário (em vez de lista simples de strings) facilita
-# adicionar campos futuros como "descricao" ou "icone" sem refatorar muito.
-
 generos = [
     {"nome": "Ação"}, {"nome": "Comédia"}, {"nome": "Terror"}, 
     {"nome": "Ficção"}, {"nome": "Drama"}, {"nome": "Documentário"}
 ]
 
-# --- FILMES ---
-# Cada filme tem: titulo, ano de lançamento, gênero (referência textual),
-# faixa_etaria (idade mínima para assistir) e capa (caminho para /static/imgs/).
-# A capa usa caminho absoluto a partir da raiz do site (/static/...).
-
 filmes = [
     {"titulo": "Gladiador", "ano": 2000, "genero": "Ação", "faixa_etaria": 16, "capa": "/static/imgs/Gladiador.jpg"},
-    {"titulo": "Interstellar", "ano": 2014, "genero": "Ficção", "faixa_etaria": 10, "capa": "/static/imgs/interstellar.jpg"},
+    {"titulo": "Interstellar", "ano": 2014, "genero": "Ficção", "faixa_etaria": 10, "capa": "/static/imgs/Interstellar.jpg"},
     {"titulo": "Avatar", "ano": 2009, "genero": "Ficção", "faixa_etaria": 12, "capa": "/static/imgs/FilmeAvatar.jpg"},
     {"titulo": "O Lobo de Wall Street", "ano": 2013, "genero": "Comédia", "faixa_etaria": 18, "capa": "/static/imgs/The_Wolf_of_Wall_Street.jpg"},
     {"titulo": "Annabelle", "ano": 2014, "genero": "Terror", "faixa_etaria": 16, "capa": "/static/imgs/Annabelle.jpg"},
@@ -66,15 +46,11 @@ filmes = [
     {"titulo": "Homem de Ferro", "ano": 2008, "genero": "Ação", "faixa_etaria": 12, "capa": "/static/imgs/Iron_Man.jpg"}
 ]
 
-# --- SÉRIES ---
-# Mesma estrutura dos filmes, mas com o campo extra "temporadas".
-# Documentários de natureza (Planet Earth, Our Planet) têm faixa_etaria=0 (livre).
-
 series = [
-    {"titulo": "Breaking Bad", "ano": 2008, "genero": "Drama", "faixa_etaria": 16, "temporadas": 5, "capa": "/static/imgs/breakingbad.jpg"},
+    {"titulo": "Breaking Bad", "ano": 2008, "genero": "Drama", "faixa_etaria": 16, "temporadas": 5, "capa": "/static/imgs/Breakingbad.jpg"},
     {"titulo": "Friends", "ano": 1994, "genero": "Comédia", "faixa_etaria": 10, "temporadas": 10, "capa": "/static/imgs/Friends.webp"},
     {"titulo": "Stranger Things", "ano": 2016, "genero": "Ficção", "faixa_etaria": 12, "temporadas": 4, "capa": "/static/imgs/StrangerThings.jpg"},
-    {"titulo": "Planet Earth", "ano": 2006, "genero": "Documentário", "faixa_etaria": 0, "temporadas": 1, "capa": "/static/imgs/PlanetEARTH.jpg"},
+    {"titulo": "Planet Earth", "ano": 2006, "genero": "Documentário", "faixa_etaria": 0, "temporadas": 1, "capa": "/static/imgs/PlanetEarth.jpg"},
     {"titulo": "The Office", "ano": 2005, "genero": "Comédia", "faixa_etaria": 12, "temporadas": 9, "capa": "/static/imgs/TheOffice.jpg"},
     {"titulo": "Chernobyl", "ano": 2019, "genero": "Drama", "faixa_etaria": 16, "temporadas": 1, "capa": "/static/imgs/Chernobyl.jpg"},
     {"titulo": "Our Planet", "ano": 2019, "genero": "Documentário", "faixa_etaria": 0, "temporadas": 1, "capa": "/static/imgs/OurPlanet.webp"}
@@ -83,13 +59,10 @@ series = [
 # -----------------------------
 # Páginas públicas
 # -----------------------------
-
-# rota raiz, não precisa de login
 @app.route("/")
 def index():
     return render_template("index.html")
 
-# página estática, também pública
 @app.route("/sobre/equipe")
 def sobre_equipe():
     return render_template("sobre_equipe.html")
@@ -97,17 +70,13 @@ def sobre_equipe():
 # -----------------------------
 # Login
 # -----------------------------
-
-# GET: mostra o formulário / POST: processa os dados enviados
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
         email = request.form.get("email")
         senha = request.form.get("senha")
-        # next() percorre a lista e retorna o primeiro que bater, ou None
-        usuario_encontrado = next((u for u in usuarios if u["email"] == email and u["senha"] == senha), None)
+        usuario_encontrado = next((u for u in usuarios_memoria if u["email"] == email and u["senha"] == senha), None)
         if usuario_encontrado:
-            # salva só nome e idade na session, não a senha
             session["usuario"] = {"nome": usuario_encontrado["nome"], "idade": int(usuario_encontrado["idade"])}
             flash("Login realizado com sucesso!", "success")
             return redirect(url_for("listar_usuarios"))
@@ -115,49 +84,39 @@ def login():
         return redirect(url_for("login"))
     return render_template("login.html")
 
-# -----------------------------
-# Cadastro
-# -----------------------------
-
 @app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
     if request.method == "POST":
         nome = request.form.get("nome")
         email = request.form.get("email")
         senha = request.form.get("senha")
-        confirmar = request.form.get("confirmar")  # campo de confirmação de senha
+        confirmar = request.form.get("confirmar")
         idade = request.form.get("idade")
         funcao = request.form.get("funcao")
         if not nome or not email or not senha or not idade or not funcao:
             flash("Preencha todos os campos!", "danger")
             return redirect(url_for("cadastro"))
-        if senha != confirmar:  # compara as duas senhas antes de salvar
+        if senha != confirmar:
             flash("As senhas não coincidem!", "danger")
             return redirect(url_for("cadastro"))
-        usuarios.append({"nome": nome, "email": email, "senha": senha, "idade": int(idade), "funcao": funcao})
+        usuarios_memoria.append({"nome": nome, "email": email, "senha": senha, "idade": int(idade), "funcao": funcao})
         flash("Cadastro realizado com sucesso!", "success")
-        return redirect(url_for("login"))  # após cadastrar, manda pro login
+        return redirect(url_for("login"))
     return render_template("cadastro.html")
-
-# -----------------------------
-# Logout
-# -----------------------------
 
 @app.route("/logout")
 def logout():
-    session.pop("usuario", None)  # remove o usuário da session, None evita erro se já não existir
+    session.pop("usuario", None)
     flash("Logout realizado!", "info")
     return redirect(url_for("login"))
 
 # -----------------------------
 # Usuários
 # -----------------------------
-
-# endpoint= define o nome usado no url_for, útil quando o nome da função poderia conflitar
 @app.route("/usuarios/listar", endpoint="listar_usuarios")
-@login_obrigatorio  # decorador: bloqueia se não estiver logado
+@login_obrigatorio
 def listar_usuarios():
-    return render_template("usuarios/listar_usuarios.html", usuarios=usuarios)
+    return render_template("usuarios/listar_usuarios.html", usuarios=usuarios_memoria)
 
 @app.route("/usuarios/inserir", methods=["GET", "POST"], endpoint="inserir_usuarios")
 @login_obrigatorio
@@ -170,7 +129,7 @@ def inserir_usuarios():
         if not nome or not email or not idade or not funcao:
             flash("Preencha todos os campos!", "danger")
             return redirect(url_for("inserir_usuarios"))
-        usuarios.append({"nome": nome, "email": email, "senha": "123", "idade": int(idade), "funcao": funcao})  # senha padrão pra inserção pelo admin
+        usuarios_memoria.append({"nome": nome, "email": email, "senha": "123", "idade": int(idade), "funcao": funcao})
         flash("Usuário adicionado!", "success")
         return redirect(url_for("listar_usuarios"))
     return render_template("usuarios/inserir_usuario.html")
@@ -178,20 +137,14 @@ def inserir_usuarios():
 # -----------------------------
 # Filmes
 # -----------------------------
-
 @app.route("/filmes/listar", endpoint="listar_filmes")
 @login_obrigatorio
 def listar_filmes():
-    genero_filtro = request.args.get("genero", "todos")  # pega da URL (?genero=Ação), padrão "todos"
-    lista_generos = [g["nome"] for g in generos]  # extrai só os nomes pra popular o select
+    genero_filtro = request.args.get("genero", "todos")
+    lista_generos = [g["nome"] for g in generos]
     usuario_logado = session.get("usuario")
-    if not isinstance(usuario_logado, dict):  # proteção extra caso a session esteja corrompida
-        flash("Erro na sessão. Faça login novamente.", "danger")
-        return redirect(url_for("logout"))
     idade_usuario = int(usuario_logado.get("idade", 0))
-    # filtra por gênero primeiro...
     filmes_filtrados = [f for f in filmes if genero_filtro == "todos" or f["genero"] == genero_filtro]
-    # ...depois filtra por faixa etária do usuário logado
     filmes_filtrados = [f for f in filmes_filtrados if idade_usuario >= f["faixa_etaria"]]
     return render_template("filmes/listar_filme.html", filmes=filmes_filtrados, generos=lista_generos, genero_filtro=genero_filtro)
 
@@ -203,31 +156,24 @@ def inserir_filmes():
         ano = request.form.get("ano")
         genero = request.form.get("genero")
         faixa_etaria = request.form.get("faixa_etaria")
-        capa = request.form.get("capa")  # campo opcional
+        capa = request.form.get("capa")
         if not titulo or not ano or not genero or not faixa_etaria:
             flash("Preencha os campos obrigatórios!", "danger")
             return redirect(url_for("inserir_filmes"))
-        filmes.append({"titulo": titulo, "ano": int(ano), "genero": genero, "faixa_etaria": int(faixa_etaria), "capa": capa if capa else ""})  # capa vira string vazia se não informada
+        filmes.append({"titulo": titulo, "ano": int(ano), "genero": genero, "faixa_etaria": int(faixa_etaria), "capa": capa if capa else ""})
         flash("Filme adicionado!", "success")
         return redirect(url_for("listar_filmes"))
     return render_template("filmes/inserir_filme.html", generos=[g["nome"] for g in generos])
 
-# MÓDULO: SÉRIES
-# ============================================================
-# Lógica idêntica ao módulo de filmes, com duas diferenças:
-#   1. Os dados vêm da lista 'series' (não 'filmes').
-#   2. O formulário de inserção inclui o campo "temporadas".
-# ============================================================
-
+# -----------------------------
+# Séries
+# -----------------------------
 @app.route("/series/listar", endpoint="listar_series")
 @login_obrigatorio
 def listar_series():
     genero_filtro = request.args.get("genero", "todos")
     lista_generos = [g["nome"] for g in generos]
     usuario_logado = session.get("usuario")
-    if not isinstance(usuario_logado, dict):
-        flash("Erro na sessão. Faça login novamente.", "danger")
-        return redirect(url_for("logout"))
     idade_usuario = int(usuario_logado.get("idade", 0))
     series_filtradas = [s for s in series if genero_filtro == "todos" or s["genero"] == genero_filtro]
     series_filtradas = [s for s in series_filtradas if idade_usuario >= s["faixa_etaria"]]
@@ -241,7 +187,7 @@ def inserir_series():
         ano = request.form.get("ano")
         genero = request.form.get("genero")
         faixa_etaria = request.form.get("faixa_etaria")
-        temporadas = request.form.get("temporadas")  # campo extra que filmes não têm
+        temporadas = request.form.get("temporadas")
         capa = request.form.get("capa")
         if not titulo or not ano or not genero or not faixa_etaria or not temporadas:
             flash("Preencha os campos obrigatórios!", "danger")
@@ -252,61 +198,58 @@ def inserir_series():
     return render_template("series/inserir_serie.html", generos=[g["nome"] for g in generos])
 
 # -----------------------------
-# Funções
+# Funções (Banco de Dados)
 # -----------------------------
-
 @app.route("/funcoes/listar", endpoint="listar_funcoes")
 @login_obrigatorio
 def listar_funcoes():
-    sql = '''
-            SELECT
-                id_funcao,
-                nome,
-                status, 
-                descricao, 
-                gerenciar_usuario, 
-                gerenciar_tarefas, 
-                gerenciar_funcao,
-                gerenciar_serie, 
-                gerenciar_filme,
-                criado_em,
-                alterado_em
-            FROM funcoes
-            ORDER BY id_funcao DESC;
-        '''
-    lista_dados = execute_query(sql, fetch=true)
+    sql = "SELECT * FROM funcoes ORDER BY id_funcao DESC"
+    lista_dados = execute_query(sql, fetch=True)
     
-    return render_template("funcoes/listar_funcoes.html", funcoes=funcoes)
+    # Processar permissões para o formato esperado pelo template
+    for f in lista_dados:
+        perms = []
+        if f.get('gerenciar_usuario'): perms.append('Gerenciar usuário')
+        if f.get('gerenciar_tarefas'): perms.append('Gerenciar tarefa')
+        if f.get('gerenciar_funcao'): perms.append('Gerenciar funções')
+        if f.get('gerenciar_serie'): perms.append('Séries')
+        if f.get('gerenciar_filme'): perms.append('Filmes')
+        f['permissoes'] = perms
+        f['status'] = 'Ativo' if f.get('status') else 'Inativo'
+
+    return render_template("funcoes/listar_funcoes.html", funcoes=lista_dados)
 
 @app.route("/funcoes/inserir", methods=["GET", "POST"], endpoint="inserir_funcoes")
 @login_obrigatorio
 def inserir_funcoes():
     if request.method == "POST":
         nome = request.form.get("nome")
-        status = request.form.get("status")
+        status = 1 if request.form.get("status") == "Ativo" else 0
         descricao = request.form.get("descricao")
         permissoes = request.form.getlist("permissoes")
 
-        if not nome or not status or not descricao:
+        if not nome or not descricao:
             flash("Preencha todos os campos obrigatórios!", "danger")
             return redirect(url_for("inserir_funcoes"))
 
-        funcoes.append({
-            "nome": nome,
-            "status": status,
-            "descricao": descricao,
-            "permissoes": permissoes
-        })
+        sql = """
+            INSERT INTO funcoes (nome, status, descricao, gerenciar_usuario, gerenciar_tarefas, gerenciar_funcao, gerenciar_serie, gerenciar_filme)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        """
+        params = (
+            nome, status, descricao,
+            1 if 'Gerenciar usuário' in permissoes else 0,
+            1 if 'Gerenciar tarefa' in permissoes else 0,
+            1 if 'Gerenciar funções' in permissoes else 0,
+            1 if 'Séries' in permissoes else 0,
+            1 if 'Filmes' in permissoes else 0
+        )
+        execute_query(sql, params)
+        
         flash("Função cadastrada com sucesso!", "success")
         return redirect(url_for("listar_funcoes"))
 
     return render_template("funcoes/inserir_funcao.html")
 
-# -----------------------------
-# Rodar servidor
-# -----------------------------
-
-# debug=True reinicia o servidor sozinho ao salvar e mostra erros detalhados
-# nunca usar debug=True em produção!
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)

@@ -20,24 +20,27 @@ _DB_PARAMS = {
 }
 
 
-__pool = None
+_pool = None
 def criar_pool():
     # Pool criado uma única vez quando o módulo é carregado pela primeira vez.
     # conn.close() devolve a conexão ao pool — não fecha fisicamente.
     global _pool # chama a variavel pool
 
-    if _pool is none:
+    if _pool is None:
         _pool = pooling.MySQLConnectionPool(
             pool_name='webapp_pool',
             pool_size=5,           # conexões abertas permanentemente
             pool_reset_session=True,
             **_DB_PARAMS
-    )
+        )
     return _pool
 
 
 def get_connection():
     """Retorna uma conexão do pool. Levanta Exception em caso de falha."""
+    global _pool
+    if _pool is None:
+        criar_pool()
     try:
         return _pool.get_connection()
     except Error as e:
@@ -95,26 +98,28 @@ def iniciar_bd():
         )
         cursor = conn.cursor()
 
+        # Criar o banco de dados se não existir
+        cursor.execute("CREATE DATABASE IF NOT EXISTS cinelist CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;")
+        cursor.execute("USE cinelist;")
+
         arquivo_sql = os.path.join(os.path.dirname(__file__), 'schema.sql')
-        with open(arquivo_sql, 'r', econding='utf-8' ) as f:
+        with open(arquivo_sql, 'r', encoding='utf-8' ) as f:
             script_sql = f.read()
 
-        # multi=true pega cada sql; e separa para execuçao
-        # fazendo cada comando ser executado separado
+        # Executar o script SQL ignorando comandos de criação de banco que já fizemos
+        # e tratando o delimitador ;
         for stmt in script_sql.split(';'):
             stmt = stmt.strip()
-            if stmt:
-                cursor.execute(stmt)
+            if stmt and not stmt.upper().startswith('CREATE DATABASE') and not stmt.upper().startswith('USE'):
+                try:
+                    cursor.execute(stmt)
+                except Exception as e:
+                    print(f"Aviso ao executar statement: {e}")
         
-        for result in cursor.execute(script_sql, multi=True):
-            pass # simplesmente vai para frente . continua executando
-
         conn.commit()
         cursor.close()
-        conn.close
-        print('banco e tabelas inicializadas com sucesso')
-
-
+        conn.close()
+        print('Banco e tabelas inicializadas com sucesso')
 
     except Exception as e:
         print(f"Erro ao inicializar o banco de dados: {e}")
