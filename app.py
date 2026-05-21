@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, flash, url_for, session
 from functools import wraps  # necessário pra preservar o nome da função original no decorador
-from db import iniciar_bd
+from db import iniciar_bd, execute_query
 app = Flask(__name__)
 app.secret_key = "segredo"  # chave usada pra assinar/criptografar a session
 
@@ -258,6 +258,24 @@ def inserir_series():
 @app.route("/funcoes/listar", endpoint="listar_funcoes")
 @login_obrigatorio
 def listar_funcoes():
+    sql = '''
+            SELECT
+                id_funcao,
+                nome,
+                status, 
+                descricao, 
+                gerenciar_usuario, 
+                gerenciar_tarefas, 
+                gerenciar_funcao,
+                gerenciar_serie, 
+                gerenciar_filme,
+                criado_em,
+                alterado_em
+            FROM funcoes
+            ORDER BY id_funcao DESC;
+        '''
+    lista_dados = execute_query(sql, fetch=true)
+    
     return render_template("funcoes/listar_funcoes.html", funcoes=funcoes)
 
 @app.route("/funcoes/inserir", methods=["GET", "POST"], endpoint="inserir_funcoes")

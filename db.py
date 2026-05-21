@@ -18,14 +18,20 @@ _DB_PARAMS = {
     'connection_timeout': 10,         # desiste após 10s sem resposta
     'autocommit':         False,      # exige commit() explícito
 }
-def retornar_pool():
+
+
+__pool = None
+def criar_pool():
     # Pool criado uma única vez quando o módulo é carregado pela primeira vez.
     # conn.close() devolve a conexão ao pool — não fecha fisicamente.
-    _pool = pooling.MySQLConnectionPool(
-        pool_name='webapp_pool',
-        pool_size=5,           # conexões abertas permanentemente
-        pool_reset_session=True,
-        **_DB_PARAMS
+    global _pool # chama a variavel pool
+
+    if _pool is none:
+        _pool = pooling.MySQLConnectionPool(
+            pool_name='webapp_pool',
+            pool_size=5,           # conexões abertas permanentemente
+            pool_reset_session=True,
+            **_DB_PARAMS
     )
     return _pool
 
