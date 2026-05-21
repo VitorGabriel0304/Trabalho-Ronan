@@ -223,12 +223,12 @@ def listar_funcoes():
 @login_obrigatorio
 def inserir_funcoes():
     if request.method == "POST":
-        nome = request.form.get("nome")
+        nome = request.form.get("nome").strip()
         status = 1 if request.form.get("status") == "Ativo" else 0
-        descricao = request.form.get("descricao")
-        permissoes = request.form.getlist("permissoes")
+        descricao = request.form.get("descricao").strip()
+        permissoes = request.form.getlist("permissoes").strip()
 
-        if not nome or not descricao:
+        if not nome:
             flash("Preencha todos os campos obrigatórios!", "danger")
             return redirect(url_for("inserir_funcoes"))
 
