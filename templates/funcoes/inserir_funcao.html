@@ -3,28 +3,26 @@
 {% block conteudo %}
 <div class="linha-centro">
   <div class="cadastro-card cadastro-card-funcao">
-    <h2>⚙️ Cadastrar Função</h2>
+    <h2>{{ '⚙️ Editar Função' if funcao else '⚙️ Cadastrar Função' }}</h2>
 
-    <form action="{{ url_for('inserir_funcoes') }}" method="POST">
-      <!-- Nome da função -->
+    <form action="{{ url_for('editar_funcao', id=funcao.id_funcao) if funcao else url_for('inserir_funcoes') }}" method="POST">
       <label for="nome">Nome da Função</label>
       <input
         type="text"
         name="nome"
         id="nome"
+        value="{{ funcao.nome if funcao else '' }}"
         placeholder="Ex.: Administrador, Supervisor, Operador"
         required
       />
 
-      <!-- Status -->
       <label for="status">Status</label>
       <select name="status" id="status" required>
-        <option value="" selected disabled>Selecione o status</option>
-        <option value="Ativo">Ativo</option>
-        <option value="Inativo">Inativo</option>
+        <option value="" disabled {{ 'selected' if not funcao else '' }}>Selecione o status</option>
+        <option value="Ativo" {{ 'selected' if not funcao or funcao.status_str == 'Ativo' else '' }}>Ativo</option>
+        <option value="Inativo" {{ 'selected' if funcao and funcao.status_str == 'Inativo' else '' }}>Inativo</option>
       </select>
 
-      <!-- Descrição -->
       <label for="descricao">Descrição</label>
       <textarea
         name="descricao"
@@ -32,39 +30,29 @@
         rows="4"
         placeholder="Descreva as responsabilidades desta função"
         required
-      ></textarea>
+      >{{ funcao.descricao if funcao else '' }}</textarea>
 
-      <!-- Permissões -->
       <fieldset class="grupo-permissoes">
         <legend>Permissões</legend>
 
-        <label class="opcao-permissao" for="perm_dashboard">
-          <input type="checkbox" name="permissoes" id="perm_dashboard" value="Dashboard" />
-          <span>Dashboard</span>
-        </label>
+        {% set todas_perms = [
+          ('Gerenciar usuário', 'Gerenciar Usuário'),
+          ('Gerenciar tarefa', 'Gerenciar Tarefa'),
+          ('Gerenciar funções', 'Gerenciar Funções'),
+          ('Séries', 'Séries'),
+          ('Filmes', 'Filmes')
+        ] %}
 
-        <label class="opcao-permissao" for="perm_usuarios">
-          <input type="checkbox" name="permissoes" id="perm_usuarios" value="Gerenciar Usuário" />
-          <span>Gerenciar usuário</span>
+        {% for label, value in todas_perms %}
+        <label class="opcao-permissao" for="perm_{{ loop.index }}">
+          <input type="checkbox" name="permissoes" id="perm_{{ loop.index }}" value="{{ value }}" 
+                 {{ 'checked' if funcao and value in funcao.permissoes else '' }} />
+          <span>{{ label }}</span>
         </label>
-
-        <label class="opcao-permissao" for="perm_tarefas">
-          <input type="checkbox" name="permissoes" id="perm_tarefas" value="Gerenciar Tarefa" />
-          <span>Gerenciar tarefa</span>
-        </label>
-
-        <label class="opcao-permissao" for="perm_relatorios">
-          <input type="checkbox" name="permissoes" id="perm_relatorios" value="Emitir Relatórios" />
-          <span>Emitir relatórios</span>
-        </label>
-
-        <label class="opcao-permissao" for="perm_funcoes">
-          <input type="checkbox" name="permissoes" id="perm_funcoes" value="Gerenciar Funções" />
-          <span>Gerenciar funções</span>
-        </label>
+        {% endfor %}
       </fieldset>
 
-      <button type="submit" class="botao-form">Cadastrar Função</button>
+      <button type="submit" class="botao-form">{{ 'Salvar Alterações' if funcao else 'Cadastrar Função' }}</button>
     </form>
 
     <div class="ja-tem-conta">

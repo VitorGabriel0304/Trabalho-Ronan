@@ -17,7 +17,7 @@
     <table>
       <thead>
         <tr>
-          <th>Registro</th>
+          <th>ID</th>
           <th>Nome</th>
           <th>Idade</th>
           <th>Função</th>
@@ -27,19 +27,17 @@
         </tr>
       </thead>
       <tbody>
-        {# loop.index começa em 1 #}
         {% for usuario in usuarios %}
         <tr>
-          <td>{{ loop.index }}</td>       {# número da linha na listagem #}
+          <td>{{ usuario.id }}</td>
           <td>{{ usuario.nome }}</td>
           <td>{{ usuario.idade }}</td>
           <td>{{ usuario.funcao }}</td>
           <td>{{ usuario.email }}</td>
           <td>{{ usuario.senha }}</td>
           <td>
-            {# botões sem action ainda — editar e excluir não têm rota implementada #}
-            <button class="btn-editar">Editar</button>
-            <button class="btn-excluir">Excluir</button>
+            <a href="{{ url_for('editar_usuario', id=usuario.id) }}" class="btn-editar">Editar</a>
+            <a href="{{ url_for('excluir_usuario', id=usuario.id) }}" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">Excluir</a>
           </td>
         </tr>
         {% endfor %}

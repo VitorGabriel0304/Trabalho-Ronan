@@ -14,7 +14,7 @@
     <table>
       <thead>
         <tr>
-          <th>#</th>
+          <th>ID</th>
           <th>Nome da Função</th>
           <th>Status</th>
           <th>Descrição</th>
@@ -26,7 +26,7 @@
         {% if funcoes %}
           {% for funcao in funcoes %}
           <tr>
-            <td class="numero-registro">{{ loop.index }}</td>
+            <td class="numero-registro">{{ funcao.id_funcao }}</td>
             <td class="nome-funcao">
               <strong>{{ funcao.nome }}</strong>
             </td>
@@ -50,8 +50,8 @@
               {% endif %}
             </td>
             <td class="acoes-funcao">
-              <button class="btn-editar" title="Editar função">✏️ Editar</button>
-              <button class="btn-excluir" title="Excluir função">🗑️ Excluir</button>
+              <a href="{{ url_for('editar_funcao', id=funcao.id_funcao) }}" class="btn-editar">✏️ Editar</a>
+              <a href="{{ url_for('excluir_funcao', id=funcao.id_funcao) }}" class="btn-excluir" onclick="return confirm('Excluir esta função?')">🗑️ Excluir</a>
             </td>
           </tr>
           {% endfor %}

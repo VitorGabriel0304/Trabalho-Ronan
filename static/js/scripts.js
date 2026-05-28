@@ -6,7 +6,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     
     // pega todos os botões de excluir da página de uma vez
-    const botoesExcluir = document.querySelectorAll(".btn-excluir");
+    const botoesExcluir = document.querySelectorAll(".btn-excluir, .btn-excluir-sm");
 
     botoesExcluir.forEach(function (botao) {
         botao.addEventListener("click", function (e) {
@@ -61,7 +61,7 @@ inputs.forEach(function(input) {
 // =========================
 
 // seleciona todos os tipos de botão do sistema
-const botoes = document.querySelectorAll("button, .botao-entrar, .botao-criar, .botao-form, .add-usuario, .btn-editar, .btn-sair");
+const botoes = document.querySelectorAll("button, .botao-entrar, .botao-criar, .botao-form, .add-usuario, .btn-editar, .btn-sair, .btn-adicionar, .btn-editar-sm, .btn-excluir-sm");
 
 botoes.forEach(function(botao) {
 

@@ -1,122 +1,43 @@
 {% extends "base.html" %}
-{# herda o base com navbar — rota protegida pelo @login_obrigatorio #}
 
 {% block conteudo %}
 <div class="container">
-    <h1 class="titulo-usuario">Lista de Séries & Documentários</h1>
+  <h1 class="titulo-pagina">📺 Lista de Séries</h1>
 
-    <!-- Botão para adicionar série/documentário -->
-    <div class="acoes-usuario" style="margin-bottom:15px;">
-        <a href="{{ url_for('inserir_series') }}" class="add-usuario">Adicionar Série / Documentário</a>
-    </div>
-
-    <!-- Filtro interativo por gênero -->
-    {# filtro funciona passando o gênero como query string: /series/listar?genero=Drama #}
-    <div class="filtros-por-genero" style="margin-bottom: 15px;">
-        <span style="font-weight:bold; margin-right:10px;">Filtrar por gênero:</span>
-
-        <a href="{{ url_for('listar_series', genero='todos') }}" class="btn-filtro"
-            style="margin-right:5px; padding:5px 10px; background:#4CAF50; color:white; border-radius:5px; text-decoration:none;">Todos</a>
-
+  <div class="acoes-topo">
+    <form action="{{ url_for('listar_series') }}" method="GET" class="filtro-genero">
+      <label for="genero">Filtrar por Gênero:</label>
+      <select name="genero" id="genero" onchange="this.form.submit()">
+        <option value="todos" {{ 'selected' if genero_filtro == 'todos' else '' }}>Todos</option>
         {% for g in generos %}
-        <a href="{{ url_for('listar_series', genero=g) }}" class="btn-filtro"
-            style="margin-right:5px; padding:5px 10px; background:#2196F3; color:white; border-radius:5px; text-decoration:none;">{{ g }}</a>
+        <option value="{{ g }}" {{ 'selected' if genero_filtro == g else '' }}>{{ g }}</option>
         {% endfor %}
-    </div>
+      </select>
+    </form>
+    <a href="{{ url_for('inserir_series') }}" class="btn-adicionar">➕ Adicionar Série</a>
+  </div>
 
-    <!-- Tabela de séries -->
-    <div class="tabela-usuario">
-
-        {# ============================================================
-           FEEDBACK DE LISTA VAZIA
-           Checa se a lista 'series' chegou com pelo menos 1 item.
-           Pode estar vazia por dois motivos:
-             1. Nenhuma série passou no filtro de faixa etária do usuário.
-             2. Nenhuma série existe no gênero selecionado para essa faixa.
-           O app.py já aplica os dois filtros antes de enviar a lista,
-           então aqui só verificamos se sobrou alguma coisa.
-        ============================================================ #}
-        {% if series %}
-
-        {# lista tem séries — renderiza a tabela normalmente #}
-        <table>
-            <thead>
-                <tr>
-                    <th>Registro</th>
-                    <th>Capa</th>
-                    <th>Título</th>
-                    <th>Gênero</th>
-                    <th>Ano</th>
-                    <th>Temporadas</th>  {# coluna extra que filmes não têm #}
-                    <th>Faixa Etária</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {# series já vem filtrada por gênero E faixa etária do app.py #}
-                {% for serie in series %}
-                <tr>
-                    <td>{{ loop.index }}</td>
-                    <td>
-                        {# se não tiver capa cadastrada, usa um placeholder genérico online #}
-                        <img src="{{ serie.capa if serie.capa else 'https://via.placeholder.com/60x90' }}"
-                            alt="Capa da série"
-                            style="width: 60px; height: 90px; object-fit: cover; border-radius: 8px;">
-                    </td>
-                    <td>{{ serie.titulo }}</td>
-                    <td>{{ serie.genero }}</td>
-                    <td>{{ serie.ano }}</td>
-                    <td>{{ serie.temporadas }}</td>
-                    <td>{{ serie.faixa_etaria }}+</td>
-                    <td>
-                        {# botões sem rota ainda — editar e excluir não estão implementados #}
-                        <button class="btn-editar">Editar</button>
-                        <button class="btn-excluir">Excluir</button>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        {% else %}
-
-        {# ── lista vazia: exibe mensagem amigável em vez de tabela vazia ── #}
-        {# genero_filtro vem do app.py para montar uma mensagem mais específica #}
-        <div style="text-align: center; padding: 40px 20px;">
-
-            {# ícone de série/tv — apenas decorativo #}
-            <p style="font-size: 48px; margin-bottom: 10px;">📺</p>
-
-            {% if genero_filtro == "todos" %}
-                {# sem filtro ativo → faixa etária bloqueou tudo ou lista está vazia #}
-                <p style="font-size: 18px; color: #ccc;">
-                    Nenhuma série ou documentário disponível para a sua faixa etária.
-                </p>
-            {% else %}
-                {# filtro de gênero ativo → informa qual gênero não retornou resultado #}
-                <p style="font-size: 18px; color: #ccc;">
-                    Nenhuma série ou documentário encontrado no gênero
-                    <strong>{{ genero_filtro }}</strong> para a sua faixa etária.
-                </p>
-            {% endif %}
-
-            {# link para limpar o filtro e ver todos (quando aplicável) #}
-            <a href="{{ url_for('listar_series', genero='todos') }}"
-               style="display:inline-block; margin-top:15px; padding:8px 16px;
-                      background:#4CAF50; color:white; border-radius:5px;
-                      text-decoration:none; font-size:14px;">
-                Ver todas as séries
-            </a>
-
+  <div class="grid-midia">
+    {% for serie in series %}
+    <div class="card-midia">
+      <div class="capa-container">
+        <img src="{{ serie.capa if serie.capa else '/static/imgs/placeholder.jpg' }}" alt="{{ serie.titulo }}" class="capa-midia">
+        <div class="badge-idade {{ 'livre' if serie.faixa_etaria == 0 else 'restrito' }}">
+          {{ 'L' if serie.faixa_etaria == 0 else serie.faixa_etaria ~ '+' }}
         </div>
-        {# fim do bloco de lista vazia #}
-
-        {% endif %}
-        {# fim do if series #}
-
+      </div>
+      <div class="info-midia">
+        <h3>{{ serie.titulo }}</h3>
+        <p class="detalhes">{{ serie.ano }} • {{ serie.genero }} • {{ serie.temporadas }} temp.</p>
+        <div class="acoes-card">
+          <a href="{{ url_for('editar_serie', id=serie.id) }}" class="btn-editar-sm">Editar</a>
+          <a href="{{ url_for('excluir_serie', id=serie.id) }}" class="btn-excluir-sm" onclick="return confirm('Excluir esta série?')">Excluir</a>
+        </div>
+      </div>
     </div>
-    {# fim tabela-usuario #}
-
+    {% else %}
+    <p class="msg-vazia">Nenhuma série encontrada para os critérios selecionados.</p>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

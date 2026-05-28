@@ -1,72 +1,40 @@
 {% extends "base.html" %}
-{# herda o base com navbar — rota protegida pelo @login_obrigatorio #}
 
 {% block conteudo %}
-<div class="container mt-4" style="max-width: 700px">
-    {# max-width inline pra limitar a largura do form — poderia estar no CSS também #}
-    <h1 class="titulo-usuario mb-4">Adicionar Série / Documentário</h1>
+<div class="linha-centro">
+  <div class="cadastro-card">
+    <h2>{{ '📺 Editar Série' if serie else '📺 Cadastrar Série' }}</h2>
 
-    {# sem action= : o POST vai pra mesma URL da página (/series/inserir) #}
-    <form method="POST">
+    <form action="{{ url_for('editar_serie', id=serie.id) if serie else url_for('inserir_series') }}" method="POST">
+      <label for="titulo">Título</label>
+      <input type="text" name="titulo" id="titulo" value="{{ serie.titulo if serie else '' }}" placeholder="Título da série" required />
 
-        <!-- Título -->
-        {# mb-3 do Bootstrap dá o espaçamento entre os campos #}
-        <div class="mb-3">
-            <label for="titulo" class="form-label">Título</label>
-            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Digite o título" required />
-        </div>
+      <label for="ano">Ano de Lançamento</label>
+      <input type="number" name="ano" id="ano" value="{{ serie.ano if serie else '' }}" placeholder="Ex: 2024" required />
 
-        <!-- Ano -->
-        {# min e max bloqueiam anos fora do intervalo direto no navegador #}
-        <div class="mb-3">
-            <label for="ano" class="form-label">Ano De Lançamento</label>
-            <input type="number" class="form-control" id="ano" name="ano" placeholder="Ex: 2023" min="1900" max="2099" required />
-        </div>
+      <label for="genero">Gênero</label>
+      <select name="genero" id="genero" required>
+        <option value="" disabled {{ 'selected' if not serie else '' }}>Selecione o gênero</option>
+        {% for g in generos %}
+        <option value="{{ g }}" {{ 'selected' if serie and serie.genero == g else '' }}>{{ g }}</option>
+        {% endfor %}
+      </select>
 
-        <!-- Gênero -->
-        {# generos vem do app.py — lista de strings passada pro render_template #}
-        <div class="mb-3">
-            <label for="genero" class="form-label">Gênero</label>
-            <select class="form-select" id="genero" name="genero" required>
-                <option value="">Selecione o gênero</option>  {# value="" faz o required funcionar — sem selecionar não envia #}
-                {% for g in generos %}
-                <option value="{{ g }}">{{ g }}</option>  {# value e texto são o mesmo: o nome do gênero #}
-                {% endfor %}
-            </select>
-        </div>
+      <label for="faixa_etaria">Faixa Etária</label>
+      <input type="number" name="faixa_etaria" id="faixa_etaria" value="{{ serie.faixa_etaria if serie else '' }}" placeholder="Ex: 12 (0 para Livre)" required />
 
-        <!-- Faixa Etária -->
-        {# valores fixos de classificação — o Flask salva o value (número), não o texto #}
-        <div class="mb-3">
-            <label for="faixa_etaria" class="form-label">Faixa Etária</label>
-            <select class="form-select" id="faixa_etaria" name="faixa_etaria" required>
-                <option value="">Selecione a faixa etária</option>
-                <option value="0">Livre</option>
-                <option value="10">10+</option>
-                <option value="12">12+</option>
-                <option value="14">14+</option>
-                <option value="16">16+</option>
-                <option value="18">18+</option>
-            </select>
-        </div>
+      <label for="temporadas">Número de Temporadas</label>
+      <input type="number" name="temporadas" id="temporadas" value="{{ serie.temporadas if serie else '' }}" placeholder="Ex: 5" required />
 
-        <!-- Número de Temporadas -->
-        {# campo extra que diferencia séries de filmes — min="1" evita 0 temporada #}
-        <div class="mb-3">
-            <label for="temporadas" class="form-label">Número de Temporadas</label>
-            <input type="number" class="form-control" id="temporadas" name="temporadas" placeholder="Ex: 3" min="1" required />
-        </div>
+      <label for="capa">URL da Capa (opcional)</label>
+      <input type="text" name="capa" id="capa" value="{{ serie.capa if serie else '' }}" placeholder="Ex: /static/imgs/foto.jpg" />
 
-        <!-- Capa (opcional) -->
-        {# sem required — se vazio o app.py substitui por string vazia e a tabela usa o placeholder #}
-        <div class="mb-3">
-            <label for="capa" class="form-label">URL da Capa (opcional)</label>
-            <input type="text" class="form-control" id="capa" name="capa" placeholder="https://exemplo.com/capa.jpg" />
-        </div>
-
-        <!-- Botão Enviar -->
-        {# btn-success do Bootstrap sobrescrito pelo CSS do projeto pra ficar vermelho #}
-        <button type="submit" class="btn btn-success">Adicionar</button>
+      <button type="submit" class="botao-form">{{ 'Salvar Alterações' if serie else 'Cadastrar Série' }}</button>
     </form>
+
+    <div class="ja-tem-conta">
+      <a href="{{ url_for('listar_series') }}"> ⬅ Voltar para lista </a>
+    </div>
+  </div>
 </div>
 {% endblock %}

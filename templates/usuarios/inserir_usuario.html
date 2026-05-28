@@ -1,56 +1,42 @@
 {% extends "base.html" %}
-{# herda o base com navbar — rota protegida, só admin logado chega aqui #}
 
 {% block conteudo %}
 <div class="linha-centro">
-  {# linha-centro centraliza vertical e horizontalmente via flexbox no CSS #}
   <div class="cadastro-card">
-    <h2>👤 Cadastrar Usuário</h2>
+    <h2>{{ '👤 Editar Usuário' if usuario else '👤 Cadastrar Usuário' }}</h2>
 
-    {# action aponta pro endpoint inserir_usuarios — mesmo nome usado no url_for #}
-    <form action="{{ url_for('inserir_usuarios') }}" method="POST">
+    <form action="{{ url_for('editar_usuario', id=usuario.id) if usuario else url_for('inserir_usuarios') }}" method="POST">
 
-      <!-- Nome -->
       <label for="nome">Nome</label>
-      <input type="text" name="nome" id="nome" placeholder="Digite o nome" required />
+      <input type="text" name="nome" id="nome" value="{{ usuario.nome if usuario else '' }}" placeholder="Digite o nome" required />
 
-      <!-- Idade -->
-      {# min="1" bloqueia idades negativas direto no navegador #}
       <label for="idade">Idade</label>
-      <input type="number" name="idade" id="idade" placeholder="Digite a idade" min="1" required />
+      <input type="number" name="idade" id="idade" value="{{ usuario.idade if usuario else '' }}" placeholder="Digite a idade" min="1" required />
 
-      <!-- E-mail -->
-      {# type="email" valida o formato antes de enviar #}
       <label for="email">E-mail</label>
-      <input type="email" name="email" id="email" placeholder="Digite o e-mail" required />
+      <input type="email" name="email" id="email" value="{{ usuario.email if usuario else '' }}" placeholder="Digite o e-mail" required />
 
-      <!-- Função -->
       <label for="funcao">Função</label>
       <select name="funcao" id="funcao" required>
-        <option value="" selected disabled>Selecione a função</option>
-        <option value="Administrador">Administrador</option>
-        <option value="Usuário">Usuário</option>
-        <option value="Gerente">Gerente</option>
-        <option value="Supervisor">Supervisor</option>
-        <option value="Suporte">Suporte</option>
+        <option value="" disabled {{ 'selected' if not usuario else '' }}>Selecione a função</option>
+        <option value="Administrador" {{ 'selected' if usuario and usuario.funcao == 'Administrador' else '' }}>Administrador</option>
+        <option value="Usuário" {{ 'selected' if usuario and usuario.funcao == 'Usuário' else '' }}>Usuário</option>
+        <option value="Gerente" {{ 'selected' if usuario and usuario.funcao == 'Gerente' else '' }}>Gerente</option>
+        <option value="Supervisor" {{ 'selected' if usuario and usuario.funcao == 'Supervisor' else '' }}>Supervisor</option>
+        <option value="Suporte" {{ 'selected' if usuario and usuario.funcao == 'Suporte' else '' }}>Suporte</option>
       </select>
 
-      <!-- Senha -->
-      {# sem toggle de olho aqui, diferente do cadastro.html — formulário mais simples pro admin #}
-      <label for="senha">Senha</label>
-      <input type="password" name="senha" id="senha" placeholder="Digite a senha" required />
+      <label for="senha">{{ 'Nova Senha (deixe em branco para não alterar)' if usuario else 'Senha' }}</label>
+      <input type="password" name="senha" id="senha" placeholder="Digite a senha" {{ 'required' if not usuario else '' }} />
 
-      <!-- Confirmação de senha -->
-      {# name="confirmar" é o que o Flask pega com request.form.get("confirmar") pra comparar #}
+      {% if not usuario %}
       <label for="confirmar">Confirmar Senha</label>
       <input type="password" name="confirmar" id="confirmar" placeholder=" Repita a senha" required />
+      {% endif %}
 
-      <!-- Botão -->
-      <button type="submit" class="botao-form">Cadastrar</button>
+      <button type="submit" class="botao-form">{{ 'Salvar Alterações' if usuario else 'Cadastrar' }}</button>
     </form>
 
-    <!-- Voltar -->
-    {# reutilizou a classe .ja-tem-conta do CSS pra estilizar o link de voltar #}
     <div class="ja-tem-conta">
       <a href="{{ url_for('listar_usuarios') }}"> ⬅ Voltar para lista </a>
     </div>

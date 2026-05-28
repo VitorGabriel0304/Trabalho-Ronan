@@ -1,124 +1,58 @@
-# 🎬 CineFlask
+# 🎬 CineList - Sistema de Gestão de Filmes e Séries
 
-Aplicação web desenvolvida com **Flask** para gerenciamento e exibição de catálogos de filmes e séries, com sistema de autenticação de usuários e filtro automático por faixa etária.
+Este projeto é um sistema web desenvolvido com **Flask** para a gestão de catálogos audiovisuais, incluindo usuários, filmes, séries, documentários e funções administrativas.
 
 ---
 
 ## 📋 Funcionalidades
 
-- **Autenticação** — login, cadastro e logout com controle de sessão
-- **Proteção de rotas** — páginas restritas acessíveis apenas a usuários logados (via decorador `@login_obrigatorio`)
-- **Catálogo de Filmes** — listagem com filtro por gênero e faixa etária do usuário logado
-- **Catálogo de Séries** — mesma lógica dos filmes, com campo adicional de temporadas
-- **Cadastro de Conteúdo** — formulários para adicionar novos filmes e séries
-- **Gerenciamento de Usuários** — listagem e inserção de usuários
+- **Gestão Completa (CRUD)**: Agora com suporte total para Criar, Ler, Atualizar (Editar) e Deletar (Excluir) Usuários, Filmes, Séries e Funções.
+- **Autenticação Segura**: Sistema de login e cadastro com controle de sessão e validação de senhas.
+- **Filtro por Faixa Etária**: O catálogo exibe apenas conteúdos compatíveis com a idade do usuário logado.
+- **Painel Administrativo**: Gestão de funções e permissões integradas ao banco de dados MySQL.
+- **Interface Moderna**: Design inspirado em plataformas de streaming, totalmente responsivo e com efeitos visuais avançados.
 
 ---
 
-## 🗂️ Estrutura do Projeto
+## 🛠️ Tecnologias Utilizadas
 
-```
-Trabalho-Ronan/
-├── app.py              # Aplicação principal (rotas, lógica, dados)
-├── requirements.txt    # Dependências do projeto
-├── static/
-│   └── imgs/           # Capas dos filmes e séries
-└── templates/
-    ├── index.html
-    ├── login.html
-    ├── cadastro.html
-    ├── sobre_equipe.html
-    ├── usuarios/
-    │   ├── listar_usuarios.html
-    │   └── inserir_usuario.html
-    ├── filmes/
-    │   ├── listar_filme.html
-    │   └── inserir_filme.html
-    └── series/
-        ├── listar_serie.html
-        └── inserir_serie.html
-```
+- **Backend**: Python / Flask
+- **Banco de Dados**: MySQL (para Funções) / Dados em Memória (para Usuários e Mídia)
+- **Frontend**: HTML5, CSS3 (Bootstrap 5), JavaScript
+- **Segurança**: Decoradores de login e validação de faixa etária.
 
 ---
 
-## 🚀 Como Executar
+## 📁 Estrutura do Projeto
 
-**Pré-requisitos:** Python 3.8+
-
-```bash
-# 1. Clone o repositório
-git clone https://github.com/VitorGabriel0304/Trabalho-Ronan.git
-cd Trabalho-Ronan
-
-# 2. Instale as dependências
-pip install -r requirements.txt
-
-# 3. Execute a aplicação
-python app.py
-```
-
-Acesse em: `http://localhost:5000`
+- `app.py`: Arquivo principal com todas as rotas e lógica do sistema.
+- `db.py`: Módulo de conexão e execução de queries no banco de dados.
+- `schema.sql`: Script de criação das tabelas do banco de dados.
+- `static/`: Arquivos estáticos (CSS, JS, Imagens).
+- `templates/`: Páginas HTML organizadas por módulos (usuarios, filmes, series, funcoes).
 
 ---
 
 ## 🔑 Credenciais de Acesso
 
-| Usuário  | E-mail             | Senha |
-| -------- | ------------------ | ----- |
-| Admin    | admin@             | admin |
-| Vitor    | vitor@email.com    | 123   |
-| Rhian    | rhian@email.com    | 123   |
-| Julia    | julia@email.com    | 123   |
-| Carlos   | carlos@email.com   | 123   |
-| Fernanda | fernanda@email.com | 123   |
-| Lucas    | lucas@email.com    | 123   |
-
-> ⚠️ Os dados são armazenados em memória — qualquer reinicialização do servidor restaura os dados originais.
+| Usuário | E-mail | Senha |
+| :--- | :--- | :--- |
+| Admin | admin@ | admin |
+| Vitor | vitor@email.com | 123 |
+| Rhian | rhian@email.com | 123 |
 
 ---
 
-## 🔒 Filtro por Faixa Etária
+## 🚀 Como Executar
 
-O catálogo exibe apenas conteúdos compatíveis com a **idade do usuário logado**. Filmes e séries com classificação indicativa superior à idade do usuário são automaticamente ocultados.
-
-| Classificação | Restrição |
-| ------------- | --------- |
-| Livre (0)     | Todos     |
-| 10 anos       | ≥ 10 anos |
-| 12 anos       | ≥ 12 anos |
-| 16 anos       | ≥ 16 anos |
-| 18 anos       | ≥ 18 anos |
-
----
-
-## 🛠️ Tecnologias
-
-- **Python** + **Flask** — backend e roteamento
-- **HTML/CSS** — templates Jinja2
-- **JavaScript** — interações no frontend
-- **Flask Sessions** — controle de autenticação
-
----
-
-## 📦 Dependências
-
-```
-flask
-```
-
-> Ver `requirements.txt` para a lista completa com versões.
-
----
-
-## ⚠️ Observações
-
-- Os dados (usuários, filmes e séries) são mantidos **em memória** (listas Python). Não há banco de dados.
-- As senhas estão em **texto puro** — em produção, utilize hashing (ex: `bcrypt` ou `werkzeug.security`).
-- O modo `debug=True` está ativo — **não utilize em ambiente de produção**.
+1. Instale as dependências: `pip install -r requirements.txt`
+2. Certifique-se de que o MySQL está rodando (opcional para funções).
+3. Execute: `python app.py`
+4. Acesse: `http://localhost:5000`
 
 ---
 
 ## 👨‍💻 Autores
 
-Rhian esteves & Vitor Gabriel Vido
+**Vitor Gabriel Vido** & **Rhian Esteves**
 Desenvolvido como trabalho acadêmico — **Fatec Jaú**.
