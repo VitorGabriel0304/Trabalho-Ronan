@@ -232,19 +232,22 @@ def inserir_funcoes():
             flash("Preencha todos os campos obrigatórios!", "danger")
             return redirect(url_for("inserir_funcoes"))
 
-        sql = """
-            INSERT INTO funcoes (nome, status, descricao, gerenciar_usuario, gerenciar_tarefas, gerenciar_funcao, gerenciar_serie, gerenciar_filme)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """
-        params = (
-            nome, status, descricao,
-            1 if 'Gerenciar usuário' in permissoes else 0,
-            1 if 'Gerenciar tarefa' in permissoes else 0,
-            1 if 'Gerenciar funções' in permissoes else 0,
-            1 if 'Séries' in permissoes else 0,
-            1 if 'Filmes' in permissoes else 0
-        )
-        execute_query(sql, params)
+        try:
+            sql = """
+                INSERT INTO funcoes (nome, status, descricao, gerenciar_usuario, gerenciar_tarefas, gerenciar_funcao, gerenciar_serie, gerenciar_filme)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            """
+            params = (
+                nome, status, descricao,
+                1 if 'Gerenciar usuário' in permissoes else 0,
+                1 if 'Gerenciar tarefa' in permissoes else 0,
+                1 if 'Gerenciar funções' in permissoes else 0,
+                1 if 'Séries' in permissoes else 0,
+                1 if 'Filmes' in permissoes else 0
+            )
+            execute_query(sql, params)
+        except Exception as e:
+            print(e)
         
         flash("Função cadastrada com sucesso!", "success")
         return redirect(url_for("listar_funcoes"))
